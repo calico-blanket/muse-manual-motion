@@ -1,0 +1,1569 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Museをはじめて使う人のための取扱説明書。チャットの使い分け、トークン、メモリーの手入れまでを説明します。">
+<link rel="icon" href="data:,">
+<title>Muse Manual ― Muse取扱説明書</title>
+<style>
+  :root{
+    --bg:#ffffff; --bg-sub:#f6f8fa; --ink:#1c2430; --muted:#55606e;
+    --line:#d5dce4; --line-strong:#8e9bab;
+    --accent:#146856; --accent-soft:#e7f4ee; --on-accent:#ffffff;
+    --warn-bg:#fdf6e0; --warn-line:#b8961a; --warn-ink:#5c4a08;
+    --code-bg:#eef1f5; --fig-bg:#fbfcfd;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#12161d; --bg-sub:#171d26; --ink:#e5eaf1; --muted:#9aa7b8;
+      --line:#2b3543; --line-strong:#6b7d95;
+      --accent:#93dcc0; --accent-soft:#17352c; --on-accent:#0d1420;
+      --warn-bg:#2b2510; --warn-line:#a88d2a; --warn-ink:#ecd28a;
+      --code-bg:#1d2632; --fig-bg:#151b24;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic UI",sans-serif;
+    font-size:1rem; line-height:1.8; -webkit-text-size-adjust:100%;
+  }
+  a{color:var(--accent); text-decoration:underline; text-underline-offset:3px}
+  a:hover{text-decoration-thickness:2px}
+  a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.9em; background:var(--code-bg); padding:.1em .35em; border-radius:3px}
+  .skip{position:absolute; left:-9999px; top:0; background:var(--accent); color:var(--on-accent); padding:.6rem 1rem; z-index:50}
+  .skip:focus{left:.5rem; top:.5rem}
+
+  /* ---------- header ---------- */
+  .doc-head{max-width:1180px; margin:0 auto; padding:2.5rem 2.5rem .75rem}
+  .doc-head .kicker{font-size:.8125rem; letter-spacing:.14em; color:var(--muted); margin:0 0 .3rem}
+  .doc-head h1{font-size:1.875rem; line-height:1.3; margin:0 0 .6rem; font-weight:800}
+  .doc-head .lead{margin:0; max-width:42em; padding-bottom:1rem; border-bottom:3px solid var(--ink)}
+
+  /* ---------- layout ---------- */
+  .layout{max-width:1180px; margin:0 auto; display:grid; grid-template-columns:17rem minmax(0,1fr)}
+  main{padding:0 2.5rem 4rem; min-width:0}
+
+  /* ---------- TOC ---------- */
+  .toc{position:sticky; top:0; height:100vh; overflow-y:auto; padding:1.5rem 1.25rem 2.5rem 1.5rem; border-right:1px solid var(--line)}
+  .toc summary{font-size:.8125rem; font-weight:700; letter-spacing:.12em; color:var(--muted); list-style:none; margin-bottom:.5rem}
+  .toc summary::-webkit-details-marker{display:none}
+  .toc ol{list-style:none; margin:0; padding:0}
+  .toc ol ol{margin:0 0 .25rem}
+  .toc a{display:block; text-decoration:none; color:var(--ink); padding:.35rem .6rem; border-radius:4px; font-size:.875rem; line-height:1.45}
+  .toc a:hover{background:var(--bg-sub)}
+  .toc > details > ol > li > a{font-weight:700; margin-top:.5rem}
+  .toc ol ol a{padding-left:1.6rem; font-size:.8125rem; color:var(--muted)}
+  .toc a.active{background:var(--accent-soft); color:var(--accent)}
+  .toc ol ol a.active{font-weight:700}
+  .nowbar{display:none}
+
+  /* ---------- text ---------- */
+  section.chapter{padding-top:2.75rem; margin-top:2.75rem; border-top:1px solid var(--line)}
+  h2{font-size:1.5rem; line-height:1.4; margin:0 0 1rem; font-weight:800; scroll-margin-top:1rem}
+  h2 .no{display:block; font-size:.8125rem; letter-spacing:.14em; color:var(--accent); font-weight:700; margin-bottom:.25rem}
+  h3{font-size:1.125rem; line-height:1.5; margin:2.25rem 0 .75rem; font-weight:700; padding-bottom:.4rem; border-bottom:1px solid var(--line); scroll-margin-top:1rem}
+  h3 .no{color:var(--accent); margin-right:.5em}
+  h4{font-size:1rem; margin:1.5rem 0 .5rem}
+  p{margin:0 0 .9rem; max-width:44em}
+  ul,ol{margin:0 0 1rem; padding-left:1.5em; max-width:44em}
+  li{margin-bottom:.35rem}
+  li::marker{color:var(--accent); font-weight:700}
+  .small{font-size:.875rem; color:var(--muted)}
+
+  .warn,.habits{max-width:44em; margin:1.25rem 0; padding:.9rem 1.1rem}
+  .warn{border:1px solid var(--warn-line); border-left-width:6px; background:var(--warn-bg); color:var(--warn-ink)}
+  .warn p{margin:0 0 .4rem}
+  .warn p:last-child{margin-bottom:0}
+  .warn .t{font-weight:700}
+
+  /* ---------- 3 habits ---------- */
+  .habits{border:2px solid var(--accent); background:var(--accent-soft); margin-top:1.75rem; padding:1.25rem 1.4rem}
+  .habits h2{font-size:1.25rem; margin-bottom:.6rem}
+  .habits ol{margin:0; padding-left:1.6em}
+  .habits li{margin-bottom:.8rem}
+  .habits li:last-child{margin-bottom:0}
+  .habits li b{display:block}
+
+  /* chapter cards */
+  .cards{max-width:46em; margin:1.75rem 0 0}
+  .cards h2{font-size:1.25rem; margin:0 0 .25rem}
+  .cards .lead{font-size:.875rem; color:var(--muted); margin:0 0 .75rem}
+  .cards ul{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(13.5rem,1fr)); gap:.65rem}
+  .cards a{display:block; height:100%; min-height:2.75rem; border:1.5px solid var(--line-strong); border-radius:10px; background:var(--bg); padding:.7rem .85rem; text-decoration:none; color:var(--ink)}
+  .cards a:hover{border-color:var(--accent); background:var(--accent-soft)}
+  .cards a:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+  .cards .cno{display:block; font-size:.75rem; font-weight:700; color:var(--accent)}
+  .cards .ct{display:block; font-weight:800; line-height:1.4; margin:.1rem 0 .2rem}
+  .cards .cs{display:block; font-size:.8125rem; color:var(--muted); line-height:1.5}
+  .totop{position:fixed; right:1rem; bottom:1rem; z-index:30; display:inline-flex; align-items:center; gap:.3rem; min-height:2.75rem; padding:.55rem .95rem; border-radius:999px; background:var(--accent); color:var(--on-accent); font-size:.875rem; font-weight:700; text-decoration:none; box-shadow:0 2px 8px rgba(0,0,0,.2); visibility:hidden; opacity:0; transition:opacity .2s}
+  .totop.show{visibility:visible; opacity:1}
+  main{padding-bottom:4.5rem}
+  .totop:focus-visible{outline:3px solid var(--ink); outline-offset:2px}
+  @media (prefers-reduced-motion: reduce){ .totop{transition:none} }
+  @media (min-width:901px){ .cards,.totop{display:none} }
+  @media (max-width:900px){
+    .cards ul{gap:.45rem}
+    .cards a{padding:.55rem .8rem}
+  }
+  .diagram{max-width:34rem; margin:0 auto}
+  .diagram svg{display:block; width:100%; height:auto}
+
+  /* ---------- figures ---------- */
+  figure{margin:1.25rem 0; border:1px solid var(--line); background:var(--fig-bg); padding:1.1rem; max-width:46em}
+  figcaption{font-size:.875rem; color:var(--muted); margin-top:.9rem; border-top:1px solid var(--line); padding-top:.6rem}
+  figcaption b{color:var(--ink)}
+  .fig-title{max-width:22rem; margin:0 auto .9rem; text-align:center; font-size:1.125rem; font-weight:800; background:var(--accent-soft); border:1.5px solid var(--accent); padding:.4rem .75rem}
+  .fbadge{display:inline-grid; place-items:center; width:1.25rem; height:1.25rem; border-radius:50%; background:var(--accent); color:var(--on-accent); font-size:.75rem; font-weight:800; line-height:1; vertical-align:middle; flex:none}
+  /* phone */
+  .phone,.drawer{border:1.5px solid var(--line-strong); background:var(--bg); max-width:22rem; margin:0 auto; overflow:hidden}
+  .phone{border-radius:20px}
+  .drawer{border-radius:14px}
+  .phone-top{display:flex; align-items:flex-start; justify-content:space-between; padding:.75rem .75rem .5rem; gap:.5rem}
+  .btn-col{display:grid; justify-items:center; gap:.25rem}
+  .circle-btn{width:2.5rem; height:2.5rem; border-radius:50%; border:1px solid var(--line-strong); display:grid; place-items:center; font-size:1.05rem; font-weight:700}
+  .peer{text-align:center; flex:1; min-width:0}
+  .peer .avatar{width:3.6rem; height:3.6rem; white-space:nowrap; border-radius:50%; border:1.5px solid var(--line-strong); background:var(--bg-sub); display:grid; place-items:center; margin:0 auto .2rem; font-size:.75rem; color:var(--muted); font-weight:700}
+  .peer .pname{font-size:.875rem; font-weight:700}
+  .msgs{padding:.6rem .75rem .9rem; display:grid; gap:.5rem}
+  .cap{font-size:.8125rem; color:var(--muted); font-weight:700; display:flex; align-items:center; gap:.4rem}
+  .bubble{font-size:.8125rem; line-height:1.5; border:1px solid var(--line); padding:.45rem .65rem; border-radius:10px; max-width:86%}
+  .bubble.me{justify-self:end; background:var(--bg-sub)}
+  .bubble.them{justify-self:start}
+  .phone-input{margin:0 .6rem .6rem; border:1px solid var(--line-strong); border-radius:999px; display:flex; align-items:center; gap:.5rem; padding:.45rem .65rem; background:var(--bg-sub)}
+  .phone-input .plus{font-size:1.2rem; font-weight:700; line-height:1}
+  .phone-input .ph{flex:1; font-size:.8125rem; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .tabbar-cap{padding:0 .6rem .2rem}
+  .tabbar{display:grid; grid-template-columns:repeat(5,1fr); border-top:1px solid var(--line); padding:.5rem .25rem .6rem; gap:2px}
+  .tab{text-align:center; font-size:.75rem; line-height:1.25; color:var(--muted); display:grid; justify-items:center; gap:.2rem}
+  .tab.on{color:var(--ink); font-weight:700}
+  .drawer-head{padding:.9rem .9rem .3rem; font-size:1.05rem; font-weight:800; display:flex; align-items:center; gap:.5rem}
+  .drawer-sec{padding:.5rem .9rem .25rem}
+  .drawer-sec .note-line{font-size:.75rem; color:var(--muted); margin:.1rem 0 .25rem}
+  .drawer-item{display:flex; align-items:center; gap:.55rem; font-size:.875rem; padding:.35rem .5rem; border-radius:6px; line-height:1.4}
+  .drawer-item.sel{background:var(--bg-sub); font-weight:700}
+  .drawer-item .ex{color:var(--muted); font-size:.75rem}
+  .drawer-div{border-top:1px solid var(--line); margin:.5rem .9rem 0}
+  .drawer-bottom{display:flex; align-items:center; gap:.6rem; padding:.75rem .9rem .9rem; border-top:1px solid var(--line); margin-top:.6rem}
+  .icon-btn{width:2.5rem; height:2.5rem; border-radius:50%; border:1px solid var(--line-strong); background:var(--bg-sub); display:grid; place-items:center; flex:none}
+  .icon-btn.key{border:2px solid var(--accent); background:var(--accent-soft)}
+  .search{flex:1; border:1px solid var(--line); background:var(--bg-sub); border-radius:999px; padding:.5rem .75rem; font-size:.8125rem; color:var(--muted); display:flex; align-items:center; gap:.4rem; min-width:0}
+  /* step figures */
+  .steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(12.5rem,1fr)); gap:.9rem; align-items:start}
+  .step{display:grid; gap:.45rem}
+  .step-label{font-size:.8125rem; font-weight:700; display:flex; align-items:center; gap:.4rem}
+  .mini{border:1.5px solid var(--line-strong); background:var(--bg); border-radius:14px; overflow:hidden; font-size:.8125rem; line-height:1.45}
+  .mini-head{display:flex; align-items:center; gap:.5rem; padding:.55rem .65rem; font-weight:800; border-bottom:1px solid var(--line)}
+  .mini-head .t{flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .mini-head .circle-btn{width:2rem; height:2rem; font-size:.95rem; flex:none}
+  .mini-body{padding:.55rem; display:grid; gap:.35rem}
+  .row{display:flex; align-items:center; gap:.4rem; border:1px solid var(--line); border-radius:8px; padding:.4rem .55rem; background:var(--bg-sub)}
+  .row .t{flex:1; min-width:0}
+  .row .chev{color:var(--muted)}
+  .row.ph{color:var(--muted)}
+  .hl{border:2px solid var(--accent) !important; background:var(--accent-soft) !important; font-weight:800}
+  .popmenu{border:1px solid var(--line-strong); border-radius:10px; background:var(--bg); padding:.3rem; display:grid; gap:.15rem; margin:.1rem .4rem .2rem; box-shadow:0 2px 6px rgba(0,0,0,.12)}
+  .popmenu span{padding:.35rem .5rem; border-radius:6px; border:2px solid transparent}
+  .bubble-ph{height:.7rem; border-radius:4px; background:var(--line); margin:.15rem 0}
+  /* wallets */
+  .wallets{display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem}
+  .wallet{border:1.5px solid var(--line-strong); background:var(--bg); padding:.9rem}
+  .wallet .wt{font-weight:700; margin-bottom:.4rem}
+  .wallet .bar{height:10px; border:1px solid var(--line-strong); margin:.6rem 0}
+  .wallet .bar i{display:block; height:100%; background:var(--accent)}
+  .wallet p{font-size:.875rem; color:var(--muted); margin:0}
+
+  /* ---------- tables ---------- */
+  .tblwrap{margin:1.1rem 0; max-width:46em; overflow-x:auto}
+  table{border-collapse:collapse; width:100%; font-size:.9375rem; line-height:1.65}
+  caption{text-align:left; font-weight:700; font-size:.875rem; color:var(--muted); padding-bottom:.4rem}
+  th,td{border:1px solid var(--line-strong); padding:.55rem .75rem; text-align:left; vertical-align:top}
+  thead th{background:var(--bg-sub)}
+  tbody th{font-weight:700}
+  td.no{width:3rem; text-align:center}
+  td.fn,th.fn{white-space:nowrap; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.875rem}
+  .stat{border:1px solid var(--line-strong); padding:.9rem 1.1rem; margin:1rem 0; max-width:44em}
+  .stat .num{font-size:1.375rem; font-weight:800}
+
+  /* ---------- copy boxes ---------- */
+  .copybox{border:1px solid var(--line-strong); margin:1rem 0; max-width:44em; background:var(--bg); scroll-margin-top:1rem}
+  .copybox .cb-label{margin:0; max-width:none; background:var(--bg-sub); border-bottom:1px solid var(--line); padding:.55rem .9rem; font-size:.875rem; font-weight:700}
+  .copybox pre{margin:0; padding:.9rem; font-family:inherit; font-size:.9375rem; line-height:1.75; white-space:pre-wrap; word-break:break-word}
+  .copybox pre.long{max-height:22rem; overflow-y:auto; font-size:.875rem}
+  .copyrow{display:flex; align-items:center; gap:.75rem; border-top:1px solid var(--line); padding:.5rem .9rem}
+  .copy-btn{min-height:2.75rem; padding:.4rem 1.1rem; font-size:.875rem; font-weight:700; color:var(--on-accent); background:var(--accent); border:1px solid var(--accent); border-radius:4px; cursor:pointer; font-family:inherit}
+  .copy-btn:active{opacity:.85}
+  .copy-msg{font-size:.875rem; color:var(--accent)}
+
+  /* ---------- glossary / footer ---------- */
+  dl.gloss{margin:0; max-width:44em}
+  dl.gloss dt{font-weight:700; margin-top:1rem}
+  dl.gloss dd{margin:.15rem 0 0; padding-left:1em}
+  footer{border-top:1px solid var(--line); margin-top:3.5rem; padding-top:1.1rem; font-size:.875rem; color:var(--muted)}
+  footer p{margin:0 0 .35rem}
+
+  /* ---------- mobile ---------- */
+  @media (max-width:900px){
+    .doc-head{padding:1.6rem 1.1rem .5rem}
+    .doc-head h1{font-size:1.5rem}
+    .layout{display:block}
+    main{padding:0 1.1rem 3.5rem}
+    .toc{position:static; height:auto; overflow:visible; border:1px solid var(--line); margin:1rem 1.1rem 0; padding:0}
+    .toc summary{padding:.8rem 1rem; margin:0; min-height:2.75rem; font-size:.9375rem; letter-spacing:.04em; color:var(--ink); cursor:pointer}
+    .toc summary::after{content:"（タップで開く）"; font-weight:400; color:var(--muted); font-size:.8125rem}
+    .toc details[open] summary::after{content:"（タップで閉じる）"}
+    .toc details > ol{padding:0 .75rem .9rem}
+    .toc a{padding:.5rem .4rem; font-size:.9375rem}
+    .toc ol ol a{font-size:.875rem}
+    .nowbar{display:flex; position:sticky; top:0; z-index:20; background:var(--bg); border-bottom:1px solid var(--line-strong); margin:0 -1.1rem; padding:.55rem 1.1rem; font-size:.8125rem; gap:.5rem; align-items:baseline}
+    .nowbar .lb{color:var(--muted); font-size:.75rem; font-weight:700; white-space:nowrap}
+    .nowbar .vl{font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    h2,h3,.copybox{scroll-margin-top:3.25rem}
+    .wallets{grid-template-columns:1fr}
+    table{font-size:.875rem}
+    th,td{padding:.5rem .55rem}
+    td.fn,th.fn{white-space:normal; word-break:break-all}
+  }
+  @media (min-width:901px){
+    .toc summary{pointer-events:none}
+  }
+
+  /* ---------- print ---------- */
+  @media print{
+    .skip,.toc,.nowbar,.copyrow,.cards,.totop{display:none !important}
+    .layout{display:block}
+    main{padding:0}
+    body{font-size:10.5pt}
+    .copybox pre.long{max-height:none; overflow:visible}
+    section.chapter{break-before:page; border-top:none; margin-top:0}
+    figure,table,.copybox,.warn{break-inside:avoid}
+    a{color:inherit}
+  }
+
+  /* ---------- motion (manual-motion branch) ---------- */
+  .readbar{position:fixed; top:0; left:0; height:3px; width:0; background:var(--accent); z-index:60; opacity:.85}
+  html.motion .rv{opacity:0; transform:translateY(14px); transition:opacity .7s ease, transform .7s ease}
+  html.motion .rv.in{opacity:1; transform:none}
+  html.motion .doc-head h1{animation:mfade .9s ease both}
+  html.motion .doc-head .lead{animation:mfade .9s .15s ease both}
+  @keyframes mfade{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+  .fbadge.pulse{animation:bpulse .9s ease}
+  @keyframes bpulse{0%{box-shadow:0 0 0 0 rgba(20,104,86,.45)} 100%{box-shadow:0 0 0 12px rgba(20,104,86,0)}}
+  @media (prefers-reduced-motion: reduce){
+    html.motion .rv{opacity:1; transform:none; transition:none}
+    html.motion .doc-head h1, html.motion .doc-head .lead{animation:none}
+    .fbadge.pulse{animation:none}
+  }
+  @media print{
+    .readbar{display:none}
+    html.motion .rv{opacity:1; transform:none}
+  }
+
+
+
+
+/* ===== v3 mini stages (manual-motion) ===== */
+:root{--accent-d:#14532d}
+.mstage{max-width:620px;margin:16px auto 4px}
+.ms-screen{position:relative;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;aspect-ratio:16/8.4;background:linear-gradient(180deg,#eafaf1 0%,#fdfdf8 76%,#e7dcc8 76.2%,#e7dcc8 100%);box-shadow:0 4px 12px rgba(60,50,20,.08)}
+.ms-tag{position:absolute;top:8px;left:8px;z-index:6;background:var(--accent);color:#fff;font-weight:800;font-size:11px;border-radius:999px;padding:2px 10px;letter-spacing:.03em}
+.mactor{position:absolute;width:16.5%;aspect-ratio:260/450;background-image:url("data:image/jpeg;base64,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");background-size:cover;background-position:center;border-radius:10px;box-shadow:0 4px 10px rgba(60,50,20,.22);z-index:4}
+.mwin{position:absolute;background:#fff;border:2px solid var(--line);border-radius:12px;box-shadow:0 5px 12px rgba(60,50,20,.13);padding:3.5%}
+.mbub{border-radius:10px;padding:.4em .75em;font-size:clamp(9.5px,1.9vw,13px);font-weight:600;margin-bottom:5%;max-width:86%}
+.mbub.u{background:var(--accent);color:#fff;margin-left:auto}
+.mbub.m{background:#eef3f0;color:var(--ink)}
+.mchip{display:inline-block;background:#fff;border:2px solid #2e9e5b;color:#1d7040;font-weight:800;font-size:clamp(9.5px,1.9vw,13px);border-radius:999px;padding:.25em .9em}
+.mroom{position:absolute;background:#fff;border:2.5px solid var(--accent);border-radius:12px;box-shadow:0 5px 12px rgba(60,50,20,.12)}
+.mroom>span{position:absolute;top:-1.1em;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:clamp(9px,1.8vw,12.5px);font-weight:800;color:var(--accent-d);background:#eafaf1;padding:0 .5em}
+.mgauge{position:absolute;height:6.5%;background:#fff;border:2px solid var(--line);border-radius:999px;overflow:hidden}
+.mgauge i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#57b06e,#9fd08a)}
+.mglabel{position:absolute;font-weight:800;color:var(--accent-d);font-size:clamp(10px,2vw,14px)}
+.mphone{position:absolute;background:#fff;border:3px solid #445;border-radius:14px;overflow:hidden;box-shadow:0 6px 14px rgba(60,50,20,.18)}
+.mp-head{background:var(--accent);color:#fff;font-weight:800;font-size:clamp(9px,1.8vw,12px);padding:.35em .7em}
+.mp-body{position:absolute;left:0;right:0;top:16%;bottom:16%;background:linear-gradient(180deg,#f2f6f3 0 55%,#e8efe9 55% 100%)}
+.mp-input{position:absolute;left:6%;right:6%;bottom:4%;height:9%;border:2px solid var(--line);border-radius:999px;background:#fff}
+.mring{position:absolute;width:16%;aspect-ratio:1;border:3px solid #d05545;border-radius:50%;box-shadow:0 0 0 3px rgba(208,85,69,.25);z-index:5}
+.mlab{position:absolute;background:#fff;border:2px solid var(--accent);color:var(--accent-d);font-weight:800;font-size:clamp(9px,1.8vw,12.5px);border-radius:999px;padding:.25em .8em;box-shadow:0 3px 8px rgba(60,50,20,.13);white-space:nowrap}
+.mlayer{position:absolute;background:#fff;border:2.5px solid var(--accent);border-radius:12px;box-shadow:0 5px 12px rgba(60,50,20,.12);padding:2.5% 3%;font-weight:800;color:var(--ink);font-size:clamp(10px,2vw,14px)}
+.mlayer span{display:block;font-weight:600;color:var(--muted);font-size:.82em;margin-top:.15em}
+.mfile{display:inline-block;background:#f4faf7;border:2px solid var(--accent);border-radius:8px;padding:.2em .6em;font-size:.85em;font-weight:700;margin:.35em .25em 0 0}
+/* sample scenes */
+.w21{left:6%;top:13%;width:58%}
+.a21{right:7%;bottom:9%}
+.p31{left:34%;top:7%;width:30%;height:86%}
+.a31{left:6%;bottom:9%}
+#ms-s31 .l1{left:6%;top:12%}
+#ms-s31 .l2{right:5%;top:34%}
+#ms-s31 .l3{right:7%;bottom:16%}
+#ms-s31 .l4{left:8%;bottom:30%}
+.r51{left:5%;top:22%;width:37%;height:58%;padding:8% 3% 2%}
+.r51b{left:63%;top:22%;width:31%;height:58%}
+.g51{left:47%;top:10%;width:30%}
+#ms-s51 .mglabel{left:47%;top:1.5%}
+.a51{left:9%;bottom:3%;width:13.5%}
+.l61a{left:30%;top:10%;width:52%}
+.l61b{left:30%;top:47%;width:64%}
+.a61{left:6%;bottom:9%}
+@media print{.ms-screen *{visibility:visible!important}}
+
+
+/* ===== v4 explainer unit (manual-motion): 5.1 ===== */
+.xstage{max-width:680px;margin:16px auto 4px}
+.xs-screen{position:relative;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;aspect-ratio:16/10.2;background:linear-gradient(180deg,#eafaf1 0%,#fdfdf8 74%,#e7dcc8 74.2%,#e7dcc8 100%);box-shadow:0 4px 12px rgba(60,50,20,.08)}
+.xs-tag{position:absolute;top:8px;left:8px;z-index:8;background:var(--accent);color:#fff;font-weight:800;font-size:11px;border-radius:999px;padding:2px 10px}
+.xactor{position:absolute;width:15%;aspect-ratio:260/450;background-size:cover;background-position:center;border-radius:10px;box-shadow:0 4px 10px rgba(60,50,20,.22);z-index:5}
+.xchat{position:absolute;left:4%;top:11%;width:33%;height:58%;background:#fff;border:2px solid var(--line);border-radius:12px;box-shadow:0 5px 12px rgba(60,50,20,.12);padding:3%}
+.xbub{border-radius:9px;padding:.32em .65em;font-size:clamp(8.5px,1.7vw,11.5px);font-weight:600;margin-bottom:4.5%;max-width:88%}
+.xbub.u{background:var(--accent);color:#fff;margin-left:auto}
+.xbub.m{background:#eef3f0;color:var(--ink)}
+.xstack{position:absolute;left:44%;bottom:19%;width:21%;height:44%}
+.xpaper{position:absolute;left:0;width:100%;height:26%;background:#fff;border:2px solid #b9cdc0;border-radius:6px;box-shadow:0 2px 5px rgba(60,50,20,.12)}
+.xinst{position:absolute;left:-4%;width:108%;height:26%;background:#fdf6e0;border:2.5px solid #c8a24a;border-radius:6px;font-weight:800;color:#7a5c14;font-size:clamp(8.5px,1.7vw,11.5px);display:flex;align-items:center;justify-content:center;z-index:3}
+.xlab{position:absolute;font-weight:800;color:var(--accent-d);font-size:clamp(9.5px,1.9vw,13px);white-space:nowrap}
+.xmem{position:absolute;background:#f4faf7;border:2px solid var(--accent);border-radius:8px;padding:.2em .6em;font-weight:700;color:var(--ink);font-size:clamp(8.5px,1.7vw,11.5px)}
+.xmeter{position:absolute;right:5%;top:9%;width:27%;height:5.5%;background:#fff;border:2px solid var(--line);border-radius:999px;overflow:hidden}
+.xmeter i{display:block;height:100%;width:12%;background:linear-gradient(90deg,#e0a83c,#d05545)}
+.xdoc{position:absolute;background:#fff;border:2.5px solid #8aa79a;border-radius:8px;font-weight:800;color:var(--ink);font-size:clamp(8.5px,1.7vw,11.5px);padding:.35em .7em;box-shadow:0 4px 9px rgba(60,50,20,.15)}
+.xslope{position:absolute;right:4%;top:24%;width:29%}
+.xsigns{position:absolute;right:4%;top:22%;width:31%;background:#fff;border:2.5px solid var(--accent);border-radius:12px;box-shadow:0 5px 12px rgba(60,50,20,.13);padding:3%;z-index:6}
+.xsigns h5{margin:0 0 .4em;font-size:clamp(9.5px,1.9vw,13px);color:var(--accent-d)}
+.xsign{font-size:clamp(8.5px,1.7vw,11.5px);font-weight:600;color:var(--ink);padding:.28em 0;border-top:1px solid var(--line)}
+.xsign b{color:#d05545}
+.xroom2{position:absolute;right:4%;bottom:17%;width:24%;height:44%;background:#fff;border:2.5px solid var(--accent);border-radius:12px;box-shadow:0 5px 12px rgba(60,50,20,.12)}
+.xroom2 span{position:absolute;top:-1.1em;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:clamp(9px,1.8vw,12.5px);font-weight:800;color:var(--accent-d);background:#eafaf1;padding:0 .5em}
+.xspark{position:absolute;color:#e5a83c;font-weight:900;font-size:clamp(13px,2.6vw,20px);z-index:6}
+.xtelop{position:absolute;left:0;right:0;bottom:0;z-index:9;background:rgba(18,38,28,.9);color:#fff;font-weight:700;font-size:clamp(11.5px,2.3vw,15.5px);line-height:1.5;padding:.55em 1em;min-height:2.9em;display:flex;align-items:center}
+@media print{.xs-screen *{visibility:visible!important}}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+<div class="readbar" id="readBar" aria-hidden="true"></div>
+
+<header class="doc-head">
+  <p class="kicker">MUSE 取扱説明書</p>
+  <h1>Muse Manual</h1>
+  <p class="lead">AIエージェント「Muse」をはじめて使う人のための取扱説明書です。まず下の「3つの習慣」を読み、必要な章を参照してください。</p>
+</header>
+
+<div class="layout">
+
+  <nav class="toc" aria-label="目次">
+    <details id="tocDetails" open>
+      <summary>目次</summary>
+      <ol>
+        <li><a href="#habits">Museと長く付き合うための3つの習慣</a></li>
+        <li><a href="#ch1">第1章 はじめに</a>
+          <ol>
+            <li><a href="#ch1-1">1.1 Museとは</a></li>
+            <li><a href="#ch1-2">1.2 できること</a></li>
+          </ol>
+        </li>
+        <li><a href="#ch2">第2章 指示のしかたと確認</a>
+          <ol>
+            <li><a href="#ch2-1">2.1 指示のしかた（プロンプト）</a></li>
+            <li><a href="#ch2-2">2.2 確認が入る操作</a></li>
+            <li><a href="#ch2-3">2.3 購入のときの確認</a></li>
+          </ol>
+        </li>
+        <li><a href="#ch3">第3章 画面と設定</a>
+          <ol>
+            <li><a href="#ch3-1">3.1 画面各部の名称</a></li>
+            <li><a href="#ch3-2">3.2 設定画面</a></li>
+          </ol>
+        </li>
+        <li><a href="#ch4">第4章 メインチャットとサイドチャットの使い分け</a>
+          <ol>
+            <li><a href="#ch4-1">4.1 メインチャットとサイドチャット</a></li>
+            <li><a href="#ch4-2">4.2 なぜチャットを分けるのか</a></li>
+            <li><a href="#ch4-3">4.3 サイドチャットの作り方</a></li>
+            <li><a href="#ch4-4">4.4 サイドチャットのアーカイブ</a></li>
+          </ol>
+        </li>
+        <li><a href="#ch5">第5章 応答の質を保つには</a>
+          <ol>
+            <li><a href="#ch5-1">5.1 長いチャットで起きること</a></li>
+            <li><a href="#ch5-2">5.2 トークンとは</a></li>
+            <li><a href="#ch5-3">5.3 トークンの利用枠</a></li>
+            <li><a href="#ch5-4">5.4 対策</a></li>
+            <li><a href="#ch5-5">5.5 引き継ぎ文の作り方</a></li>
+          </ol>
+        </li>
+        <li><a href="#ch6">第6章 メモリーの仕組みと手入れ</a>
+          <ol>
+            <li><a href="#ch6-1">6.1 メモリーファイル</a></li>
+            <li><a href="#ch6-2">6.2 内容の確認と修正</a></li>
+            <li><a href="#ch6-3">6.3 メモリーの定期点検</a></li>
+            <li><a href="#ch6-4">6.4 点検のプロンプト</a></li>
+            <li><a href="#ch6-5">6.5 整理の例</a></li>
+          </ol>
+        </li>
+        <li><a href="#ch7">第7章 作ったものを人に見せる</a>
+          <ol>
+            <li><a href="#ch7-1">7.1 スペースと共有リンク</a></li>
+            <li><a href="#ch7-2">7.2 リンクが開けなくなる場合</a></li>
+            <li><a href="#ch7-3">7.3 作ったものの名前は英字で付ける</a></li>
+            <li><a href="#ch7-4">7.4 リンクのコピーのしかた</a></li>
+          </ol>
+        </li>
+        <li><a href="#app">付録 困ったとき・プロンプト・用語</a>
+          <ol>
+            <li><a href="#app-1">A.1 困ったとき</a></li>
+            <li><a href="#app-2">A.2 プロンプトの一覧</a></li>
+            <li><a href="#app-3">A.3 用語集</a></li>
+          </ol>
+        </li>
+      </ol>
+    </details>
+  </nav>
+
+  <main id="main">
+    <div class="nowbar" aria-hidden="true"><span class="lb">現在地</span><span class="vl" id="nowPos">3つの習慣</span></div>
+
+    <!-- ================= 3つの習慣 ================= -->
+    <section class="habits" aria-labelledby="habits">
+      <h2 id="habits">Museと長く付き合うための3つの習慣</h2>
+      <p>1つのチャットで何でも話し続けると、応答の質が下がり、トークンの消費も増えます。次の3つを、使い始めから習慣にしてください。</p>
+      <ol>
+        <li><b>長くなりそうな話題は、サイドチャットで話す</b>メインチャットは、短い質問や雑談に使います。→ <a href="#ch4-1">4.1</a></li>
+        <li><b>チャットが長くなったら、新しいチャットに引き継ぐ</b>前のチャットで引き継ぎ文を作成させ、新しいチャットの最初に貼ります。→ <a href="#ch5-5">5.5</a></li>
+        <li><b>月に1回、メモリーを点検する</b>記録が増えると、古い情報や矛盾する記述がたまります。新しいチャットにしても返信がずれるときも、点検します。→ <a href="#ch6-3">6.3</a></li>
+      </ol>
+    </section>
+
+
+    <!-- ================= 章の一覧 ================= -->
+    <nav class="cards" aria-labelledby="chapters">
+      <h2 id="chapters">章の一覧</h2>
+      <p class="lead">読みたい章を選んでください。どこからでも、右下の「章の一覧へ」で戻れます。</p>
+      <ul>
+          <li><a href="#ch1"><span class="cno">第1章</span><span class="ct">はじめに</span><span class="cs">Museとは何か、何ができるか</span></a></li>
+          <li><a href="#ch2"><span class="cno">第2章</span><span class="ct">指示のしかたと確認</span><span class="cs">プロンプトの書き方、確認が入る操作</span></a></li>
+          <li><a href="#ch3"><span class="cno">第3章</span><span class="ct">画面と設定</span><span class="cs">画面各部の名前、設定の項目</span></a></li>
+          <li><a href="#ch4"><span class="cno">第4章</span><span class="ct">メインチャットとサイドチャットの使い分け</span><span class="cs">チャットの分け方、アーカイブ</span></a></li>
+          <li><a href="#ch5"><span class="cno">第5章</span><span class="ct">応答の質を保つには</span><span class="cs">長いチャットで起きること、トークン、引き継ぎ文</span></a></li>
+          <li><a href="#ch6"><span class="cno">第6章</span><span class="ct">メモリーの仕組みと手入れ</span><span class="cs">メモリーファイル、定期点検</span></a></li>
+          <li><a href="#ch7"><span class="cno">第7章</span><span class="ct">作ったものを人に見せる</span><span class="cs">共有リンク、名前の付け方</span></a></li>
+          <li><a href="#app"><span class="cno">付録</span><span class="ct">困ったとき・プロンプト・用語</span><span class="cs">困ったときの対処、プロンプトの一覧、用語集</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- ================= 第1章 ================= -->
+    <section class="chapter" aria-labelledby="ch1">
+      <h2 id="ch1"><span class="no">第1章</span>はじめに</h2>
+
+
+
+      <h3 id="ch1-1"><span class="no">1.1</span>Museとは</h3>
+      <p>Museは、Metaが提供するAIエージェントです。AIエージェントとは、指示を受けて自分で手順を考え、調査や文章作成、Webページの制作といった作業を実行まで行うAIのことです。</p>
+      <p>最大の特徴は、あなたの好みや決定事項、進行中の作業を記録し、別のチャットでも参照できることです。この記録を「メモリー」と呼びます（<a href="#ch6">第6章</a>）。</p>
+
+      <h3 id="ch1-2"><span class="no">1.2</span>できること</h3>
+      <p>主に、次のような作業を任せられます。</p>
+      <ul>
+        <li>調査、要約、情報の整理</li>
+        <li>文章の作成と編集</li>
+        <li>予定の管理、買い物の相談、各種手続きの代行</li>
+        <li>動画、Webページ、小さなアプリの作成</li>
+        <li>ファイルの作成と管理</li>
+      </ul>
+      <p>送信、購入、削除など、取り消しにくい操作は、実行前にあなたの確認を求められます（<a href="#ch2">第2章</a>）。</p>
+
+    </section>
+
+    <!-- ================= 第2章 ================= -->
+    <section class="chapter" aria-labelledby="ch2">
+      <h2 id="ch2"><span class="no">第2章</span>指示のしかたと確認</h2>
+
+
+
+      <h3 id="ch2-1"><span class="no">2.1</span>指示のしかた（プロンプト）</h3>
+<div class="mstage" id="ms-s21" data-ms="s21"><div class="ms-screen">
+  <span class="ms-tag">2.1</span>
+  <div class="mwin w21">
+    <div class="mbub u">来週の旅行の持ち物リストを作って</div>
+    <div class="mbub m">はい、季節に合わせて作りますね</div>
+    <div class="mchip ok">✓ 伝わった</div>
+  </div>
+  <div class="mactor a21"></div>
+</div></div>
+
+      <p>AIへの指示文を「プロンプト」と呼びます。決まった書式はなく、自然な文章で書けます。分からない用語が出てきたら、Museに質問できます。</p>
+      <ol>
+        <li>目的を一文で伝える。</li>
+        <li>条件を添える（対象、量、出力の形式など）。例：「2人分・3日分で」「表形式で」</li>
+        <li>結果を確認し、修正点を具体的に伝える。</li>
+      </ol>
+      <div class="copybox" id="prompt-example">
+        <p class="cb-label">プロンプトの例</p>
+        <pre>週末の買い物リストを作って。2人分・3日分で、なるべく安く済むようにして。</pre>
+        <div class="copyrow"><button class="copy-btn" type="button" aria-label="プロンプトの例をコピーする">コピーする</button><span class="copy-msg" role="status"></span></div>
+      </div>
+
+      <h3 id="ch2-2"><span class="no">2.2</span>確認が入る操作</h3>
+      <p>指示された範囲の作業は、次のように扱われます。</p>
+      <div class="tblwrap">
+        <table>
+          <caption>確認なしで進む操作と、実行前に確認が入る操作</caption>
+          <thead><tr><th scope="col">確認なしで進む</th><th scope="col">実行前に確認が入る</th></tr></thead>
+          <tbody>
+            <tr><td>調べもの、ページやファイルの読み取り</td><td>メールやメッセージの送信</td></tr>
+            <tr><td>要約、整理、比較</td><td>投稿など、外部への公開</td></tr>
+            <tr><td>下書きやファイルの作成</td><td>ログインを伴う操作</td></tr>
+            <tr><td></td><td>削除など、取り消しにくい操作</td></tr>
+            <tr><td></td><td>購入（支払い）</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 id="ch2-3"><span class="no">2.3</span>購入のときの確認</h3>
+      <p>購入は、毎回あらためて確認が入ります。</p>
+      <ul>
+        <li>ほかの操作をまとめて許可していても、購入には適用されません。</li>
+        <li>カートへの追加や支払い方法の選択だけでは、支払いは確定しません。</li>
+        <li>商品、合計額、配送先が変わると、もう一度確認が入ります。</li>
+      </ul>
+      <p class="small">※例外：決まった時刻に自動で実行する作業（定期実行）で支払いを許可した場合、同じ店・同じ支払い方法なら、次の回からも許可が有効になることがあります。</p>
+    </section>
+
+    <!-- ================= 第3章 ================= -->
+    <section class="chapter" aria-labelledby="ch3">
+      <h2 id="ch3"><span class="no">第3章</span>画面と設定</h2>
+
+
+
+      <h3 id="ch3-1"><span class="no">3.1</span>画面各部の名称</h3>
+<div class="mstage" id="ms-s31" data-ms="s31"><div class="ms-screen">
+  <span class="ms-tag">3.1</span>
+  <div class="mphone p31"><div class="mp-head">≡ Muse</div><div class="mp-body"></div><div class="mp-input"></div><div class="mring"></div></div>
+  <div class="mlab l1">メニュー</div>
+  <div class="mlab l2">チャットの場所</div>
+  <div class="mlab l3">入力欄</div>
+  <div class="mlab l4">設定</div>
+  <div class="mactor a31"></div>
+</div></div>
+
+      <p>図はAndroidスマートフォンの画面です。チャット画面（図1）と、左上の「≡」で開くメニュー画面（図2）があります。</p>
+      <p class="small">※iPhone版やパソコン版では、ボタンの位置や表記が異なる場合があります。</p>
+
+      <figure>
+        <p class="fig-title">チャット画面</p>
+        <div class="phone" role="img" aria-label="チャット画面の模式図。左上に①メニューボタン、右上に②チャットメニュー、上部中央に③相手のアイコンと名前、中央に④メッセージ表示エリア、下部に⑤追加ボタン、⑥入力欄、⑦マイク、最下部に⑧タブバー。">
+          <div class="phone-top">
+            <div class="btn-col"><span class="circle-btn">≡</span><span class="fbadge">1</span></div>
+            <div class="peer"><div class="avatar">アイコン</div><div class="pname">相手の名前 <span class="fbadge">3</span></div></div>
+            <div class="btn-col"><span class="circle-btn">…</span><span class="fbadge">2</span></div>
+          </div>
+          <div class="msgs">
+            <div class="cap">メッセージ表示エリア <span class="fbadge">4</span></div>
+            <div class="bubble them">Museの返信が表示されます。</div>
+            <div class="bubble me">送ったメッセージが表示されます。</div>
+          </div>
+          <div class="phone-input">
+            <span class="plus">＋</span><span class="fbadge">5</span>
+            <span class="ph">メッセージを入力… <span class="fbadge">6</span></span>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg><span class="fbadge">7</span>
+          </div>
+          <div class="tabbar-cap"><div class="cap">タブバー <span class="fbadge">8</span></div></div>
+          <div class="tabbar">
+            <div class="tab on"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>チャット</div>
+            <div class="tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0V9"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>フィード</div>
+            <div class="tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>アイデア</div>
+            <div class="tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="6" r="2.5"/><circle cx="12" cy="6" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="8.5" cy="17" r="2.5"/><circle cx="15.5" cy="17" r="2.5"/></svg>図書館</div>
+            <div class="tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m9 12 2 2 4-4"/></svg>目標</div>
+          </div>
+        </div>
+        <figcaption><b>図1</b> チャット画面（模式図）。番号は下の表に対応します。</figcaption>
+      </figure>
+      <div class="tblwrap">
+        <table>
+          <caption>図1 チャット画面の各部</caption>
+          <thead><tr><th scope="col">番号</th><th scope="col">名称</th><th scope="col">はたらき</th></tr></thead>
+          <tbody>
+            <tr><td class="no">①</td><th scope="row">メニューボタン「≡」（左上）</th><td>メニュー画面（図2）を開く。チャットの一覧、新しいサイドチャットの作成、設定はここから。</td></tr>
+            <tr><td class="no">②</td><th scope="row">チャットメニュー「…」（右上）</th><td>いま開いているチャットのメニューを開く。項目は「名前を変更」「固定」「アーカイブ」「削除」。</td></tr>
+            <tr><td class="no">③</td><th scope="row">相手のアイコンと名前（上部中央）</th><td>いま話している相手を表示する。</td></tr>
+            <tr><td class="no">④</td><th scope="row">メッセージ表示エリア（中央）</th><td>送ったメッセージとMuseの返信が、時間の順に表示される。メッセージを長押しすると、絵文字でリアクションを付けられる。</td></tr>
+            <tr><td class="no">⑤</td><th scope="row">「＋」（入力欄の左端）</th><td>ファイルや写真を追加する。</td></tr>
+            <tr><td class="no">⑥</td><th scope="row">入力欄（下部）</th><td>メッセージを入力して送る。表示される文字はチャットごとに変わる。</td></tr>
+            <tr><td class="no">⑦</td><th scope="row">マイク（入力欄の右端）</th><td>音声で入力する。</td></tr>
+            <tr><td class="no">⑧</td><th scope="row">タブバー（最下部）</th><td>画面を切り替える。左から「チャット」「フィード」「アイデア」「図書館」「目標」。チャットは「チャット」を使う。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure>
+        <p class="fig-title">メニュー画面</p>
+        <div class="drawer" role="img" aria-label="メニュー画面の模式図。上から①アシスタント名、②タブ欄、③スペース欄、④サイドチャット欄。最下部の左に⑤設定の歯車、中央に⑥検索欄、右に⑦新規作成の鉛筆アイコン。">
+          <div class="drawer-head">アシスタント名 <span class="fbadge">1</span></div>
+          <div class="drawer-sec">
+            <div class="cap">タブ <span class="fbadge">2</span></div>
+            <div class="note-line">長押しで並べ替えられます</div>
+            <div class="drawer-item sel">メインチャット</div>
+            <div class="drawer-item">フィード</div>
+            <div class="drawer-item">アイデア</div>
+            <div class="drawer-item">図書館</div>
+            <div class="drawer-item">目標</div>
+          </div>
+          <div class="drawer-div"></div>
+          <div class="drawer-sec">
+            <div class="cap">スペース <span class="fbadge">3</span></div>
+            <div class="drawer-item">スペース名 <span class="ex">（作ったものが並びます）</span></div>
+            <div class="drawer-item">＋ スペースを作成</div>
+          </div>
+          <div class="drawer-div"></div>
+          <div class="drawer-sec">
+            <div class="cap">サイドチャット <span class="fbadge">4</span></div>
+            <div class="drawer-item">サイドチャット名 <span class="ex">（タップで開く）</span></div>
+          </div>
+          <div class="drawer-bottom">
+            <span class="icon-btn"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M1 12h4M19 12h4M4.2 19.8 7 17M17 7l2.8-2.8"/></svg></span><span class="fbadge">5</span>
+            <span class="search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>検索 <span class="fbadge">6</span></span>
+            <span class="icon-btn key"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg></span><span class="fbadge">7</span>
+          </div>
+        </div>
+        <figcaption><b>図2</b> メニュー画面（模式図）。番号は下の表に対応します。スペース名・サイドチャット名は仮の表示です。</figcaption>
+      </figure>
+      <div class="tblwrap">
+        <table>
+          <caption>図2 メニュー画面の各部</caption>
+          <thead><tr><th scope="col">番号</th><th scope="col">名称</th><th scope="col">はたらき</th></tr></thead>
+          <tbody>
+            <tr><td class="no">①</td><th scope="row">アシスタント名（上部）</th><td>あなたのMuseの名前を表示する。</td></tr>
+            <tr><td class="no">②</td><th scope="row">「タブ」欄</th><td>メインチャット、フィード、アイデア、図書館、目標への入り口。長押しで並べ替えられる。</td></tr>
+            <tr><td class="no">③</td><th scope="row">「スペース」欄</th><td>Museが作った動画やWebページの置き場所（<a href="#ch7-1">7.1</a>）。</td></tr>
+            <tr><td class="no">④</td><th scope="row">「サイドチャット」欄</th><td>サイドチャットの一覧。タップでそのチャットを開く。</td></tr>
+            <tr><td class="no">⑤</td><th scope="row">歯車アイコン（左下）</th><td>設定を開く（<a href="#ch3-2">3.2</a>）。</td></tr>
+            <tr><td class="no">⑥</td><th scope="row">検索欄（下部中央）</th><td>チャットなどを検索する。</td></tr>
+            <tr><td class="no">⑦</td><th scope="row">鉛筆アイコン（右下）</th><td>新しいサイドチャットを作る（<a href="#ch4-3">4.3</a>）。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 id="ch3-2"><span class="no">3.2</span>設定画面</h3>
+      <p>設定は、歯車アイコン（図2の⑤）から開きます。項目の並びや有無は、アプリのバージョンによって変わることがあります。</p>
+      <h4>利用状況</h4>
+      <p>設定画面のいちばん上で、プランごとの使用済みの割合と、上限がリセットされる日を確認できます（利用枠の種類は<a href="#ch5-3">5.3</a>）。</p>
+      <h4>データコントロール</h4>
+      <p>「データコントロール」には、自分のデータに関する操作がまとまっています。</p>
+      <div class="tblwrap">
+        <table>
+          <caption>データコントロールの項目（画面の並び順）</caption>
+          <thead><tr><th scope="col">項目</th><th scope="col">できること</th><th scope="col">補足</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">AIモデルの改善に協力する</th><td>オンにすると、Museとのやりとりが、MetaのAIモデルの学習（開発・改善）に使用される。</td><td>オフにすると、学習には使用されない。</td></tr>
+            <tr><th scope="row">アーカイブ済みのサイドチャット</th><td>アーカイブしたチャットの一覧を開く。各チャットの「…」から、アーカイブの解除や削除ができる。</td><td>手順は<a href="#ch4-4">4.4</a>。</td></tr>
+            <tr><th scope="row">Museにメモリーをインポート</th><td>ほかのAIアシスタントで使っていた情報を、Museのメモリーに移す。</td><td>Museが用意したプロンプトをほかのAIに送り、返ってきた要約をMuseに貼る方法と、チャットの書き出しファイル（ZIP）を取り込む方法がある。</td></tr>
+            <tr><th scope="row">エージェントデータをダウンロード</th><td>Museに保存されている自分のデータをまとめてダウンロードする。</td><td>含まれる内容は、ダウンロードしたファイルで確かめられる。</td></tr>
+            <tr><th scope="row">「（Museの名前）をリセット」</th><td>チャット履歴、ファイル、実行中のタスクなど、Museのデータをすべて削除する。</td><td><strong>元に戻せない。</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================= 第4章 ================= -->
+    <section class="chapter" aria-labelledby="ch4">
+      <h2 id="ch4"><span class="no">第4章</span>メインチャットとサイドチャットの使い分け</h2>
+
+
+
+      <h3 id="ch4-1"><span class="no">4.1</span>メインチャットとサイドチャット</h3>
+      <p>Museのチャットには、メインチャットとサイドチャットの2種類があります。</p>
+      <div class="tblwrap">
+        <table>
+          <caption>メインチャットとサイドチャットの違い</caption>
+          <thead><tr><th scope="col">項目</th><th scope="col">メインチャット</th><th scope="col">サイドチャット</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">位置づけ</th><td>最初からある、中心のチャット</td><td>話題ごとに自分で作るチャット</td></tr>
+            <tr><th scope="row">向いている使い方</th><td>短い質問、雑談</td><td>長くなりそうなテーマ（学習、制作、旅行の計画、続けて調べることなど）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>チャットの記録は、そのチャットの中だけに残ります。どのチャットでも共通なのは、メモリー（Museが記録した好みや決定事項）だけです。Museは過去のチャットを検索して一部を参照できますが、正確に引き継げるとは限りません。続きを別のチャットで話すときは、引き継ぎ文を使います（<a href="#ch5-5">5.5</a>）。</p>
+      <figure>
+        <div class="diagram" role="img" aria-label="メインチャットから、話題ごとのサイドチャットが枝分かれする模式図">
+          <svg viewBox="0 0 520 190">
+            <rect x="10" y="70" width="130" height="52" rx="10" style="fill:var(--accent-soft)" stroke-width="2" stroke="var(--accent)"/>
+            <text x="75" y="93" text-anchor="middle" font-size="15" font-weight="700" style="fill:var(--ink)">メインチャット</text>
+            <text x="75" y="113" text-anchor="middle" font-size="12" style="fill:var(--muted)">短い質問・雑談</text>
+            <path d="M140 96 H200 M200 96 V36 M200 96 V96 M200 96 V156" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+            <path d="M200 36 H228 M200 96 H228 M200 156 H228" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+            <g font-size="14" font-weight="700">
+              <rect x="230" y="12" width="270" height="46" rx="10" style="fill:var(--bg)" stroke="var(--line-strong)" stroke-width="1.5"/>
+              <text x="248" y="41" style="fill:var(--ink)">サイドチャット ― 学習</text>
+              <rect x="230" y="72" width="270" height="46" rx="10" style="fill:var(--bg)" stroke="var(--line-strong)" stroke-width="1.5"/>
+              <text x="248" y="101" style="fill:var(--ink)">サイドチャット ― 制作</text>
+              <rect x="230" y="132" width="270" height="46" rx="10" style="fill:var(--bg)" stroke="var(--line-strong)" stroke-width="1.5"/>
+              <text x="248" y="161" style="fill:var(--ink)">サイドチャット ― 旅行の計画</text>
+            </g>
+          </svg>
+        </div>
+        <figcaption><b>図3</b> メインチャットとサイドチャット（模式図）。話題ごとに枝分かれします。</figcaption>
+      </figure>
+
+      
+      <h3 id="ch4-2"><span class="no">4.2</span>なぜチャットを分けるのか</h3>
+      <div class="warn">
+        <p class="t">注意：メインチャットだけで何でも話し続けないでください。</p>
+        <p>長くなりそうな話題は、最初からサイドチャットで話します。理由は<a href="#ch5">第5章</a>で説明します。</p>
+      </div>
+      <p>分けると、話題が混ざらずあとから探しやすく、終わった話題はアーカイブで片づけられます（<a href="#ch4-4">4.4</a>）。</p>
+
+      <h3 id="ch4-3"><span class="no">4.3</span>サイドチャットの作り方</h3>
+      <figure>
+        <p class="fig-title">メニュー画面</p>
+        <div class="drawer" role="img" aria-label="メニュー画面の模式図。上から①アシスタント名、②タブ欄、③スペース欄、④サイドチャット欄。最下部の左に⑤設定の歯車、中央に⑥検索欄、右に⑦新規作成の鉛筆アイコン。">
+          <div class="drawer-head">アシスタント名 <span class="fbadge">1</span></div>
+          <div class="drawer-sec">
+            <div class="cap">タブ <span class="fbadge">2</span></div>
+            <div class="note-line">長押しで並べ替えられます</div>
+            <div class="drawer-item sel">メインチャット</div>
+            <div class="drawer-item">フィード</div>
+            <div class="drawer-item">アイデア</div>
+            <div class="drawer-item">図書館</div>
+            <div class="drawer-item">目標</div>
+          </div>
+          <div class="drawer-div"></div>
+          <div class="drawer-sec">
+            <div class="cap">スペース <span class="fbadge">3</span></div>
+            <div class="drawer-item">スペース名 <span class="ex">（作ったものが並びます）</span></div>
+            <div class="drawer-item">＋ スペースを作成</div>
+          </div>
+          <div class="drawer-div"></div>
+          <div class="drawer-sec">
+            <div class="cap">サイドチャット <span class="fbadge">4</span></div>
+            <div class="drawer-item">サイドチャット名 <span class="ex">（タップで開く）</span></div>
+          </div>
+          <div class="drawer-bottom">
+            <span class="icon-btn"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M1 12h4M19 12h4M4.2 19.8 7 17M17 7l2.8-2.8"/></svg></span><span class="fbadge">5</span>
+            <span class="search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>検索 <span class="fbadge">6</span></span>
+            <span class="icon-btn key"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg></span><span class="fbadge">7</span>
+          </div>
+        </div>
+        <figcaption><b>図2（再掲）</b> メニュー画面（模式図）。各部のはたらきは<a href="#ch3-1">3.1</a>の表を参照してください。</figcaption>
+      </figure>
+      <ol>
+        <li>チャット画面の左上の「≡」（図1の①）をタップして、メニュー画面を開く。</li>
+        <li>メニュー画面の右下の鉛筆アイコン（図2の⑦）をタップする。</li>
+        <li>新しいサイドチャットが開くので、最初のメッセージを送る。</li>
+      </ol>
+      <p>名前はMuseが自動で付けます。変えるときは、右上の「…」（図1の②）から「名前を変更」を選びます。</p>
+      <p>作ったサイドチャットは「サイドチャット」欄（図2の④）に並びます。見つからないときは、検索欄（図2の⑥）で探すか、Museに「〇〇について話したのは、どのサイドチャット？」と質問します。</p>
+
+      <h3 id="ch4-4"><span class="no">4.4</span>サイドチャットのアーカイブ</h3>
+      <h4>アーカイブとは</h4>
+      <p>アーカイブは、チャットを削除せずに一覧から外して保管する操作です。内容はそのまま残り、あとで一覧に戻せます。ファイルの圧縮（ZIP形式など）とは別のものです。</p>
+      <p class="small">※アーカイブしても、トークンの消費は減りません。</p>
+      <h4>アーカイブのしかた</h4>
+      <ol>
+        <li>アーカイブしたいサイドチャットを開く。</li>
+        <li>画面右上の「…」（図1の②）をタップする。</li>
+        <li>「アーカイブ」を選ぶ。</li>
+      </ol>
+      <figure>
+        <p class="fig-title">アーカイブのしかた</p>
+        <div class="steps" role="img" aria-label="アーカイブのしかたの模式図。手順2：サイドチャットを開き、画面右上の「…」をタップする。手順3：開いたメニューの「名前を変更」「固定」「アーカイブ」「削除」のうち、「アーカイブ」を選ぶ。">
+          <div class="step">
+            <div class="step-label"><span class="fbadge">2</span>右上の「…」をタップ</div>
+            <div class="mini" aria-hidden="true">
+              <div class="mini-head"><span class="circle-btn">≡</span><span class="t" style="text-align:center">サイドチャット名</span><span class="circle-btn hl">…</span></div>
+              <div class="mini-body"><div class="bubble-ph" style="width:70%"></div><div class="bubble-ph" style="width:50%;justify-self:end"></div><div class="bubble-ph" style="width:60%"></div></div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-label"><span class="fbadge">3</span>「アーカイブ」を選ぶ</div>
+            <div class="mini" aria-hidden="true">
+              <div class="mini-head"><span class="circle-btn">≡</span><span class="t" style="text-align:center">サイドチャット名</span><span class="circle-btn">…</span></div>
+              <div class="popmenu"><span>名前を変更</span><span>固定</span><span class="hl">アーカイブ</span><span>削除</span></div>
+            </div>
+          </div>
+        </div>
+        <figcaption><b>図4</b> アーカイブのしかた（模式図）。番号は上の手順の番号に対応します。強調した枠が、タップする場所です。</figcaption>
+      </figure>
+      <h4>一覧に戻すしかた</h4>
+      <ol>
+        <li>メニュー画面の左下の歯車アイコン（図2の⑤）をタップして、設定を開く。</li>
+        <li>「データコントロール」を開く。</li>
+        <li>「アーカイブ済みのサイドチャット」を開く。</li>
+        <li>戻したいチャットの右側の「…」をタップする。</li>
+        <li>「アーカイブを解除」を選ぶ。</li>
+      </ol>
+      <figure>
+        <p class="fig-title">一覧に戻すしかた</p>
+        <div class="steps" role="img" aria-label="一覧に戻すしかたの模式図。手順2：設定画面で「データコントロール」を開く。手順3：データコントロール画面で「アーカイブ済みのサイドチャット」を開く。手順4と5：アーカイブしたチャットの右側の「…」をタップし、メニューの「名前を変更」「アーカイブを解除」「削除」のうち、「アーカイブを解除」を選ぶ。">
+          <div class="step">
+            <div class="step-label"><span class="fbadge">2</span>「データコントロール」</div>
+            <div class="mini" aria-hidden="true">
+              <div class="mini-head"><span class="circle-btn">‹</span><span class="t">設定</span></div>
+              <div class="mini-body"><div class="row"><span class="t">コネクター</span><span class="chev">›</span></div><div class="row ph"><span class="t">（ほかの項目）</span></div><div class="row hl"><span class="t">データコントロール</span><span class="chev">›</span></div><div class="row ph"><span class="t">（ほかの項目）</span></div></div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-label"><span class="fbadge">3</span>「アーカイブ済みのサイドチャット」</div>
+            <div class="mini" aria-hidden="true">
+              <div class="mini-head"><span class="circle-btn">‹</span><span class="t">データコントロール</span></div>
+              <div class="mini-body"><div class="row"><span class="t">AIモデルの改善に協力する</span></div><div class="row hl"><span class="t">アーカイブ済みのサイドチャット</span><span class="chev">›</span></div><div class="row"><span class="t">Museにメモリーをインポート</span><span class="chev">›</span></div><div class="row"><span class="t">エージェントデータをダウンロード</span></div></div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-label"><span class="fbadge">4</span><span class="fbadge">5</span>「…」→「アーカイブを解除」</div>
+            <div class="mini" aria-hidden="true">
+              <div class="mini-head"><span class="circle-btn">‹</span><span class="t">アーカイブ済みのサイド…</span></div>
+              <div class="mini-body"><div class="row"><span class="t">チャットの名前</span><span class="hl" style="border-radius:6px;padding:0 .35rem">…</span></div></div>
+              <div class="popmenu"><span>名前を変更</span><span class="hl">アーカイブを解除</span><span>削除</span></div>
+            </div>
+          </div>
+        </div>
+        <figcaption><b>図5</b> 一覧に戻すしかた（模式図）。番号は上の手順の番号に対応します。強調した枠が、タップする場所です。設定画面の項目は一部だけを示しています。</figcaption>
+      </figure>
+      <p class="small">※パソコン版では、チャット一覧の上の「…」→「アーカイブ済みのチャットを表示」で一覧を開き、チャットの「…」→「アーカイブから復元」を選びます。チャットの名前をクリックしても、一覧には戻りません。</p>
+
+          </section>
+
+    <!-- ================= 第5章 ================= -->
+    <section class="chapter" aria-labelledby="ch5">
+      <h2 id="ch5"><span class="no">第5章</span>応答の質を保つには</h2>
+
+
+
+      <h3 id="ch5-1"><span class="no">5.1</span>長いチャットで起きること</h3>
+<div class="xstage" id="xs-s51" data-xs="s51x"><div class="xs-screen">
+  <span class="xs-tag">5.1</span>
+  <div class="xchat">
+    <div class="xbub u b1">旅行の計画を立てて</div>
+    <div class="xbub m b2">いいですね、考えます</div>
+    <div class="xbub u b3">日程も決めて</div>
+    <div class="xbub m b4">分かりました</div>
+    <div class="xbub u b5">予算も入れて</div>
+    <div class="xbub m b6">…</div>
+  </div>
+  <span class="xlab xctx" style="left:43%;top:24%">コンテキスト</span>
+  <div class="xstack">
+      <div class="xpaper pp1" style="bottom:8%"></div>
+      <div class="xpaper pp2" style="bottom:16%"></div>
+      <div class="xpaper pp3" style="bottom:24%"></div>
+      <div class="xinst" style="bottom:24%">大事な指示</div>
+      <div class="xpaper pp4" style="bottom:32%"></div>
+      <div class="xpaper pp5" style="bottom:40%"></div>
+      <div class="xpaper pp6" style="bottom:48%"></div>
+      <div class="xpaper pp7" style="bottom:56%"></div>
+      <div class="xpaper pp8" style="bottom:64%"></div>
+  </div>
+  <span class="xmem" style="left:42%;bottom:12%">メモリーファイル</span>
+  <span class="xlab" style="right:23%;top:3.5%">トークン</span>
+  <div class="xmeter"><i></i></div>
+  <div class="xdoc" style="right:9%;top:19%">長い資料</div>
+  <svg class="xslope" viewBox="0 0 200 90" aria-hidden="true">
+    <line x1="8" y1="6" x2="8" y2="80" stroke="#b9cdc0" stroke-width="2"/>
+    <line x1="8" y1="80" x2="194" y2="80" stroke="#b9cdc0" stroke-width="2"/>
+    <path class="xline" d="M10,14 C 70,22 130,48 192,72" fill="none" stroke="#d05545" stroke-width="4" stroke-linecap="round" pathLength="100" style="stroke-dasharray:100;stroke-dashoffset:100"/>
+    <text x="12" y="12" font-size="12" font-weight="800" fill="#14532d">応答の質</text>
+  </svg>
+  <div class="xsigns">
+    <h5>移りどきのサイン</h5>
+    <div class="xsign g1"><b>✓</b> 前と同じ返事が返ってくる</div>
+    <div class="xsign g2"><b>✓</b> 間違いが増えてきた</div>
+    <div class="xsign g3"><b>✓</b> 指示や条件が守られない</div>
+  </div>
+  <div class="xroom2"><span>新しい会話</span></div>
+  <div class="mactor xactor" style="left:5%;bottom:15%"></div>
+  <div class="xspark sp1" style="right:20%;top:34%">✦</div>
+  <div class="xspark sp2" style="right:8%;top:52%">✦</div>
+  <div class="xtelop">1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます</div>
+</div></div>
+
+<h3 id="ch5-2"><span class="no">5.2</span>トークンとは</h3>
+      <p>トークンは、AIが文章を処理するときの最小単位です。AIの利用量はトークン数で計算されます。</p>
+      <p>1回の返信ごとに、読み直したコンテキスト全体と返信の両方が数えられます。そのため、長いチャットを続けると、利用枠が早く減ります。</p>
+      <p>パソコン版では、Museの返信の下に、その返信で使ったトークンの量が表示されます。</p>
+      <ul>
+        <li>in：返信を作る過程で読み込んだ量の合計</li>
+        <li>out：返信そのものの長さ</li>
+      </ul>
+      <p>例：「220.4k in / 765 out」（kは千。この例では、約22万トークンを読み込み、765トークンの返信を書いた）</p>
+
+            <h3 id="ch5-3"><span class="no">5.3</span>トークンの利用枠</h3>
+      <p>トークンの利用枠は、次の3種類に分けて考えます。</p>
+      <figure>
+        <div class="wallets" role="img" aria-label="トークンの3つの利用枠の模式図。無料プラン、追加のトークン、有料プラン。">
+          <div class="wallet">
+            <div class="wt">無料プラン</div>
+            <div class="bar"><i style="width:45%"></i></div>
+            <p>毎週、決まった量を無料で使える。1週間ごとに上限がリセットされる。</p>
+          </div>
+          <div class="wallet">
+            <div class="wt">追加のトークン</div>
+            <div class="bar"><i style="width:25%"></i></div>
+            <p>紹介コードやキャンペーンでもらえる追加分。有効期限なし。</p>
+          </div>
+          <div class="wallet">
+            <div class="wt">有料プラン</div>
+            <div class="bar"><i style="width:90%"></i></div>
+            <p>多く使いたい人向けの大きな枠。</p>
+          </div>
+        </div>
+        <figcaption><b>図7</b> トークンの3つの利用枠（模式図。バーの長さは量の大小のイメージです）</figcaption>
+      </figure>
+      <p>日々の相談や文章づくりは、無料プランの範囲でも十分にこなせます。使用量は、設定画面のいちばん上で確認できます（<a href="#ch3-2">3.2</a>）。</p>
+      <p>紹介コードを入力すると、「追加のトークン」がもらえます（本書作成時点では10億トークン）。入力は、設定の「紹介コードを利用」から行います。紹介コードを利用できるのは1回だけです。</p>
+      <p class="small">※もらえる量はキャンペーンによるもので、変わったり終了したりすることがあります。</p>
+
+            <h3 id="ch5-4"><span class="no">5.4</span>対策</h3>
+      <ol>
+        <li><strong>話題が変わったら、新しいサイドチャットで話す。</strong>最も効果の大きい対策です（<a href="#ch4-3">4.3</a>）。決定事項や好みは、メモリーで引き継がれます。</li>
+        <li><strong>チャットが長くなったら、引き継ぎ文を使って新しいチャットに移る。</strong>（<a href="#ch5-5">5.5</a>）</li>
+        <li><strong>大事な指示は、最後にもう一度書く。</strong>新しい指示ほど返信に反映されやすくなります。</li>
+        <li><strong>長い資料は、必要な部分だけを渡す。</strong>長い返信がいらないときは、「短めに答えて」と添えます。</li>
+        <li><strong>継続して使う決定事項は、メモリーに記録させる。</strong>「これを覚えておいて」と指示します。増えすぎないよう、ときどき点検します（<a href="#ch6-3">6.3</a>）。</li>
+      </ol>
+
+            <h3 id="ch5-5"><span class="no">5.5</span>引き継ぎ文の作り方</h3>
+      <p>引き継ぎ文は、前のチャットの要点を新しいチャットに渡すための文章です。自分で書く必要はなく、Museに作成させられます。</p>
+      <ol>
+        <li>長くなったチャットで、下のプロンプトを送る。</li>
+        <li>新しいサイドチャットを作る（<a href="#ch4-3">4.3</a>）。</li>
+        <li>Museが作った引き継ぎ文を、最初のメッセージとして貼って送る。</li>
+      </ol>
+      <div class="copybox" id="prompt-handoff">
+        <p class="cb-label">引き継ぎ文を作成するプロンプト</p>
+        <pre>この会話の要点を、新しい会話に貼れる「引き継ぎ文」にして。これまでの要点／決まっていること（原文）／しないこと／次にやること、の形でお願い。</pre>
+        <div class="copyrow"><button class="copy-btn" type="button" aria-label="引き継ぎ文を作成するプロンプトをコピーする">コピーする</button><span class="copy-msg" role="status"></span></div>
+      </div>
+      <p>「決まっていること（原文）」は、表現そのものが重要な決定事項を、要約せずに元の文のまま残す欄です。</p>
+    </section>
+
+    <!-- ================= 第6章 ================= -->
+    <section class="chapter" aria-labelledby="ch6">
+      <h2 id="ch6"><span class="no">第6章</span>メモリーの仕組みと手入れ</h2>
+
+
+
+      <h3 id="ch6-1"><span class="no">6.1</span>メモリーファイル</h3>
+<div class="mstage" id="ms-s61" data-ms="s61"><div class="ms-screen">
+  <span class="ms-tag">6.1</span>
+  <div class="mlayer l61a">会話の記録<span>会話ごとに別々</span></div>
+  <div class="mlayer l61b">常駐ファイル<span>どの会話でも共通</span><br><span class="mfile f1">MEMORY.md</span><span class="mfile f2">USER.md</span><span class="mfile f3">SOUL.md</span></div>
+  <div class="mactor a61"></div>
+</div></div>
+
+      <p>Museのメモリーや振る舞いのルールは、いくつかのテキストファイルに記録されています。Museは返信のたびに主なファイルを読み込むため、チャットが変わっても決定事項や好みが引き継がれます。</p>
+      <p>ファイル名の末尾の <code>.md</code> は、Markdown形式のファイルであることを示します。Markdownは、見出しや箇条書きを記号で表すテキストの書き方です。</p>
+      <p class="small">※「メモリーファイル」は本書での呼び名です。</p>
+      <p>メモリーファイルはクラウド上に保存され、スマートフォンやパソコンには保存されません。アプリの画面にも表示されませんが、Museに指示すれば内容を表示できます（<a href="#ch6-2">6.2</a>）。</p>
+      <div class="tblwrap">
+        <table>
+          <caption>常に読み込まれる主なメモリーファイル</caption>
+          <thead><tr><th scope="col" class="fn">ファイル名</th><th scope="col">役割</th><th scope="col">書かれている内容</th></tr></thead>
+          <tbody>
+            <tr><th scope="row" class="fn">MEMORY.md</th><td>長期記憶</td><td>出来事、決定事項、好みなど、長期的に保持する情報</td></tr>
+            <tr><th scope="row" class="fn">AGENTS.md</th><td>行動ルール</td><td>作業の進め方、守るべき手順やルール</td></tr>
+            <tr><th scope="row" class="fn">SOUL.md</th><td>人格・ふるまい</td><td>Museの性格、口調、振る舞い方</td></tr>
+            <tr><th scope="row" class="fn">USER.md</th><td>ユーザー情報</td><td>あなたの名前、呼び方、基本情報</td></tr>
+            <tr><th scope="row" class="fn">IDENTITY.md</th><td>Muse自身の設定</td><td>Muse自身の名前や姿など</td></tr>
+            <tr><th scope="row" class="fn">TOOLS.md</th><td>ツール情報</td><td>使うツールや機器の情報</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>このほかに、定期的な見回り（<code>HEARTBEAT.md</code>）や先回りの動き（<code>PROACTIVE_PREFERENCES.md</code>）の設定ファイルもあります。</p>
+      <h4>常に読み込まれるものと、必要なときに検索されるもの</h4>
+      <p>Museのメモリーには、次の2種類があります。</p>
+      <ul>
+        <li><strong>常に読み込まれるファイル</strong>：表のファイル。Museが返信するたびに読み込まれ、そのたびにトークンを消費します。</li>
+        <li><strong>必要なときに検索されるもの</strong>：日ごとのメモ、話題ごとのメモ、過去のチャットなど。Museが必要と判断したときだけ検索して参照するため、毎回の返信ではトークンを消費しません。</li>
+      </ul>
+      <p>MEMORY.mdは、その両方にあたります。</p>
+      <figure>
+        <div class="diagram" role="img" aria-label="メモリーの2種類の模式図。常に読み込まれるファイルと、必要なときに検索されるもの">
+          <svg viewBox="0 0 520 140">
+            <rect x="10" y="8" width="500" height="52" rx="10" style="fill:var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+            <text x="28" y="36" font-size="14" font-weight="700" style="fill:var(--ink)">常に読み込まれるファイル</text>
+            <rect x="10" y="78" width="500" height="52" rx="10" style="fill:var(--bg)" stroke="var(--line-strong)" stroke-width="1.5"/>
+            <text x="28" y="110" font-size="14" font-weight="700" style="fill:var(--ink)">必要なときに検索されるもの</text>
+          </svg>
+        </div>
+        <figcaption><b>図8</b> メモリーの2種類（模式図）。上の層は毎回、下の層は必要なときだけ読みます。</figcaption>
+      </figure>
+      <p>常に読み込まれるファイルは使い続けるほど大きくなり、チャットを新しくしても小さくならないため、定期的な点検が必要です（<a href="#ch6-3">6.3</a>）。</p>
+
+      <h3 id="ch6-2"><span class="no">6.2</span>内容の確認と修正</h3>
+      <p>メモリーファイルの内容は、Museに指示すれば表示できます。古くなった内容の修正や削除も指示できます。</p>
+      <div class="copybox" id="prompt-show">
+        <p class="cb-label">メモリーを表示するプロンプト</p>
+        <pre>MEMORY.mdの内容を見せてください。私についてどのように記録されているか確認したいです。</pre>
+        <div class="copyrow"><button class="copy-btn" type="button" aria-label="メモリーを表示するプロンプトをコピーする">コピーする</button><span class="copy-msg" role="status"></span></div>
+      </div>
+      <p>Museは全文をファイルとして添付し、あなたに関する記録の要点を抜き出して答えます。</p>
+      <div class="copybox" id="prompt-fix">
+        <p class="cb-label">メモリーを修正するプロンプト（〇〇と△△を書き換えて使います）</p>
+        <pre>以前記録した「〇〇」の件は、現在は△△に変わりました。メモリーを修正してください。</pre>
+        <div class="copyrow"><button class="copy-btn" type="button" aria-label="メモリーを修正するプロンプトをコピーする">コピーする</button><span class="copy-msg" role="status"></span></div>
+      </div>
+
+      <h3 id="ch6-3"><span class="no">6.3</span>メモリーの定期点検</h3>
+      <p>メモリーには、古くなった情報や、矛盾・重複した記述がたまっていき、応答の質が下がる原因になります。そのため、定期的にMuseにメモリーファイルを点検させます。</p>
+      <p class="small">※「メモリーの定期点検」は本書での呼び名で、Museの機能の名称ではありません。</p>
+      <p>点検は、次の3段階で進めます。意図しない変更を防ぐため、<strong>書き換えはあなたが承認した項目に限ります</strong>。</p>
+      <ol>
+        <li><strong>点検</strong>：Museがメモリーファイルを読み、問題点を洗い出します。この段階では書き換えません。</li>
+        <li><strong>報告の確認</strong>：Museが、ファイルのサイズと、見つかった問題点を報告します。</li>
+        <li><strong>承認した項目の修正</strong>：あなたが承認した項目だけが書き換えられます。書き換えの前に、Museがバックアップを作成します。</li>
+      </ol>
+      <p><strong>点検する時期</strong>：月に1回が目安です。また、新しいチャットにしても次のようなことが起きるときは、点検します。</p>
+      <ul>
+        <li>前に決めたことを、また聞いてくる</li>
+        <li>やめたはずの方針を、まだ続けようとする</li>
+        <li>同じ質問への答えが、日によってぶれる</li>
+      </ul>
+
+      <h3 id="ch6-4"><span class="no">6.4</span>点検のプロンプト</h3>
+      <p>次のプロンプトをコピーして、点検のたびにMuseに送ります。</p>
+      <div class="copybox" id="prompt-check">
+        <p class="cb-label">メモリーの定期点検のプロンプト</p>
+        <pre class="long" tabindex="0" aria-label="メモリーの定期点検のプロンプト（スクロールして全文を読めます）">あなた（Muse）の振る舞いを決めている記憶・指示ファイルの「点検」をしてください。対象は MEMORY.md、AGENTS.md、SOUL.md、USER.md、IDENTITY.md、TOOLS.md のうち、実際に存在するファイルです。
+
+## 手順1：読み取り専用の点検（この段階では絶対に書き換えない）
+各ファイルを読み、次の観点でチェックしてください。
+- 矛盾：ファイル同士、または同じファイルの中で食い違っている記述
+- 陳腐化：すでに解決・完了したのに「未対応」「保留中」のまま残っている項目、過ぎた日付の予定
+- 肥大化：ファイルサイズと行数、1項目だけ異常に長い記述、重複している内容
+- 人格・記憶への影響：あなたの個性・口調・ユーザーとの思い出を定義している記述が、矛盾や陳腐化に巻き込まれていないか
+
+## 手順2：レポート（書き換え前に必ず見せる）
+- まず各ファイルのサイズ（バイト数・行数）を報告してください
+- 問題は重要度順に最大5件まで。各件について「どのファイルの、どの記述が、なぜ問題か」を引用つきで示し、修正案がある場合は変更前／変更後が一目で分かる差分で提示してください
+- 指摘は「事実として確認できたもの」と「確認できていないもの」を分けて報告してください。確認できていない指摘には修正案を出さず、何を確認すれば確定できるかだけを書いてください（読み違いの指摘で正しい記憶を直してしまわないため）
+- 問題がなければ、無理に指摘を作らず「問題なし」と一行で報告してください
+- 過去に同じ点検で報告済みで、ユーザーが「そのままにする」と決めた項目は再報告しないでください
+
+## 手順3：書き換えは承認制・最小差分のみ
+- ユーザーが項目ごとに明示的に承認するまで、ファイルは一切編集しないでください。曖昧な返事や沈黙を承認とみなさないでください
+- 承認された項目だけ、問題を直すのに必要な最小の範囲だけを変更してください。ついでに他の場所を整えたり、要約し直したりしないでください
+- 記憶を丸ごと削除する提案はしないでください。古い記述は、まず「新しい事実で上書き」か「日付つきの訂正」を検討してください
+- あなたの個性・口調・ユーザーとの思い出に関わる記述を変更する場合は、その旨を明示し「何が失われる可能性があるか」を説明してから、改めて確認してください
+- 編集の前に、対象ファイルのバックアップ（日時つきコピー）を保存してください
+- 編集後はファイルを読み直し、承認された変更だけが入っているか検証して、結果を報告してください
+
+## オプション
+ユーザーが希望した場合のみ、この点検を週1回などの定期実行にしてください。希望がないうちは今回限りの実行にしてください。</pre>
+        <div class="copyrow"><button class="copy-btn" type="button" aria-label="メモリーの定期点検のプロンプトをコピーする">コピーする</button><span class="copy-msg" role="status"></span></div>
+      </div>
+      <h4>報告の例</h4>
+      <p>プロンプトを送ると、Museから次のような形で報告が届きます（内容は架空の例です）。</p>
+      <div class="copybox">
+        <p class="cb-label">報告の例</p>
+        <pre>各ファイルの大きさ
+MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行……
+
+確認できた問題（重要度順）
+1. IDENTITY.md の性格の欄が空欄です。（変更案：……）
+2. MEMORY.md に、USER.md と重複する記述が1つあります。（変更案：……）
+
+確認できていないこと（修正案なし）
+3. ……
+
+直す場合は、番号で教えてください。</pre>
+      </div>
+      <h4>承認のしかた</h4>
+      <p>報告を読んだら、修正してよい項目を番号で指定し、それ以外は変更しないことも明記します。</p>
+      <div class="copybox" id="prompt-approve">
+        <p class="cb-label">修正を承認するプロンプト（番号を書き換えて使います）</p>
+        <pre>1番と2番だけ修正してください。それ以外のファイルや項目は変更しないでください。</pre>
+        <div class="copyrow"><button class="copy-btn" type="button" aria-label="修正を承認するプロンプトをコピーする">コピーする</button><span class="copy-msg" role="status"></span></div>
+      </div>
+      <ul>
+        <li>「うん」「いいよ」「すべて」のような返事は避けます。提案がすべて適用されることがあります。</li>
+        <li>報告にない訂正（例：呼び方の訂正）は、承認の返事とは分けて伝えます。一緒に伝えると、関係する別の項目まで変更されることがあります。</li>
+        <li>修正後の報告で、<strong>承認していない変更が入っていないか確認します</strong>。入っていれば「今の変更を元に戻してください」と指示します（バックアップから戻せます）。</li>
+        <li>報告に出てくる文字数などの数値は、目安です。</li>
+        <li>初回は報告の確認だけで終えてもかまいません。</li>
+        <li>お金、家族、健康に関わる項目は、残すかどうかを自分で判断します。</li>
+      </ul>
+
+      <h3 id="ch6-5"><span class="no">6.5</span>整理の例</h3>
+      <p>点検でファイルが大きすぎると分かったら、手順3で整理させます。整理は情報を捨てることではありません。Museが、MEMORY.mdの各項目に書かれた経緯や細かい説明（詳細）を、必要なときに検索されるファイルに移し、MEMORY.mdには「要点」と「詳細の保存場所」だけを残します。詳細は毎回は読み込まれなくなるため、トークンの消費が減ります。</p>
+      <div class="stat">
+        <p class="small">筆者のMuseで整理した例（個人情報は除いています）</p>
+        <p>MEMORY.md　<span class="num">15,447字</span>・41項目 → <span class="num">3,446字</span>・25項目（約78%減）</p>
+        <p style="margin:0">ただし、使い続けるうちに再び増えます。この例では、3日後には8,030字まで増えていました。</p>
+      </div>
+    </section>
+
+    <!-- ================= 第7章 ================= -->
+    <section class="chapter" aria-labelledby="ch7">
+      <h2 id="ch7"><span class="no">第7章</span>作ったものを人に見せる</h2>
+
+
+
+      <h3 id="ch7-1"><span class="no">7.1</span>スペースと共有リンク</h3>
+      <p>Museに動画やWebページを作成させると、返信にリンク（URL）が貼られます。作ったものは「スペース」欄（図2の③）にも保存されます。</p>
+      <div class="warn">
+        <p class="t">注意：共有リンクは、リンクを知っている人なら誰でも開けます。</p>
+        <p>Museのアカウントがない人でも開けて、相手を選ぶことはできません。個人情報を含むもののリンクは、人に渡さないでください。</p>
+      </div>
+      <p>日記のように記録を保存するアプリには共有リンクがなく、あなただけが使えます。</p>
+      <p>リンクに期限はありません。内容を直しても、前に受け取ったリンク先は自動では更新されないので、直した内容を見せたいときは、Museに共有し直すよう指示します。</p>
+      <h4>リンクを止めたいとき</h4>
+      <p>Museに「〇〇の共有を取り消して」と指示します。</p>
+      <ul>
+        <li>そのURLは、取り消した時点で誰も開けなくなります。</li>
+        <li>スペースは残るので、あなたは今までどおり使えます。あとで共有し直すこともできます。</li>
+        <li>スペースごと削除すると、リンクも一緒に消えます。削除は取り消しと違い、スペースと中身そのものが消えて、元に戻せません。</li>
+      </ul>
+      <div class="warn">
+        <p class="t">注意：取り消す前に誰かが見たり保存したりした内容は、取り戻せません。</p>
+      </div>
+
+      <h3 id="ch7-2"><span class="no">7.2</span>リンクが開けなくなる場合</h3>
+      <p>スペースはMuseの側に置かれているため、次の場合はリンクが開けなくなります。</p>
+      <ul>
+        <li>Museで大きな障害が起きている間</li>
+        <li>アカウントを削除したとき</li>
+      </ul>
+      <p>重要なものは、Museの外にもバックアップを置くことを勧めます。保存先はMuseに相談できます。</p>
+
+      <h3 id="ch7-3"><span class="no">7.3</span>作ったものの名前は英字で付ける</h3>
+      <p>作ったもの（Webページやアプリなど）の名前は、指定しなければMuseが会話から推測して付けます。このとき漢字を中国語と読み違え、日本語の部分をピンイン（中国語の読みをアルファベットで書いたもの）に置き換えることがあります。例：「Muse入門」が「Muse rumen」になる。</p>
+      <p>リンク（URL）の一部にも、最初の名前から自動で決まる文字列（スラッグ）が入るため、URLもピンイン混じりになります。例：「Museダッシュボード」のURLが <code>musedatusiyubodo</code> になる。</p>
+      <p>作ったものの名前には、次の2つがあります。</p>
+      <ul>
+        <li>表示名：一覧などに表示される名前。あとからMuseに頼んで変えられる。変えてもURLはそのまま。</li>
+        <li>スラッグ：URLの一部になる文字列。あとから変えられない。</li>
+      </ul>
+      <p>そのため、動画やページを作成させるときは、<strong>最初から名前を英字（アルファベット）で付けるよう指示します。</strong>英語でなくても、ローマ字で構いません。例：「名前は『Muse Manual』にして」「名前はローマ字で『nyumon』にして」</p>
+      <h4>すでにずれてしまった場合</h4>
+      <ul>
+        <li>表示名だけを直したいとき：Museに「〇〇の表示名を『△△』に変えて」と指示する。作り直しは不要。</li>
+        <li>URLも直したいとき：英字の名前で作り直させ、古いリンクの共有を取り消させる。</li>
+      </ul>
+      <p class="small">※ページの中に見出しとして書かれているタイトルは、表示名とは別です。変えたいときは、ページの内容の修正として指示します。</p>
+
+      <h3 id="ch7-4"><span class="no">7.4</span>リンクのコピーのしかた</h3>
+      <ol>
+        <li>Museが返信に貼ったリンクをタップして、作ったものを開く。</li>
+        <li>ブラウザのアドレスバーに表示されたURLをコピーする。</li>
+        <li>コピーしたURLを相手に送る。</li>
+      </ol>
+      <div class="warn">
+        <p class="t">注意：メッセージを長押ししても、リンクはコピーできません。</p>
+        <p>長押しは、絵文字でリアクションを付ける操作です（<a href="#ch3-1">3.1</a>）。</p>
+      </div>
+    </section>
+
+    <!-- ================= 付録 ================= -->
+    <section class="chapter" aria-labelledby="app">
+      <h2 id="app"><span class="no">付録</span>困ったとき・プロンプト・用語</h2>
+
+      <h3 id="app-1"><span class="no">A.1</span>困ったとき</h3>
+      <div class="tblwrap">
+        <table>
+          <caption>困ったときの対処</caption>
+          <thead><tr><th scope="col">こんなとき</th><th scope="col">すること</th><th scope="col">参照</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">同じことを返信してくる、間違いが増えてきた</th><td>引き継ぎ文を作成させ、新しいチャットに移る</td><td><a href="#ch5-1">5.1</a>、<a href="#ch5-5">5.5</a></td></tr>
+            <tr><th scope="row">新しいチャットにしても、やめた方針を続けようとする、答えが日によってぶれる</th><td>メモリーを点検する</td><td><a href="#ch6-3">6.3</a>、<a href="#ch6-4">6.4</a></td></tr>
+            <tr><th scope="row">前に決めたことを忘れている</th><td>メモリーに記録されているか確認する。記録されていなければ「覚えておいて」と指示する</td><td><a href="#ch6-2">6.2</a></td></tr>
+            <tr><th scope="row">トークンの減りが速い</th><td>チャットを分ける。長い資料は必要な部分だけ渡す</td><td><a href="#ch5-4">5.4</a></td></tr>
+            <tr><th scope="row">サイドチャットが見つからない</th><td>メニュー画面の検索欄で探す。または、Museにどのサイドチャットで話したか質問する</td><td><a href="#ch4-3">4.3</a></td></tr>
+            <tr><th scope="row">アーカイブしたチャットを戻したい</th><td>設定 →「データコントロール」→「アーカイブ済みのサイドチャット」→ チャットの「…」→「アーカイブを解除」</td><td><a href="#ch4-4">4.4</a></td></tr>
+            <tr><th scope="row">購入のたびに確認が出る</th><td>仕様どおりの動き。購入は毎回確認が入る</td><td><a href="#ch2-3">2.3</a></td></tr>
+            <tr><th scope="row">共有したリンクを止めたい</th><td>Museに「〇〇の共有を取り消して」と指示する</td><td><a href="#ch7-1">7.1</a></td></tr>
+            <tr><th scope="row">共有したリンクが開けない</th><td>障害の可能性がある。大事なものはMuseの外にも置く</td><td><a href="#ch7-2">7.2</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 id="app-2"><span class="no">A.2</span>プロンプトの一覧</h3>
+      <p>本文に掲載しているプロンプトの一覧です。リンク先でコピーできます。</p>
+      <ul>
+        <li><a href="#prompt-example">プロンプトの例（買い物リスト）</a>（2.1）</li>
+        <li><a href="#prompt-handoff">引き継ぎ文を作成するプロンプト</a>（5.5）</li>
+        <li><a href="#prompt-show">メモリーを表示するプロンプト</a>（6.2）</li>
+        <li><a href="#prompt-fix">メモリーを修正するプロンプト</a>（6.2）</li>
+        <li><a href="#prompt-check">メモリーの定期点検のプロンプト</a>（6.4）</li>
+        <li><a href="#prompt-approve">修正を承認するプロンプト</a>（6.4）</li>
+      </ul>
+
+      <h3 id="app-3"><span class="no">A.3</span>用語集</h3>
+      <dl class="gloss">
+        <dt>AIエージェント</dt>
+        <dd>指示を受けて自分で手順を考え、作業を実行まで行うAI。Museもその一つ。→ <a href="#ch1-1">1.1</a></dd>
+        <dt>アーカイブ</dt>
+        <dd>チャットを削除せずに一覧から外して保管すること。あとで戻せる。→ <a href="#ch4-4">4.4</a></dd>
+        <dt>確認</dt>
+        <dd>送信や購入など、取り消しにくい操作の前に、Museがあなたに実行してよいか尋ねること。→ <a href="#ch2-2">2.2</a></dd>
+        <dt>共有リンク</dt>
+        <dd>作ったものを見るためのURL。リンクを知っている人なら誰でも開ける。→ <a href="#ch7-1">7.1</a></dd>
+        <dt>コンテキスト</dt>
+        <dd>AIが返信を作るときに参照する情報全体。Museの場合、チャットの記録とメモリーファイルが含まれる。→ <a href="#ch5-1">5.1</a></dd>
+        <dt>サイドチャット</dt>
+        <dd>話題ごとに自分で作るチャット。→ <a href="#ch4-1">4.1</a></dd>
+        <dt>承認</dt>
+        <dd>メモリーの定期点検で、Museが書き換えてよい項目をあなたが指定すること。→ <a href="#ch6-3">6.3</a></dd>
+        <dt>スペース</dt>
+        <dd>Museが作った動画やWebページが置かれる場所。メニュー画面の「スペース」欄に並ぶ。→ <a href="#ch7-1">7.1</a></dd>
+        <dt>スラッグ</dt>
+        <dd>リンクの一部になる文字列。作ったもの（Webページやアプリなど）の名前から自動で決まり、あとから変えられない。→ <a href="#ch7-3">7.3</a></dd>
+        <dt>整理</dt>
+        <dd>MEMORY.mdに要点だけを残し、細かい内容を別のファイルに移すこと。→ <a href="#ch6-5">6.5</a></dd>
+        <dt>トークン</dt>
+        <dd>AIが文章を処理するときの最小単位。利用量はトークン数で計算される。→ <a href="#ch5-2">5.2</a></dd>
+        <dt>引き継ぎ文</dt>
+        <dd>前のチャットの要点を、新しいチャットに渡すための文章。→ <a href="#ch5-5">5.5</a></dd>
+        <dt>プロンプト</dt>
+        <dd>AIへの指示文。決まった書式はなく、自然な文章で書ける。→ <a href="#ch2-1">2.1</a></dd>
+        <dt>Markdown（.md）</dt>
+        <dd>見出しや箇条書きを記号で表すテキストの書き方。メモリーファイルはこの形式で書かれている。→ <a href="#ch6-1">6.1</a></dd>
+        <dt>メインチャット</dt>
+        <dd>最初からある、中心のチャット。短い質問や雑談に使う。→ <a href="#ch4-1">4.1</a></dd>
+        <dt>メモリー</dt>
+        <dd>Museが記録した、あなたの好みや決定事項など。すべてのチャットで共通。→ <a href="#ch1-1">1.1</a></dd>
+        <dt>メモリーの定期点検</dt>
+        <dd>メモリーファイルを点検させ、承認した項目だけを修正させる手順。本書での呼び名。→ <a href="#ch6-3">6.3</a></dd>
+        <dt>メモリーファイル</dt>
+        <dd>Museの記憶と振る舞いの指示が書かれたファイル。本書での呼び名。→ <a href="#ch6-1">6.1</a></dd>
+        <dt>利用枠</dt>
+        <dd>トークンを使える量。無料プラン、追加のトークン、有料プランがある。→ <a href="#ch5-3">5.3</a></dd>
+      </dl>
+    </section>
+
+    <footer>
+      <p>Muse Manual ― Muse取扱説明書</p>
+      <p>個人が作成した非公式のガイドです。Muse（Meta）の公式資料ではありません。</p>
+      <p>図はすべてAndroid版の画面をもとにした模式図です。</p>
+      <p>参考：メモリーの定期点検のプロンプトは、てばさきさん（@tebasaki3D）が公開した「Museの健康診断プロンプト」をもとに、呼び名を一部変えて使っています（<a href="https://x.com/tebasaki3D/status/2121862417382879474">元の投稿</a>）。メモリーの整理は、テツメモさん（@tetumemo）の投稿を参考にしました（<a href="https://x.com/tetumemo/status/2121381349856870787">元の投稿</a>）。</p>
+    </footer>
+  </main>
+<a href="#chapters" class="totop" id="toTop">↑ 章の一覧へ</a>
+</div>
+
+<script>
+(function(){
+  // ---- copy buttons ----
+  document.querySelectorAll('.copybox').forEach(function(box){
+    var btn = box.querySelector('.copy-btn');
+    var pre = box.querySelector('pre');
+    var msg = box.querySelector('.copy-msg');
+    if(!btn || !pre) return;
+    btn.addEventListener('click', function(){
+      var text = pre.textContent;
+      function done(ok){
+        msg.textContent = ok ? 'コピーしました' : 'コピーできませんでした。文を長押しして選択してください';
+        setTimeout(function(){ msg.textContent = ''; }, 3000);
+      }
+      function fallback(){
+        try{
+          var ta = document.createElement('textarea');
+          ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta); ta.select();
+          var ok = document.execCommand('copy');
+          document.body.removeChild(ta);
+          done(ok);
+        }catch(e){ done(false); }
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(function(){ done(true); }, fallback);
+      }else{ fallback(); }
+    });
+  });
+
+  // ---- TOC: open on desktop, closed on mobile ----
+  var details = document.getElementById('tocDetails');
+  var mq = window.matchMedia('(min-width: 901px)');
+  function syncToc(){ details.open = mq.matches; }
+  syncToc();
+  if(mq.addEventListener){ mq.addEventListener('change', syncToc); }
+  details.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ if(!mq.matches) details.open = false; });
+  });
+
+  // ---- scroll spy: TOC highlight + mobile "now" bar ----
+  var heads = Array.prototype.slice.call(document.querySelectorAll('main h2[id], main h3[id]'));
+  var links = {};
+  details.querySelectorAll('a[href^="#"]').forEach(function(a){ links[a.getAttribute('href').slice(1)] = a; });
+  var nowPos = document.getElementById('nowPos');
+  function label(h){
+    var no = h.querySelector('.no');
+    var t = h.textContent.replace(/\s+/g, ' ').trim();
+    if(no){ t = no.textContent.trim() + ' ' + t.slice(no.textContent.trim().length).trim(); }
+    return t;
+  }
+  var ticking = false;
+  function update(){
+    ticking = false;
+    var y = window.scrollY + 120, cur = null;
+    for(var i = 0; i < heads.length; i++){
+      if(heads[i].getBoundingClientRect().top + window.scrollY <= y) cur = heads[i]; else break;
+    }
+    Object.keys(links).forEach(function(k){ links[k].classList.remove('active'); });
+    if(!cur){ nowPos.textContent = '3つの習慣'; return; }
+    if(links[cur.id]) links[cur.id].classList.add('active');
+    var text = label(cur);
+    if(cur.tagName === 'H3'){
+      var h2 = cur.closest('section').querySelector('h2');
+      if(h2){
+        if(links[h2.id]) links[h2.id].classList.add('active');
+        text = label(h2) + ' ＞ ' + text;
+      }
+    }
+    nowPos.textContent = text;
+  }
+  window.addEventListener('scroll', function(){
+    if(!ticking){ ticking = true; requestAnimationFrame(update); }
+  }, {passive:true});
+  update();
+
+  // ---- "back to chapter list" button ----
+  var toTop = document.getElementById('toTop');
+  var cardsNav = document.querySelector('.cards');
+  function syncTop(){
+    var past = cardsNav.getBoundingClientRect().bottom < 0;
+    toTop.classList.toggle('show', past);
+  }
+  window.addEventListener('scroll', syncTop, {passive:true});
+  syncTop();
+})();
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  // Reading progress bar (user-driven, always on)
+  var bar = document.getElementById('readBar');
+  var ticking = false;
+  function prog(){
+    ticking = false;
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? Math.min(100, window.scrollY / max * 100) : 0) + '%';
+  }
+  window.addEventListener('scroll', function(){
+    if(!ticking){ ticking = true; requestAnimationFrame(prog); }
+  }, {passive:true});
+  prog();
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduced) return;
+  document.documentElement.classList.add('motion');
+
+  // ---- Scroll reveal (vanilla, progressive enhancement) ----
+  var targets = document.querySelectorAll('main h2, main h3, main figure, .cards li, .habits li');
+  targets.forEach(function(el){ el.classList.add('rv'); });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold: 0.1});
+  targets.forEach(function(el){ io.observe(el); });
+
+  // ---- Phone-mock badges: gentle sequential pulse while visible ----
+  document.querySelectorAll('figure').forEach(function(fig){
+    var badges = fig.querySelectorAll('.fbadge');
+    if(badges.length < 3) return;
+    var idx = 0, timer = null;
+    function step(){
+      badges.forEach(function(b){ b.classList.remove('pulse'); });
+      badges[idx % badges.length].classList.add('pulse');
+      idx++;
+    }
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting && !timer){ step(); timer = setInterval(step, 1100); }
+        if(!e.isIntersecting && timer){ clearInterval(timer); timer = null; badges.forEach(function(b){ b.classList.remove('pulse'); }); }
+      });
+    }, {threshold: 0.3});
+    io2.observe(fig);
+  });
+
+  // ---- Diagram animations with GSAP (enhancement; static if unavailable) ----
+  if(typeof window.gsap === 'undefined' || typeof window.ScrollTrigger === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  function diagramByLabel(part){
+    var all = document.querySelectorAll('.diagram');
+    for(var i = 0; i < all.length; i++){
+      if((all[i].getAttribute('aria-label') || '').indexOf(part) >= 0) return all[i];
+    }
+    return null;
+  }
+  function drawPaths(svg, paths){
+    paths.forEach(function(p){
+      var len = p.getTotalLength();
+      p.style.strokeDasharray = len;
+      p.style.strokeDashoffset = len;
+    });
+    gsap.to(paths, {
+      strokeDashoffset: 0, duration: 1.6, ease: 'power2.out', stagger: 0.25,
+      scrollTrigger: {trigger: svg, start: 'top 82%', once: true}
+    });
+  }
+
+  // Fig. branch diagram (4.1): connectors draw, side chats fade in one by one
+  var branch = diagramByLabel('枝分かれ');
+  if(branch){
+    var bsvg = branch.querySelector('svg');
+    var connectors = bsvg.querySelectorAll('path');
+    drawPaths(bsvg, Array.prototype.slice.call(connectors));
+    var boxes = bsvg.querySelectorAll('g rect, g text');
+    gsap.from(boxes, {
+      opacity: 0, x: 16, duration: 0.6, ease: 'power2.out', stagger: 0.12,
+      scrollTrigger: {trigger: bsvg, start: 'top 82%', once: true}
+    });
+  }
+
+  // Fig. slope diagram (5.1): the two curves draw themselves
+  var slope = diagramByLabel('緩やかに下がる');
+  if(slope){
+    var ssvg = slope.querySelector('svg');
+    var curves = ssvg.querySelectorAll('path');
+    drawPaths(ssvg, [curves[1], curves[2]]);
+  }
+
+  // Fig. memory layers (6.1): layers slide in
+  var mem = diagramByLabel('メモリーの2種類');
+  if(mem){
+    var msvg = mem.querySelector('svg');
+    gsap.from(msvg.querySelectorAll('rect, text'), {
+      opacity: 0, y: 10, duration: 0.7, ease: 'power2.out', stagger: 0.18,
+      scrollTrigger: {trigger: msvg, start: 'top 82%', once: true}
+    });
+  }
+
+  // Token wallets (5.3): bars fill to their marked width
+  var bars = document.querySelectorAll('.wallet .bar i');
+  if(bars.length){
+    bars.forEach(function(b){ b.dataset.w = b.style.width; b.style.width = '0%'; });
+    ScrollTrigger.create({
+      trigger: '.wallets', start: 'top 82%', once: true,
+      onEnter: function(){
+        bars.forEach(function(b, i){
+          gsap.to(b, {width: b.dataset.w, duration: 1.1, delay: i * 0.15, ease: 'power2.out'});
+        });
+      }
+    });
+  }
+})();
+</script>
+
+
+
+
+<script>
+/* ===== v3 mini stage engine (manual-motion) ===== */
+(function(){
+  if(!window.gsap) return;
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function Q(st,s){ return st.querySelector(s); }
+  function QA(st,s){ return Array.prototype.slice.call(st.querySelectorAll(s)); }
+  var REP = reduced ? 0 : -1, RD = 1.6;
+  var DEFS = {
+  "s21": function(st){ var tl=gsap.timeline({repeat:REP,repeatDelay:RD});
+    tl.fromTo(Q(st,".mbub.u"),{opacity:0,y:8},{opacity:1,y:0,duration:.45},0.3)
+      .to(Q(st,".a21"),{y:-7,duration:.24,yoyo:true,repeat:3,ease:"sine.inOut"},0.9)
+      .fromTo(Q(st,".mbub.m"),{opacity:0,y:8},{opacity:1,y:0,duration:.45},1.5)
+      .fromTo(Q(st,".mchip"),{scale:0,opacity:0},{scale:1,opacity:1,duration:.4,ease:"back.out(2.4)"},2.2)
+      .to({},{duration:1.6});
+    return tl; },
+  "s31": function(st){ var tl=gsap.timeline({repeat:REP,repeatDelay:RD});
+    var ring=Q(st,".mring"), spots=[{left:"6%",top:"4%"},{left:"40%",top:"34%"},{left:"40%",top:"80%"},{left:"76%",top:"4%"}];
+    tl.fromTo(ring,{left:spots[0].left,top:spots[0].top,opacity:0},{opacity:1,duration:.3},0.2);
+    spots.forEach(function(p,i){ tl.to(ring,{left:p.left,top:p.top,duration:.55,ease:"power2.inOut"},0.5+i*1.05)
+      .fromTo(Q(st,".l"+(i+1)),{scale:0,opacity:0},{scale:1,opacity:1,duration:.35,ease:"back.out(2.2)"},0.75+i*1.05); });
+    tl.to({},{duration:1.4});
+    return tl; },
+  "s51": function(st){ var tl=gsap.timeline({repeat:REP,repeatDelay:RD});
+    tl.fromTo(QA(st,".r51 .mbub"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.35,stagger:.5,ease:"back.out(2)"},0.3)
+      .fromTo(Q(st,".g51 i"),{width:"100%"},{width:"26%",duration:2.0,ease:"power1.inOut"},0.3)
+      .to(Q(st,".a51"),{rotate:5,duration:.18,yoyo:true,repeat:5,ease:"sine.inOut"},2.5)
+      .fromTo(Q(st,".a51"),{left:"9%"},{left:"71%",duration:1.2,ease:"power1.inOut"},3.4)
+      .to(Q(st,".g51 i"),{width:"100%",duration:.8,ease:"power2.out"},4.0)
+      .fromTo(Q(st,".r51b"),{boxShadow:"0 5px 12px rgba(60,50,20,.12)"},{boxShadow:"0 0 0 5px rgba(46,158,91,.45)",duration:.45,yoyo:true,repeat:1},4.5)
+      .to({},{duration:1.2});
+    return tl; },
+  "s61": function(st){ var tl=gsap.timeline({repeat:REP,repeatDelay:RD});
+    tl.fromTo(Q(st,".l61a"),{opacity:0,y:-14},{opacity:1,y:0,duration:.5,ease:"back.out(1.6)"},0.3)
+      .fromTo(Q(st,".l61b"),{opacity:0,y:14},{opacity:1,y:0,duration:.5,ease:"back.out(1.6)"},1.0)
+      .fromTo(QA(st,".mfile"),{scale:0,opacity:0},{scale:1,opacity:1,duration:.35,stagger:.35,ease:"back.out(2.2)"},1.7)
+      .to(Q(st,".a61"),{y:-7,duration:.24,yoyo:true,repeat:3,ease:"sine.inOut"},3.0)
+      .to({},{duration:1.4});
+    return tl; }
+  };
+  var io = ("IntersectionObserver" in window) ? new IntersectionObserver(function(es){
+    es.forEach(function(e){ var st=e.target; if(!st._tl || reduced) return;
+      if(e.isIntersecting) st._tl.play(); else st._tl.pause(); });
+  },{threshold:.35}) : null;
+  document.querySelectorAll(".mstage").forEach(function(st){
+    var def = DEFS[st.getAttribute("data-ms")]; if(!def) return;
+    var tl = def(st); tl.pause(0); st._tl = tl;
+    if(reduced){ tl.progress(1); return; }
+    if(io) io.observe(st); else tl.play();
+  });
+})();
+</script>
+
+
+<script>
+/* ===== v4 explainer engine (manual-motion): 5.1 ===== */
+(function(){
+  if(!window.gsap) return;
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var st = document.querySelector('[data-xs="s51x"]'); if(!st) return;
+  function Q(s){ return st.querySelector(s); }
+  function QA(s){ return Array.prototype.slice.call(st.querySelectorAll(s)); }
+  var tel = Q(".xtelop");
+  function setTel(t){ tel.textContent = t; }
+  var tl = gsap.timeline({repeat: reduced ? 0 : -1, repeatDelay: 3});
+  /* S1 intro */
+  tl.call(setTel,["1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます"],0)
+    .fromTo(QA(".xchat .b1, .xchat .b2"),{opacity:0,y:8},{opacity:1,y:0,duration:.45,stagger:.7},0.4)
+    .fromTo(Q(".xactor"),{opacity:0,x:-24},{opacity:1,x:0,duration:.5},0.4)
+  /* S2 context */
+    .call(setTel,["返信に使う情報全体が『コンテキスト』。Museは返信のたびに、これを最初から読み直します"],6)
+    .fromTo(Q(".xctx"),{opacity:0},{opacity:1,duration:.4},6.2)
+    .fromTo(QA(".xstack .pp1, .xstack .pp2, .xstack .pp3"),{opacity:0,y:12},{opacity:1,y:0,duration:.4,stagger:.35},6.4)
+    .fromTo(Q(".xmem"),{opacity:0,scale:.7},{opacity:1,scale:1,duration:.4,ease:"back.out(2)"},7.6)
+    .to(Q(".xstack"),{y:-4,duration:.3,yoyo:true,repeat:3,ease:"sine.inOut"},8.4)
+    .to(Q(".xmeter i"),{width:"34%",duration:1.2,ease:"power1.inOut"},8.4)
+  /* S3 tokens */
+    .call(setTel,["コンテキストが長くなるほど、1回の返信ごとのトークン消費が増えます。長い資料を渡したときも同じです"],14)
+    .fromTo(QA(".xchat .b3, .xchat .b4, .xchat .b5, .xchat .b6"),{opacity:0,y:8},{opacity:1,y:0,duration:.4,stagger:.55},14.3)
+    .to(Q(".xmeter i"),{width:"72%",duration:2.2,ease:"power1.inOut"},14.5)
+    .fromTo(Q(".xdoc"),{opacity:0,y:-16},{opacity:1,y:0,duration:.5,ease:"back.out(1.8)"},18.6)
+    .to(Q(".xmeter i"),{width:"92%",duration:.7,ease:"power2.out"},19.2)
+  /* S4 quality */
+    .call(setTel,["大事な指示が記録に埋もれて、応答の質は少しずつ下がります。崖ではなく、緩やかな坂です"],22)
+    .fromTo(Q(".xinst"),{opacity:0,scale:.7},{opacity:1,scale:1,duration:.4,ease:"back.out(2)"},22.3)
+    .fromTo(QA(".xstack .pp4, .xstack .pp5, .xstack .pp6, .xstack .pp7, .xstack .pp8"),{opacity:0,y:12},{opacity:1,y:0,duration:.4,stagger:.5},23.2)
+    .to(Q(".xline"),{strokeDashoffset:0,duration:2.6,ease:"power1.inOut"},23.4)
+  /* S5 signs */
+    .call(setTel,["回数の目安はありません。こんな様子が見えたら、新しいチャットへ移る時期です"],30)
+    .fromTo(Q(".xsigns"),{opacity:0,x:26},{opacity:1,x:0,duration:.5},30.3)
+    .fromTo(QA(".xsign"),{opacity:.25},{opacity:1,duration:.4,stagger:.9},31.0)
+    .to(Q(".xactor"),{rotate:5,duration:.18,yoyo:true,repeat:5,ease:"sine.inOut"},31.4)
+  /* S6 move */
+    .call(setTel,["故障ではなく仕組みどおりの動きです。新しいチャットでは元に戻ります"],38)
+    .to(Q(".xsigns"),{opacity:0,x:26,duration:.45},38.2)
+    .fromTo(Q(".xroom2"),{opacity:0},{opacity:1,duration:.5},38.6)
+    .to(Q(".xactor"),{left:"72%",duration:1.6,ease:"power1.inOut"},39.2)
+    .to(QA(".xstack .pp4, .xstack .pp5, .xstack .pp6, .xstack .pp7, .xstack .pp8"),{opacity:0,duration:.5},40.2)
+    .to(Q(".xmeter i"),{width:"14%",duration:.9,ease:"power2.out"},40.4)
+    .to(Q(".xline"),{strokeDashoffset:100,duration:.9,ease:"power2.out"},40.4)
+    .fromTo(QA(".xspark"),{scale:0,opacity:0},{scale:1,opacity:1,duration:.4,stagger:.25,ease:"back.out(2.4)"},41.2)
+    .call(setTel,["新しいチャットでも起きるときは、メモリーが原因かもしれません（6.3）"],44)
+    .to({},{duration:3.2});
+  tl.pause(0); st._tl = tl;
+  if(reduced){ tl.progress(1); setTel("故障ではなく仕組みどおりの動きです。新しいチャットでは元に戻ります"); return; }
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) tl.play(); else tl.pause(); }); },{threshold:.3}).observe(st);
+  } else tl.play();
+})();
+</script>
+
+</body>
+</html>
