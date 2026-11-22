@@ -312,7 +312,7 @@
 @media print{.ms-screen *{visibility:visible!important}}
 
 
-/* ===== v5 fullscreen explainer unit (manual-motion): 5.1 — telop-in-layout layout (v5.2 fix) ===== */
+/* ===== v5 fullscreen explainer unit (manual-motion): 5.1 — telop-in-layout + scene auto-fit (v5.3 fix) ===== */
 /* Design: scenes are grouped (.fs-scene). Only the active scene is visible
    (visibility toggle, no crossfade ghosts). Inside a scene everything is in
    normal flex flow, max-width:100%, wrapping text — nothing can stick out
@@ -322,7 +322,14 @@
    telop shrinks the scene area instead of covering the scene. The telop
    text runs at (nearly) full width; the fixed "back to chapters" button
    (bottom:1rem, ~44px tall, i.e. it occupies the bottom ~62px) is kept off
-   the text by a ~68px blank band INSIDE the telop block's bottom padding. */
+   the text by a ~68px blank band INSIDE the telop block's bottom padding.
+   Auto-fit (v5.3): each scene's content lives in a .fs-fit wrapper. The JS
+   engine measures the wrapper's final-state layout size against the scene
+   area and, when it would overflow (e.g. a device rendering fonts larger
+   than expected), scales the wrapper down with transform:scale so the
+   whole scene is always fully visible instead of being clipped by
+   overflow:hidden. If the needed scale drops under .92 the scene first
+   gets a .tight class (smaller paddings/gaps) and is re-measured. */
 .fsstage{margin:2px 0 6px}
 @media(min-width:861px){.fsstage{width:calc(100% + 5rem);margin-left:-2.5rem}}
 @media(max-width:860px){.fsstage{width:calc(100% + 2.2rem);margin-left:-1.1rem}}
@@ -331,11 +338,16 @@
 .fs-scenes{position:relative;flex:1 1 auto;min-height:0;overflow:hidden;background:linear-gradient(180deg,#eafaf1 0%,#fdfdf8 76%,#e7dcc8 76.2%,#e7dcc8 100%)}
 .fs-screen *, .fs-screen *::before, .fs-screen *::after{box-sizing:border-box}
 .fs-tag{position:absolute;top:12px;left:12px;z-index:9;background:var(--accent);color:#fff;font-weight:800;font-size:14px;border-radius:999px;padding:4px 14px}
-.fs-scene{position:absolute;inset:0;padding:46px 16px 20px;display:flex;flex-direction:column;align-items:center;gap:12px;visibility:hidden;opacity:0;pointer-events:none;overflow:hidden}
+.fs-scene{position:absolute;inset:0;padding:0;display:block;visibility:hidden;opacity:0;pointer-events:none;overflow:hidden}
 .fs-scene.on{visibility:visible;opacity:1}
-.fs-scene > *{max-width:100%}
+.fs-fit{display:flex;flex-direction:column;align-items:center;gap:12px;padding:46px 16px 20px;width:100%;transform-origin:top center}
+.fs-fit > *{max-width:100%}
+.fs-scene.tight .fs-fit{gap:7px;padding:38px 14px 10px}
+.fs-scene.tight .fs-bub{margin-bottom:6px}
+.fs-scene.tight .fs-ctxbox{gap:6px}
+.fs-scene.tight .fs-actor{width:clamp(60px,21vw,88px)}
 .fs-row{display:flex;gap:10px;width:100%;max-width:440px;align-items:flex-start}
-.fs-title{font-weight:900;color:var(--accent-d);font-size:clamp(21px,6vw,40px);text-align:center;line-height:1.4;width:100%}
+.fs-title{font-weight:900;color:var(--accent-d);font-size:clamp(21px,min(6vw,5.4svh),40px);text-align:center;line-height:1.4;width:100%}
 .fs-chat{flex:1 1 auto;min-width:0;background:#fff;border:2.5px solid var(--line);border-radius:16px;box-shadow:0 6px 16px rgba(60,50,20,.13);padding:12px}
 .fs-bub{border-radius:12px;padding:.45em .8em;font-size:clamp(13px,3.6vw,19px);font-weight:700;margin-bottom:10px;line-height:1.45;overflow-wrap:break-word}
 .fs-bub:last-child{margin-bottom:0}
@@ -368,7 +380,7 @@
 .fs-meterrow{display:flex;gap:8px;margin-top:12px}
 .fs-doc{flex:1 1 0;min-width:0;background:#fff;border:3px solid #8aa79a;border-radius:12px;font-weight:900;color:var(--ink);font-size:clamp(12px,3.5vw,20px);padding:.7em .35em;text-align:center;box-shadow:0 5px 12px rgba(60,50,20,.14);line-height:1.5;overflow-wrap:break-word}
 .fs-slope{width:100%;max-width:440px;height:auto}
-.fs-bigq{font-weight:900;color:var(--accent-d);font-size:clamp(19px,5.6vw,36px);text-align:center;line-height:1.55;width:100%;overflow-wrap:break-word}
+.fs-bigq{font-weight:900;color:var(--accent-d);font-size:clamp(19px,min(5.6vw,5svh),36px);text-align:center;line-height:1.55;width:100%;overflow-wrap:break-word}
 .fs-signs{width:100%;max-width:440px;background:#fff;border:3px solid var(--accent);border-radius:16px;box-shadow:0 7px 16px rgba(60,50,20,.14);padding:14px}
 .fs-signs h5{margin:0 0 .35em;font-size:clamp(16px,4.6vw,25px);color:var(--accent-d)}
 .fs-sign{font-size:clamp(13px,3.8vw,21px);font-weight:700;color:var(--ink);padding:.45em 0;border-top:1.5px solid var(--line);line-height:1.55;overflow-wrap:break-word}
@@ -380,14 +392,15 @@
 .fs-spark{color:#e5a83c;font-weight:900;font-size:clamp(22px,6vw,38px);line-height:1}
 .fs-telop{flex:0 0 auto;background:rgba(18,38,28,.95);color:#fff;font-weight:800;font-size:clamp(16px,2.2vw,24px);line-height:1.5;padding:.7em 1em;overflow-wrap:break-word}
 @media(max-width:900px){
-  .fs-scene{padding:44px 14px 12px;gap:8px}
+  .fs-fit{padding:44px 14px 12px;gap:8px}
+  .fs-scene.tight .fs-fit{padding:36px 12px 8px;gap:6px}
   .fs-telop{font-size:15px;line-height:1.45;padding:12px 14px 78px}
   .fs-actor{width:clamp(72px,26vw,104px)}
   .fss8 .fs-actor{width:clamp(64px,22vw,96px)}
   .fs-bub{margin-bottom:8px}
   .fs-ctxbox{gap:8px}
 }
-@media print{.fs-screen{height:auto;min-height:0}.fs-scenes{overflow:visible}.fs-scene{position:static;visibility:hidden;display:none}.fs-scene.fss8{visibility:visible;display:flex}}
+@media print{.fs-screen{height:auto;min-height:0}.fs-scenes{overflow:visible}.fs-scene{position:static;visibility:hidden;display:none}.fs-scene.fss8{visibility:visible;display:block}.fs-fit{transform:none!important}}
 
 </style>
 </head>
@@ -885,7 +898,7 @@
 <div class="fsstage" id="fs-s51" data-fs="s51v5"><div class="fs-screen">
   <div class="fs-scenes">
   <span class="fs-tag">5.1</span>
-  <div class="fs-scene fss1 on">
+  <div class="fs-scene fss1 on"><div class="fs-fit">
     <div class="fs-title t1">1つのチャットが長くなると…</div>
     <div class="fs-row">
       <div class="fs-chat">
@@ -898,8 +911,8 @@
       </div>
       <div class="mactor fs-actor"></div>
     </div>
-  </div>
-  <div class="fs-scene fss2">
+  </div></div>
+  <div class="fs-scene fss2"><div class="fs-fit">
     <div class="fs-ctxbox">
       <span class="fs-ctxlab">コンテキスト＝参照する情報全体</span>
       <span class="fs-reread">↻ 返信のたびに最初から読み直す</span>
@@ -910,15 +923,15 @@
       </div>
       <span class="fs-mem">＋ メモリーファイル<small>MEMORY.md など（6.1）</small></span>
     </div>
-  </div>
-  <div class="fs-scene fss3">
+  </div></div>
+  <div class="fs-scene fss3"><div class="fs-fit">
     <div class="fs-tokrow">
       <span class="fs-chip c1">トークン</span><span class="fs-chip c2">＝ AIが文章を処理する</span><span class="fs-chip c3">最小単位</span>
     </div>
     <div class="fs-formula f1">AIの利用量は <b>トークン数</b> で計算されます</div>
     <div class="fs-formula f2">1回の返信で数えられるのは<br><b>読み直したコンテキスト全体</b> ＋ <b>返信そのもの</b> の両方</div>
-  </div>
-  <div class="fs-scene fss4">
+  </div></div>
+  <div class="fs-scene fss4"><div class="fs-fit">
     <div class="fs-pc">
       <div class="fs-bub m">パソコン版では、返信の下に使用量が出ます</div>
       <div class="fs-usage"><span class="in">220.4k in</span> / <span class="out">765 out</span></div>
@@ -927,8 +940,8 @@
         <div class="fs-note o n2"><b>out</b>＝返信そのものの長さ<br>765トークン</div>
       </div>
     </div>
-  </div>
-  <div class="fs-scene fss5">
+  </div></div>
+  <div class="fs-scene fss5"><div class="fs-fit">
     <div class="fs-meterwrap">
       <div class="fs-meterlab">トークン消費（1回の返信ごと）</div>
       <div class="fs-meter"><i></i></div>
@@ -937,8 +950,8 @@
         <div class="fs-doc d2">✍ 長い返信を求める → 増える</div>
       </div>
     </div>
-  </div>
-  <div class="fs-scene fss6a">
+  </div></div>
+  <div class="fs-scene fss6a"><div class="fs-fit">
     <div class="fs-ctxbox">
       <span class="fs-ctxlab">コンテキスト＝参照する情報全体</span>
       <div class="fs-stack">
@@ -948,8 +961,8 @@
         <div class="fs-paper pp6" style="bottom:129px">記録 ⑥</div>
       </div>
     </div>
-  </div>
-  <div class="fs-scene fss6b">
+  </div></div>
+  <div class="fs-scene fss6b"><div class="fs-fit">
     <svg class="fs-slope" viewBox="0 0 400 190" aria-hidden="true">
       <line x1="16" y1="10" x2="16" y2="168" stroke="#b9cdc0" stroke-width="3"/>
       <line x1="16" y1="168" x2="392" y2="168" stroke="#b9cdc0" stroke-width="3"/>
@@ -958,8 +971,8 @@
       <text x="150" y="188" font-size="16" font-weight="800" fill="#7a5c14">崖ではなく、緩やかな坂</text>
       <text x="172" y="40" font-size="14" font-weight="800" fill="#55606e">短いチャット → 長いチャット</text>
     </svg>
-  </div>
-  <div class="fs-scene fss7">
+  </div></div>
+  <div class="fs-scene fss7"><div class="fs-fit">
     <div class="fs-bigq">何回のやりとりで下がる？<br>→ 目安はありません</div>
     <div class="fs-signs">
       <h5>移りどきのサイン</h5>
@@ -967,8 +980,8 @@
       <div class="fs-sign g2"><b>✓</b> 間違いが多くなってきた</div>
       <div class="fs-sign g3"><b>✓</b> 前に伝えた指示や条件が守られない</div>
     </div>
-  </div>
-  <div class="fs-scene fss8">
+  </div></div>
+  <div class="fs-scene fss8"><div class="fs-fit">
     <div class="fs-row">
       <div class="fs-room2"><span>新しい会話</span></div>
       <div class="fs-memcause">新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）</div>
@@ -982,7 +995,7 @@
       <div class="mactor fs-actor"></div>
       <span class="fs-spark sp2">✦</span>
     </div>
-  </div>
+  </div></div>
   </div>
   <div class="fs-telop">1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます。理由は、返信を作る仕組みにあります</div>
 </div></div>
@@ -1625,12 +1638,45 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
   function Q(s){ return st.querySelector(s); }
   function QA(s){ return Array.prototype.slice.call(st.querySelectorAll(s)); }
   var tel = Q(".fs-telop");
-  function setTel(t){ tel.textContent = t; }
+  function setTel(t){ tel.textContent = t; scheduleFit(); }
+  /* Auto-fit (v5.3): measure each scene's .fs-fit wrapper at its final-state
+     layout size (transforms never affect offsetWidth/offsetHeight, so the
+     measurement is the settled size even while entrance animations run) and
+     scale the wrapper down to the scene area when it would overflow — e.g.
+     on devices that render fonts larger than expected. If the needed scale
+     drops below .92, the scene first gets a .tight class (smaller paddings
+     and gaps) and is re-measured, so the scale stays as large as possible. */
+  function fitScene(sc){
+    var fit = sc.querySelector(".fs-fit"); if(!fit) return 1;
+    function ratio(){
+      var aw = sc.clientWidth, ah = sc.clientHeight;
+      var cw = fit.offsetWidth, ch = fit.offsetHeight;
+      if(!aw || !ah || !cw || !ch) return 1;
+      return Math.min(1, ah / ch, aw / cw);
+    }
+    fit.style.transform = "";
+    sc.classList.remove("tight");
+    var s = ratio();
+    if(s < 0.92){ sc.classList.add("tight"); s = ratio(); }
+    fit.style.transform = s < 1 ? "scale(" + s.toFixed(4) + ")" : "";
+    sc.setAttribute("data-fitscale", s.toFixed(3));
+    return s;
+  }
+  function fitAll(){ QA(".fs-scene").forEach(fitScene); }
+  var fitQueued = false;
+  function scheduleFit(){
+    if(fitQueued) return; fitQueued = true;
+    requestAnimationFrame(function(){ fitQueued = false; fitAll(); });
+  }
+  window.addEventListener("resize", scheduleFit);
+  window.addEventListener("orientationchange", scheduleFit);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleFit);
   /* Scenes are switched discretely: only one .fs-scene has .on (visibility:visible).
      Non-active scenes are visibility:hidden, so a paused timeline can never
      leave a translucent ghost of another scene on screen. */
   function show(id){
     QA(".fs-scene").forEach(function(sc){ sc.classList.toggle("on", sc.classList.contains(id)); });
+    scheduleFit();
   }
   var tl = gsap.timeline({repeat: reduced ? 0 : -1, repeatDelay: 3});
   /* S1 intro (a) */
@@ -1694,7 +1740,8 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
     .fromTo(Q(".fss8 .fs-memcause"),{opacity:0,y:16},{opacity:1,y:0,duration:.6},68.2)
     .to({},{duration:3.4});
   tl.pause(0); st._tl = tl;
-  if(reduced){ tl.progress(1); show("fss8"); gsap.set(QA(".fss8 *"),{opacity:1}); setTel("新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）"); return; }
+  fitAll();
+  if(reduced){ tl.progress(1); show("fss8"); gsap.set(QA(".fss8 *"),{opacity:1}); setTel("新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）"); fitAll(); return; }
   if("IntersectionObserver" in window){
     new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) tl.play(); else tl.pause(); }); },{threshold:.25}).observe(st);
   } else tl.play();
