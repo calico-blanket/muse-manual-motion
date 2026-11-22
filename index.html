@@ -355,13 +355,13 @@
    --fs-durfactor. Keep in sync with FS_DURATION_SCALE in the JS engine
    below (the same number, defined there as the single source for the
    timeline; 2 = every duration 2x longer, loop about 200s). */
-#fs-s51{--fs-durfactor:2}
+.fsstage{--fs-durfactor:2}
 .fsstage{margin:2px 0 6px}
 @media(min-width:861px){.fsstage{width:calc(100% + 5rem);margin-left:-2.5rem}}
 @media(max-width:860px){.fsstage{width:calc(100% + 2.2rem);margin-left:-1.1rem}}
 #ch5-1{scroll-margin-top:0}
 .fsunit{display:flex;flex-direction:column;height:100vh;height:100svh;height:100dvh}
-.fsunit #ch5-1{flex:0 0 auto;margin:.8rem 0 .55rem}
+.fsunit > h3{flex:0 0 auto;margin:.8rem 0 .55rem}
 .fsunit .fsstage{flex:1 1 auto;min-height:0;display:flex;margin-top:0;margin-bottom:0}
 .fs-screen{position:relative;flex:1 1 auto;min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column;background:#fdfdf8;border-top:2.5px solid var(--line);border-bottom:2.5px solid var(--line);box-shadow:0 6px 18px rgba(60,50,20,.10)}
 .fs-scenes{position:relative;flex:1 1 auto;min-height:0;overflow:hidden;background:linear-gradient(180deg,#eafaf1 0%,#fdfdf8 76%,#e7dcc8 76.2%,#e7dcc8 100%)}
@@ -380,11 +380,11 @@
 .fs-bub:last-child{margin-bottom:0}
 .fs-bub.u{background:var(--accent);color:#fff;margin-left:12%}
 .fs-bub.m{background:#eef3f0;color:var(--ink);margin-right:12%}
-#fs-s51.fs-live .fss1 .fs-bub{display:none}
-#fs-s51.fs-live .fss1 .fs-bub.shown{display:block;animation:fsBubIn calc(.5s * var(--fs-durfactor,1)) ease both}
+.fsstage.fs-live .bubseq .fs-bub{display:none}
+.fsstage.fs-live .bubseq .fs-bub.shown{display:block;animation:fsBubIn calc(.5s * var(--fs-durfactor,1)) ease both}
 @keyframes fsBubIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion: reduce){#fs-s51.fs-live .fss1 .fs-bub.shown{animation:none}}
-#fs-s51.fs-measuring .fss1 .fs-bub{display:block!important;animation:none!important}
+@media (prefers-reduced-motion: reduce){.fsstage.fs-live .bubseq .fs-bub.shown{animation:none}}
+.fsstage.fs-measuring .bubseq .fs-bub{display:block!important;animation:none!important}
 .fs-actor{flex:0 0 auto;width:clamp(64px,20vw,92px);max-width:38vw;position:relative}
 .fss8 .fs-actor{width:clamp(56px,19vw,84px)}
 .fs-ctxbox{width:100%;max-width:min(94%,600px);border:3px dashed var(--accent);border-radius:16px;background:rgba(255,255,255,.55);padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px}
@@ -431,7 +431,12 @@
   .fs-bub.u{margin-left:8%}
   .fs-bub.m{margin-right:0}
 }
-@media print{.fsunit{height:auto;display:block}.fsunit .fsstage{display:block}.fs-screen{height:auto;min-height:0}.fs-scenes{overflow:visible}.fs-scene{position:static;visibility:hidden;display:none}.fs-scene.fss8{visibility:visible;display:flex}.fs-fit{transform:none!important}}
+.fs-cards{display:flex;gap:8px;width:100%;max-width:min(94%,600px)}
+.fs-fit > .fs-chat{width:100%;max-width:min(94%,600px)}
+.fs-cards .fs-doc{flex:1 1 0}
+.fs-arrow{align-self:center;flex:0 0 auto;font-weight:900;color:var(--accent-d);font-size:clamp(18px,5.4vw,28px);line-height:1}
+.fs-chip.gold{border-color:#c8a24a;color:#7a5c14;background:#fdf6e0}
+@media print{.fsunit{height:auto;display:block}.fsunit .fsstage{display:block}.fs-screen{height:auto;min-height:0}.fs-scenes{overflow:visible}.fs-scene{position:static;visibility:hidden;display:none}.fs-scene.fs-final{visibility:visible;display:flex}.fs-fit{transform:none!important}}
 
 </style>
 </head>
@@ -553,20 +558,126 @@
 
 
 
+      <div class="fsunit">
       <h3 id="ch1-1"><span class="no">1.1</span>Museとは</h3>
-      <p>Museは、Metaが提供するAIエージェントです。AIエージェントとは、指示を受けて自分で手順を考え、調査や文章作成、Webページの制作といった作業を実行まで行うAIのことです。</p>
-      <p>最大の特徴は、あなたの好みや決定事項、進行中の作業を記録し、別のチャットでも参照できることです。この記録を「メモリー」と呼びます（<a href="#ch6">第6章</a>）。</p>
+<div class="fsstage" id="fs-s11" data-fs="s11"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene fsa1 on"><div class="fs-pillrow"><span class="fs-tag">1.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">Muse ＝ AIエージェント</div>
+    <div class="fs-tokrow">
+      <span class="fs-chip c1">Metaが提供</span><span class="fs-chip gold c2">自分で考えて、実行まで行う</span>
+    </div>
+    <div class="fs-actorrow">
+      <span class="fs-spark sp1">✦</span>
+      <div class="mactor fs-actor"></div>
+      <span class="fs-spark sp2">✦</span>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsa2"><div class="fs-pillrow"><span class="fs-tag">1.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">指示を受けると…</div>
+    <div class="fs-chat">
+      <div class="fs-bub u">旅行について調べて、まとめて</div>
+      <div class="fs-bub m">手順を考えて進めます</div>
+    </div>
+    <div class="fs-tokrow steps">
+      <span class="fs-chip s1">手順を考える</span><span class="fs-arrow">→</span><span class="fs-chip s2">調べる</span><span class="fs-arrow">→</span><span class="fs-chip s3">まとめる</span><span class="fs-arrow">→</span><span class="fs-chip s4">実行する</span>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsa3"><div class="fs-pillrow"><span class="fs-tag">1.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">たとえば、こんな作業</div>
+    <div class="fs-cards">
+      <div class="fs-doc d1">🔍 調査</div>
+      <div class="fs-doc d2">✍️ 文章作成</div>
+      <div class="fs-doc d3">🌐 Webページの制作</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsa4 fs-final"><div class="fs-pillrow"><span class="fs-tag">1.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>★ 最大の特徴：記録すること</h5>
+      <div class="fs-sign g1"><b>✓</b> あなたの好み</div>
+      <div class="fs-sign g2"><b>✓</b> 決定事項</div>
+      <div class="fs-sign g3"><b>✓</b> 進行中の作業</div>
+    </div>
+    <div class="fs-formula f1">別のチャットでも参照できます</div>
+    <div class="fs-tokrow"><span class="fs-chip gold mem">この記録 ＝ メモリー（第6章）</span></div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">Museは、Metaが提供するAIエージェントです</div>
+</div></div>
+      </div>
 
+      <div class="fsunit">
       <h3 id="ch1-2"><span class="no">1.2</span>できること</h3>
-      <p>主に、次のような作業を任せられます。</p>
-      <ul>
-        <li>調査、要約、情報の整理</li>
-        <li>文章の作成と編集</li>
-        <li>予定の管理、買い物の相談、各種手続きの代行</li>
-        <li>動画、Webページ、小さなアプリの作成</li>
-        <li>ファイルの作成と管理</li>
-      </ul>
-      <p>送信、購入、削除など、取り消しにくい操作は、実行前にあなたの確認を求められます（<a href="#ch2">第2章</a>）。</p>
+<div class="fsstage" id="fs-s12" data-fs="s12"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene fsb1 on"><div class="fs-pillrow"><span class="fs-tag">1.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">いろいろな作業を任せられます</div>
+    <div class="fs-tokrow">
+      <span class="fs-chip c1">調べる</span><span class="fs-chip c2">書く</span><span class="fs-chip c3">作る</span><span class="fs-chip c4">管理する</span>
+    </div>
+    <div class="fs-actorrow">
+      <span class="fs-spark sp1">✦</span>
+      <div class="mactor fs-actor"></div>
+      <span class="fs-spark sp2">✦</span>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsb2"><div class="fs-pillrow"><span class="fs-tag">1.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">調査・要約・整理</div>
+    <div class="fs-cards">
+      <div class="fs-doc d1">🔍 調査</div>
+      <div class="fs-doc d2">📝 要約</div>
+      <div class="fs-doc d3">🗂️ 情報の整理</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsb3"><div class="fs-pillrow"><span class="fs-tag">1.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">文章の作成と編集</div>
+    <div class="fs-signs">
+      <h5>文章の仕事</h5>
+      <div class="fs-sign g1">✍️ 新しく書く（作成）</div>
+      <div class="fs-sign g2">🔧 直す・整える（編集）</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsb4"><div class="fs-pillrow"><span class="fs-tag">1.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">毎日のサポート</div>
+    <div class="fs-cards">
+      <div class="fs-doc d1">📅 予定の管理</div>
+      <div class="fs-doc d2">🛒 買い物の相談</div>
+      <div class="fs-doc d3">📋 各種手続きの代行</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsb5"><div class="fs-pillrow"><span class="fs-tag">1.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">作る仕事</div>
+    <div class="fs-cards">
+      <div class="fs-doc d1">🎬 動画</div>
+      <div class="fs-doc d2">🌐 Webページ</div>
+      <div class="fs-doc d3">📱 小さなアプリ</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsb6"><div class="fs-pillrow"><span class="fs-tag">1.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-ctxbox">
+      <span class="fs-ctxlab">ファイルの仕事</span>
+      <div class="fs-stack st3">
+        <div class="fs-paper pp1" style="bottom:0">ファイル ①</div>
+        <div class="fs-paper pp2" style="bottom:43px">ファイル ②</div>
+        <div class="fs-paper pp3" style="bottom:86px">ファイル ③</div>
+      </div>
+      <span class="fs-mem">作成と管理</span>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsb7 fs-final"><div class="fs-pillrow"><span class="fs-tag">1.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">取り消しにくい操作は…</div>
+    <div class="fs-signs">
+      <h5>実行前に確認が入ります</h5>
+      <div class="fs-sign g1"><b>✓</b> 送信</div>
+      <div class="fs-sign g2"><b>✓</b> 購入</div>
+      <div class="fs-sign g3"><b>✓</b> 削除</div>
+    </div>
+    <div class="fs-formula f1">実行前に、あなたの確認を求められます（第2章）</div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">Museには、主に次のような作業を任せられます</div>
+</div></div>
+      </div>
 
     </section>
 
@@ -932,7 +1043,7 @@
   <div class="fs-scene fss1 on"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
     <div class="fs-title t1">1つのチャットが長くなると…</div>
     <div class="fs-row">
-      <div class="fs-chat">
+      <div class="fs-chat bubseq">
         <div class="fs-bub u b1">旅行の計画を立てて</div>
         <div class="fs-bub m b2">いいですね、考えます</div>
         <div class="fs-bub u b3">日程も決めて</div>
@@ -1012,7 +1123,7 @@
       <div class="fs-sign g3"><b>✓</b> 前に伝えた指示や条件が守られない</div>
     </div>
   </div></div></div>
-  <div class="fs-scene fss8"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
+  <div class="fs-scene fss8 fs-final"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
     <div class="fs-row">
       <div class="fs-room2"><span>新しい会話</span></div>
       <div class="fs-memcause">新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）</div>
@@ -1662,45 +1773,107 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
 
 
 <script>
-/* ===== v6 fullscreen explainer engine (manual-motion): 5.1 — scene-group switching + unified fit ===== */
+/* ===== v7 fullscreen explainer engine (manual-motion): generalized —
+   one shared engine, registered per-section units. Each unit is a
+   .fsstage element: its scenes (.fs-scene) are switched discretely
+   (visibility toggle, no crossfade ghosts), its telop (.fs-telop) is a
+   normal-flow block pinned to the height of its tallest text so the
+   scene area stays constant, and ONE unified scale per unit is computed
+   from every scene's final-state size and applied to every .fs-fit
+   wrapper (capped at 1.3; the telop is never scaled), so the font size
+   never jumps between scenes of the same unit. Units play only while
+   on screen (IntersectionObserver). Playback pace is shared:
+   FS_DURATION_SCALE stretches every timeline via timeScale; keep the
+   matching --fs-durfactor in the stylesheet (CSS entrance animations)
+   at the same value. With prefers-reduced-motion, each unit shows its
+   final scene statically. To animate another section, add its stage
+   markup and register one more createUnit call below. */
 (function(){
   if(!window.gsap) return;
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var st = document.querySelector('[data-fs="s51v5"]'); if(!st) return;
-  st.classList.add("fs-live");
-  function Q(s){ return st.querySelector(s); }
-  function QA(s){ return Array.prototype.slice.call(st.querySelectorAll(s)); }
-  var tel = Q(".fs-telop");
-  /* S1 chat bubbles enter through a display toggle (.shown), not an
-     opacity fade, so the chat card grows with its content instead of
-     reserving the final height from the start. */
-  var bubs = QA(".fss1 .fs-bub");
-  function resetBubs(){ bubs.forEach(function(b){ b.classList.remove("shown"); }); }
-  function showBub(i){ if(bubs[i]) bubs[i].classList.add("shown"); }
-  function setTel(t){ tel.textContent = t; scheduleFit(); }
-  /* Unified fit (v6): ONE scale for all nine scenes, so the font size never
-     jumps when the scene changes. The telop is first pinned to the height
-     of its tallest text (TELOP_TEXTS lists every text the timeline sets),
-     which makes the scene area constant at its tightest; then every
-     scene's .fs-fit wrapper is measured at its final-state layout size
-     (transforms never affect offsetWidth/offsetHeight, so the measurement
-     is the settled size even while entrance animations run) and a single
-     scale s = min over all scenes of (area height / content height,
-     area width / widest child width) is applied to every wrapper. s may
-     grow up to SCALE_MAX when there is room, and shrinks as far as needed
-     so nothing is ever clipped — e.g. on devices that render fonts larger
-     than expected. The telop itself is never scaled. The scale is NOT
-     recomputed on scene switches (it is unified); it is recomputed on
-     resize / orientation change, when webfonts finish loading, and when a
-     telop change alters the scene area.
-     v6.1: the area is the scene's .fs-center box (the flex row below the
-     pill row), and the measurement runs under a temporary .fs-measuring
-     class that forces the S1 bubbles into their final, shown state —
-     they are display:none until their entrance, so without this the S1
-     content height would be under-measured. The class is added and
-     removed synchronously inside fitAll, so it never paints. */
   var SCALE_MAX = 1.3;
-  var TELOP_TEXTS = [
+  var FS_DURATION_SCALE = 2.0;
+  function createUnit(st, cfg){
+    st.classList.add("fs-live");
+    function Q(s){ return st.querySelector(s); }
+    function QA(s){ return Array.prototype.slice.call(st.querySelectorAll(s)); }
+    var tel = Q(".fs-telop");
+    function setTel(t){ tel.textContent = t; scheduleFit(); }
+    /* Pin the telop to its tallest text's height first, so every scene
+       is measured and shown under the tightest scene area. */
+    function pinTelopHeight(){
+      var cur = tel.textContent, max = 0, i, h;
+      tel.style.minHeight = "";
+      for(i = 0; i < cfg.telopTexts.length; i++){
+        tel.textContent = cfg.telopTexts[i];
+        h = tel.offsetHeight; if(h > max) max = h;
+      }
+      tel.textContent = cur;
+      if(max) tel.style.minHeight = max + "px";
+    }
+    /* Unified fit: measure each scene's .fs-fit at its final-state
+       layout size (transforms never affect offsetWidth/offsetHeight,
+       so this is the settled size even while entrances run) against
+       its .fs-center box, and apply the single minimum ratio to all.
+       The .fs-measuring class forces sequence bubbles (.bubseq) into
+       their final shown state during measurement; it is added and
+       removed synchronously, so it never paints. The scale is NOT
+       recomputed on scene switches (it is unified); it is recomputed
+       on resize / orientation change, when webfonts finish loading,
+       and when a telop change alters the scene area. */
+    function fitAll(){
+      pinTelopHeight();
+      st.classList.add("fs-measuring");
+      void st.offsetHeight;
+      var s = SCALE_MAX;
+      QA(".fs-scene").forEach(function(sc){
+        var fit = sc.querySelector(".fs-fit"); if(!fit) return;
+        var ctr = sc.querySelector(".fs-center");
+        var aw = ctr ? ctr.clientWidth : sc.clientWidth, ah = ctr ? ctr.clientHeight : sc.clientHeight;
+        var ch = fit.offsetHeight, cw = 0, i, kid;
+        for(i = 0; i < fit.children.length; i++){
+          kid = fit.children[i].offsetWidth; if(kid > cw) cw = kid;
+        }
+        if(aw && ah && cw && ch) s = Math.min(s, ah / ch, aw / cw);
+      });
+      st.classList.remove("fs-measuring");
+      QA(".fs-fit").forEach(function(f){
+        f.style.transform = s !== 1 ? "scale(" + s.toFixed(4) + ")" : "";
+      });
+      st.setAttribute("data-fsscale", s.toFixed(3));
+      return s;
+    }
+    var fitQueued = false;
+    function scheduleFit(){
+      if(fitQueued) return; fitQueued = true;
+      requestAnimationFrame(function(){ fitQueued = false; fitAll(); });
+    }
+    window.addEventListener("resize", scheduleFit);
+    window.addEventListener("orientationchange", scheduleFit);
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleFit);
+    function show(id){
+      QA(".fs-scene").forEach(function(sc){ sc.classList.toggle("on", sc.classList.contains(id)); });
+      scheduleFit();
+    }
+    var tl = gsap.timeline({repeat: reduced ? 0 : -1, repeatDelay: 3});
+    tl.timeScale(1 / FS_DURATION_SCALE);
+    cfg.build(tl, {Q:Q, QA:QA, show:show, setTel:setTel});
+    tl.pause(0); st._tl = tl;
+    fitAll();
+    if(reduced){
+      tl.progress(1); show(cfg.finalScene);
+      gsap.set(QA("." + cfg.finalScene + " *"), {opacity:1});
+      setTel(cfg.finalTelop); fitAll(); return;
+    }
+    if("IntersectionObserver" in window){
+      new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) tl.play(); else tl.pause(); }); }, {threshold:.25}).observe(st);
+    } else tl.play();
+  }
+
+  /* ================= 5.1 (registered first; timeline unchanged from v6) ================= */
+  var st51 = document.querySelector('[data-fs="s51v5"]');
+  if(st51) createUnit(st51, {
+    telopTexts: [
     "1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます。理由は、返信を作る仕組みにあります",
     "コンテキスト＝返信で参照する情報全体。このチャットの記録とメモリーファイルが含まれ、返信のたびに最初から読み直します",
     "トークンとは、AIが文章を処理する最小単位。利用量はトークン数で数え、1回の返信ではコンテキスト全体と返信の両方が数えられます",
@@ -1711,136 +1884,186 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
     "何回のやりとりで下がるという目安はありません。こんなサインが見えたら、移りどきです",
     "故障ではなく仕組みどおりの動きです。新しいチャットに移れば元に戻ります",
     "新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）"
-  ];
-  function pinTelopHeight(){
-    var cur = tel.textContent, max = 0, i, h;
-    tel.style.minHeight = "";
-    for(i = 0; i < TELOP_TEXTS.length; i++){
-      tel.textContent = TELOP_TEXTS[i];
-      h = tel.offsetHeight; if(h > max) max = h;
+  ],
+    finalScene: "fss8",
+    finalTelop: "新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* S1 chat bubbles enter through a display toggle (.shown), not an
+         opacity fade, so the chat card grows with its content instead of
+         reserving the final height from the start. */
+      var bubs = QA(".fss1 .fs-bub");
+      function resetBubs(){ bubs.forEach(function(b){ b.classList.remove("shown"); }); }
+      function showBub(i){ if(bubs[i]) bubs[i].classList.add("shown"); }
+      /* S1 intro (a) */
+        tl.call(show,["fss1"],0)
+          .call(setTel,["1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます。理由は、返信を作る仕組みにあります"],0)
+          .fromTo(Q(".fss1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+          .call(resetBubs,null,0)
+          .call(showBub,[0],0.8).call(showBub,[1],1.6).call(showBub,[2],2.4)
+          .call(showBub,[3],3.2).call(showBub,[4],4).call(showBub,[5],4.8)
+          .fromTo(Q(".fss1 .fs-actor"),{opacity:0,x:-24},{opacity:1,x:0,duration:.6},0.5)
+        /* S2 context (b) */
+          .call(show,["fss2"],8.7)
+          .call(setTel,["コンテキスト＝返信で参照する情報全体。このチャットの記録とメモリーファイルが含まれ、返信のたびに最初から読み直します"],8.7)
+          .fromTo(Q(".fss2 .fs-ctxbox"),{opacity:0,scale:.97},{opacity:1,scale:1,duration:.6},9)
+          .fromTo(QA(".fss2 .fs-paper"),{opacity:0,y:16},{opacity:1,y:0,duration:.45,stagger:.5},9.5)
+          .fromTo(Q(".fss2 .fs-mem"),{opacity:0,scale:.85},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},11.3)
+          .fromTo(Q(".fss2 .fs-reread"),{opacity:0},{opacity:1,duration:.4},12.1)
+          .to(Q(".fss2 .fs-stack"),{y:-6,duration:.35,yoyo:true,repeat:5,ease:"sine.inOut"},12.7)
+        /* S3 token definition (c) */
+          .call(show,["fss3"],20.6)
+          .call(setTel,["トークンとは、AIが文章を処理する最小単位。利用量はトークン数で数え、1回の返信ではコンテキスト全体と返信の両方が数えられます"],20.6)
+          .fromTo(QA(".fss3 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.7,ease:"back.out(2)"},21.4)
+          .fromTo(Q(".fss3 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},24)
+          .fromTo(Q(".fss3 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},26)
+        /* S4 PC usage display (d) */
+          .call(show,["fss4"],34.7)
+          .call(setTel,["パソコン版では返信の下に使用量が出ます。inは読み込んだ量、outは返信の長さ。例は約22万を読み込み、765の返信です"],34.7)
+          .fromTo(Q(".fss4 .fs-pc"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},35.3)
+          .fromTo(QA(".fss4 .fs-note"),{opacity:0,y:12},{opacity:1,y:0,duration:.5,stagger:.9},37.1)
+        /* S5 consumption grows (e) */
+          .call(show,["fss5"],46.9)
+          .call(setTel,["コンテキストが長いほど、1回の返信ごとのトークン消費が増えます。長い資料を渡す・返信が長くなる場合も増えます"],46.9)
+          .fromTo(Q(".fss5 .fs-meterwrap"),{opacity:0},{opacity:1,duration:.5},47.5)
+          .fromTo(Q(".fss5 .fs-meter i"),{width:"10%"},{width:"72%",duration:2.4,ease:"power1.inOut"},47.9)
+          .fromTo(QA(".fss5 .fs-doc"),{opacity:0,y:-18},{opacity:1,y:0,duration:.5,stagger:.8,ease:"back.out(1.8)"},50.9)
+          .to(Q(".fss5 .fs-meter i"),{width:"94%",duration:.8,ease:"power2.out"},52.5)
+        /* S6a buried instruction (f, first half) */
+          .call(show,["fss6a"],56.5)
+          .call(setTel,["大事な指示がコンテキストの中で埋もれて、応答の精度が少しずつ落ちていきます"],56.5)
+          .fromTo(Q(".fss6a .fs-ctxbox"),{opacity:0},{opacity:1,duration:.5},57.1)
+          .fromTo(Q(".fss6a .fs-inst"),{opacity:0,scale:.8},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},57.5)
+          .fromTo(QA(".fss6a .fs-paper"),{opacity:0,y:16},{opacity:1,y:0,duration:.45,stagger:.6},58.5)
+        /* S6b gentle slope (f, second half) */
+          .call(show,["fss6b"],64.85)
+          .call(setTel,["質の下がり方は、崖ではなく緩やかな坂です"],64.85)
+          .fromTo(Q(".fss6b .fs-slope"),{opacity:0},{opacity:1,duration:.5},65.45)
+          .fromTo(Q(".fss6b .fs-line"),{strokeDashoffset:100},{strokeDashoffset:0,duration:3,ease:"power1.inOut"},65.85)
+        /* S7 no benchmark + signs (g, h) */
+          .call(show,["fss7"],72.85)
+          .call(setTel,["何回のやりとりで下がるという目安はありません。こんなサインが見えたら、移りどきです"],72.85)
+          .fromTo(Q(".fss7 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},73.25)
+          .fromTo(Q(".fss7 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},75.85)
+          .fromTo(QA(".fss7 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:1},76.65)
+        /* S8 move to a new chat (i) */
+          .call(show,["fss8"],84.6)
+          .call(setTel,["故障ではなく仕組みどおりの動きです。新しいチャットに移れば元に戻ります"],84.6)
+          .fromTo(Q(".fss8 .fs-room2"),{opacity:0},{opacity:1,duration:.6},85.2)
+          .fromTo(Q(".fss8 .mw2"),{opacity:0},{opacity:1,duration:.4},85.4)
+          .fromTo(Q(".fss8 .mw2 .fs-meter i"),{width:"94%"},{width:"12%",duration:1,ease:"power2.out"},85.8)
+          .fromTo(Q(".fss8 .fs-actor"),{opacity:0,x:-36},{opacity:1,x:16,duration:1.8,ease:"power1.inOut"},86)
+          .fromTo(QA(".fss8 .fs-spark"),{scale:0,opacity:0},{scale:1,opacity:1,duration:.45,stagger:.3,ease:"back.out(2.4)"},88)
+          .call(setTel,["新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）"],89.6)
+          .fromTo(Q(".fss8 .fs-memcause"),{opacity:0,y:16},{opacity:1,y:0,duration:.6},89.8)
+          .to({},{duration:6.8});
     }
-    tel.textContent = cur;
-    if(max) tel.style.minHeight = max + "px";
-  }
-  function fitAll(){
-    pinTelopHeight();
-    st.classList.add("fs-measuring");
-    void st.offsetHeight;
-    var s = SCALE_MAX;
-    QA(".fs-scene").forEach(function(sc){
-      var fit = sc.querySelector(".fs-fit"); if(!fit) return;
-      var ctr = sc.querySelector(".fs-center");
-      var aw = ctr ? ctr.clientWidth : sc.clientWidth, ah = ctr ? ctr.clientHeight : sc.clientHeight;
-      var ch = fit.offsetHeight, cw = 0, i, kid;
-      for(i = 0; i < fit.children.length; i++){
-        kid = fit.children[i].offsetWidth; if(kid > cw) cw = kid;
-      }
-      if(aw && ah && cw && ch) s = Math.min(s, ah / ch, aw / cw);
-    });
-    st.classList.remove("fs-measuring");
-    QA(".fs-fit").forEach(function(f){
-      f.style.transform = s !== 1 ? "scale(" + s.toFixed(4) + ")" : "";
-    });
-    st.setAttribute("data-fsscale", s.toFixed(3));
-    return s;
-  }
-  var fitQueued = false;
-  function scheduleFit(){
-    if(fitQueued) return; fitQueued = true;
-    requestAnimationFrame(function(){ fitQueued = false; fitAll(); });
-  }
-  window.addEventListener("resize", scheduleFit);
-  window.addEventListener("orientationchange", scheduleFit);
-  if(document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleFit);
-  /* Scenes are switched discretely: only one .fs-scene has .on (visibility:visible).
-     Non-active scenes are visibility:hidden, so a paused timeline can never
-     leave a translucent ghost of another scene on screen. */
-  function show(id){
-    QA(".fs-scene").forEach(function(sc){ sc.classList.toggle("on", sc.classList.contains(id)); });
-    scheduleFit();
-  }
-  /* v6.4 playback pace: FS_DURATION_SCALE stretches every duration in
-     the timeline — entrance intervals, fades and the repeat delay — by
-     this one factor, applied through timeScale so the whole loop scales
-     uniformly. On top of that, each scene's end hold (the silent gap
-     after its last element, before the next scene) is doubled in the
-     position values themselves, so the effective stillness before a
-     scene change is about 4x the original definition. One loop is
-     (97.2s timeline + 3s repeat delay) x 2.0 = about 200s. Keep the
-     matching --fs-durfactor in the stylesheet (used by the CSS bubble
-     entrance) at the same value. Reduced-motion static display is
-     unaffected. */
-  var FS_DURATION_SCALE = 2.0;
-  var tl = gsap.timeline({repeat: reduced ? 0 : -1, repeatDelay: 3});
-  tl.timeScale(1 / FS_DURATION_SCALE);
-  /* S1 intro (a) */
-  tl.call(show,["fss1"],0)
-    .call(setTel,["1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます。理由は、返信を作る仕組みにあります"],0)
-    .fromTo(Q(".fss1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
-    .call(resetBubs,null,0)
-    .call(showBub,[0],0.8).call(showBub,[1],1.6).call(showBub,[2],2.4)
-    .call(showBub,[3],3.2).call(showBub,[4],4).call(showBub,[5],4.8)
-    .fromTo(Q(".fss1 .fs-actor"),{opacity:0,x:-24},{opacity:1,x:0,duration:.6},0.5)
-  /* S2 context (b) */
-    .call(show,["fss2"],8.7)
-    .call(setTel,["コンテキスト＝返信で参照する情報全体。このチャットの記録とメモリーファイルが含まれ、返信のたびに最初から読み直します"],8.7)
-    .fromTo(Q(".fss2 .fs-ctxbox"),{opacity:0,scale:.97},{opacity:1,scale:1,duration:.6},9)
-    .fromTo(QA(".fss2 .fs-paper"),{opacity:0,y:16},{opacity:1,y:0,duration:.45,stagger:.5},9.5)
-    .fromTo(Q(".fss2 .fs-mem"),{opacity:0,scale:.85},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},11.3)
-    .fromTo(Q(".fss2 .fs-reread"),{opacity:0},{opacity:1,duration:.4},12.1)
-    .to(Q(".fss2 .fs-stack"),{y:-6,duration:.35,yoyo:true,repeat:5,ease:"sine.inOut"},12.7)
-  /* S3 token definition (c) */
-    .call(show,["fss3"],20.6)
-    .call(setTel,["トークンとは、AIが文章を処理する最小単位。利用量はトークン数で数え、1回の返信ではコンテキスト全体と返信の両方が数えられます"],20.6)
-    .fromTo(QA(".fss3 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.7,ease:"back.out(2)"},21.4)
-    .fromTo(Q(".fss3 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},24)
-    .fromTo(Q(".fss3 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},26)
-  /* S4 PC usage display (d) */
-    .call(show,["fss4"],34.7)
-    .call(setTel,["パソコン版では返信の下に使用量が出ます。inは読み込んだ量、outは返信の長さ。例は約22万を読み込み、765の返信です"],34.7)
-    .fromTo(Q(".fss4 .fs-pc"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},35.3)
-    .fromTo(QA(".fss4 .fs-note"),{opacity:0,y:12},{opacity:1,y:0,duration:.5,stagger:.9},37.1)
-  /* S5 consumption grows (e) */
-    .call(show,["fss5"],46.9)
-    .call(setTel,["コンテキストが長いほど、1回の返信ごとのトークン消費が増えます。長い資料を渡す・返信が長くなる場合も増えます"],46.9)
-    .fromTo(Q(".fss5 .fs-meterwrap"),{opacity:0},{opacity:1,duration:.5},47.5)
-    .fromTo(Q(".fss5 .fs-meter i"),{width:"10%"},{width:"72%",duration:2.4,ease:"power1.inOut"},47.9)
-    .fromTo(QA(".fss5 .fs-doc"),{opacity:0,y:-18},{opacity:1,y:0,duration:.5,stagger:.8,ease:"back.out(1.8)"},50.9)
-    .to(Q(".fss5 .fs-meter i"),{width:"94%",duration:.8,ease:"power2.out"},52.5)
-  /* S6a buried instruction (f, first half) */
-    .call(show,["fss6a"],56.5)
-    .call(setTel,["大事な指示がコンテキストの中で埋もれて、応答の精度が少しずつ落ちていきます"],56.5)
-    .fromTo(Q(".fss6a .fs-ctxbox"),{opacity:0},{opacity:1,duration:.5},57.1)
-    .fromTo(Q(".fss6a .fs-inst"),{opacity:0,scale:.8},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},57.5)
-    .fromTo(QA(".fss6a .fs-paper"),{opacity:0,y:16},{opacity:1,y:0,duration:.45,stagger:.6},58.5)
-  /* S6b gentle slope (f, second half) */
-    .call(show,["fss6b"],64.85)
-    .call(setTel,["質の下がり方は、崖ではなく緩やかな坂です"],64.85)
-    .fromTo(Q(".fss6b .fs-slope"),{opacity:0},{opacity:1,duration:.5},65.45)
-    .fromTo(Q(".fss6b .fs-line"),{strokeDashoffset:100},{strokeDashoffset:0,duration:3,ease:"power1.inOut"},65.85)
-  /* S7 no benchmark + signs (g, h) */
-    .call(show,["fss7"],72.85)
-    .call(setTel,["何回のやりとりで下がるという目安はありません。こんなサインが見えたら、移りどきです"],72.85)
-    .fromTo(Q(".fss7 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},73.25)
-    .fromTo(Q(".fss7 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},75.85)
-    .fromTo(QA(".fss7 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:1},76.65)
-  /* S8 move to a new chat (i) */
-    .call(show,["fss8"],84.6)
-    .call(setTel,["故障ではなく仕組みどおりの動きです。新しいチャットに移れば元に戻ります"],84.6)
-    .fromTo(Q(".fss8 .fs-room2"),{opacity:0},{opacity:1,duration:.6},85.2)
-    .fromTo(Q(".fss8 .mw2"),{opacity:0},{opacity:1,duration:.4},85.4)
-    .fromTo(Q(".fss8 .mw2 .fs-meter i"),{width:"94%"},{width:"12%",duration:1,ease:"power2.out"},85.8)
-    .fromTo(Q(".fss8 .fs-actor"),{opacity:0,x:-36},{opacity:1,x:16,duration:1.8,ease:"power1.inOut"},86)
-    .fromTo(QA(".fss8 .fs-spark"),{scale:0,opacity:0},{scale:1,opacity:1,duration:.45,stagger:.3,ease:"back.out(2.4)"},88)
-    .call(setTel,["新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）"],89.6)
-    .fromTo(Q(".fss8 .fs-memcause"),{opacity:0,y:16},{opacity:1,y:0,duration:.6},89.8)
-    .to({},{duration:6.8});
-  tl.pause(0); st._tl = tl;
-  fitAll();
-  if(reduced){ tl.progress(1); show("fss8"); gsap.set(QA(".fss8 *"),{opacity:1}); setTel("新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）"); fitAll(); return; }
-  if("IntersectionObserver" in window){
-    new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) tl.play(); else tl.pause(); }); },{threshold:.25}).observe(st);
-  } else tl.play();
+  });
+
+  /* ================= 1.1 Museとは ================= */
+  var st11 = document.querySelector('[data-fs="s11"]');
+  if(st11) createUnit(st11, {
+    telopTexts: [
+      "Museは、Metaが提供するAIエージェントです",
+      "AIエージェントとは、指示を受けて自分で手順を考え、作業を実行まで行うAIのことです",
+      "たとえば、調査や文章作成、Webページの制作といった作業を実行します",
+      "最大の特徴は、あなたの好みや決定事項、進行中の作業を記録し、別のチャットでも参照できることです",
+      "この記録を「メモリー」と呼びます（第6章）"
+    ],
+    finalScene: "fsa4",
+    finalTelop: "この記録を「メモリー」と呼びます（第6章）",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* A1 Muse = AI agent provided by Meta */
+      tl.call(show,["fsa1"],0)
+        .call(setTel,["Museは、Metaが提供するAIエージェントです"],0)
+        .fromTo(Q(".fsa1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(QA(".fsa1 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.6,ease:"back.out(2)"},1.0)
+        .fromTo(Q(".fsa1 .fs-actor"),{opacity:0,x:-24},{opacity:1,x:0,duration:.6},1.4)
+      /* A2 takes an instruction, plans the steps, carries the work out */
+        .call(show,["fsa2"],7.5)
+        .call(setTel,["AIエージェントとは、指示を受けて自分で手順を考え、作業を実行まで行うAIのことです"],7.5)
+        .fromTo(Q(".fsa2 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},7.8)
+        .fromTo(Q(".fsa2 .fs-chat"),{opacity:0,y:16},{opacity:1,y:0,duration:.5},8.6)
+        .fromTo(QA(".fsa2 .fs-chat .fs-bub"),{opacity:0,y:10},{opacity:1,y:0,duration:.45,stagger:.7},9.2)
+        .fromTo(QA(".fsa2 .steps .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.45,stagger:.55,ease:"back.out(2)"},10.6)
+        .fromTo(QA(".fsa2 .fs-arrow"),{opacity:0},{opacity:1,duration:.3,stagger:.55},10.85)
+      /* A3 examples: research, writing, web pages */
+        .call(show,["fsa3"],17.0)
+        .call(setTel,["たとえば、調査や文章作成、Webページの制作といった作業を実行します"],17.0)
+        .fromTo(Q(".fsa3 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},17.3)
+        .fromTo(QA(".fsa3 .fs-doc"),{opacity:0,y:18},{opacity:1,y:0,duration:.5,stagger:.7,ease:"back.out(1.8)"},18.1)
+      /* A4 the defining feature: memory */
+        .call(show,["fsa4"],24.5)
+        .call(setTel,["最大の特徴は、あなたの好みや決定事項、進行中の作業を記録し、別のチャットでも参照できることです"],24.5)
+        .fromTo(Q(".fsa4 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},24.9)
+        .fromTo(QA(".fsa4 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},25.7)
+        .fromTo(Q(".fsa4 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},28.3)
+        .call(setTel,["この記録を「メモリー」と呼びます（第6章）"],29.6)
+        .fromTo(Q(".fsa4 .mem"),{opacity:0,scale:.85},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},29.8)
+        .to({},{duration:6},30.4);
+    }
+  });
+
+  /* ================= 1.2 できること ================= */
+  var st12 = document.querySelector('[data-fs="s12"]');
+  if(st12) createUnit(st12, {
+    telopTexts: [
+      "Museには、主に次のような作業を任せられます",
+      "調査、要約、情報の整理",
+      "文章の作成と編集",
+      "予定の管理、買い物の相談、各種手続きの代行",
+      "動画、Webページ、小さなアプリの作成",
+      "ファイルの作成と管理",
+      "送信、購入、削除など、取り消しにくい操作は、実行前にあなたの確認を求められます（第2章）"
+    ],
+    finalScene: "fsb7",
+    finalTelop: "送信、購入、削除など、取り消しにくい操作は、実行前にあなたの確認を求められます（第2章）",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* B1 overview */
+      tl.call(show,["fsb1"],0)
+        .call(setTel,["Museには、主に次のような作業を任せられます"],0)
+        .fromTo(Q(".fsb1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(QA(".fsb1 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.5,ease:"back.out(2)"},1.0)
+        .fromTo(Q(".fsb1 .fs-actor"),{opacity:0,x:-24},{opacity:1,x:0,duration:.6},1.4)
+      /* B2 research, summaries, organizing */
+        .call(show,["fsb2"],8.0)
+        .call(setTel,["調査、要約、情報の整理"],8.0)
+        .fromTo(Q(".fsb2 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},8.3)
+        .fromTo(QA(".fsb2 .fs-doc"),{opacity:0,y:18},{opacity:1,y:0,duration:.5,stagger:.7,ease:"back.out(1.8)"},9.1)
+      /* B3 writing and editing */
+        .call(show,["fsb3"],15.5)
+        .call(setTel,["文章の作成と編集"],15.5)
+        .fromTo(Q(".fsb3 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},15.8)
+        .fromTo(Q(".fsb3 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},16.6)
+        .fromTo(QA(".fsb3 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},17.4)
+      /* B4 schedules, shopping, errands */
+        .call(show,["fsb4"],23.0)
+        .call(setTel,["予定の管理、買い物の相談、各種手続きの代行"],23.0)
+        .fromTo(Q(".fsb4 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},23.3)
+        .fromTo(QA(".fsb4 .fs-doc"),{opacity:0,y:18},{opacity:1,y:0,duration:.5,stagger:.7,ease:"back.out(1.8)"},24.1)
+      /* B5 videos, web pages, small apps */
+        .call(show,["fsb5"],30.5)
+        .call(setTel,["動画、Webページ、小さなアプリの作成"],30.5)
+        .fromTo(Q(".fsb5 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},30.8)
+        .fromTo(QA(".fsb5 .fs-doc"),{opacity:0,y:18},{opacity:1,y:0,duration:.5,stagger:.7,ease:"back.out(1.8)"},31.6)
+      /* B6 files */
+        .call(show,["fsb6"],38.0)
+        .call(setTel,["ファイルの作成と管理"],38.0)
+        .fromTo(Q(".fsb6 .fs-ctxbox"),{opacity:0,scale:.97},{opacity:1,scale:1,duration:.6},38.4)
+        .fromTo(QA(".fsb6 .fs-paper"),{opacity:0,y:16},{opacity:1,y:0,duration:.45,stagger:.5},39.0)
+        .fromTo(Q(".fsb6 .fs-mem"),{opacity:0,scale:.85},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},41.0)
+      /* B7 hard-to-undo actions ask first */
+        .call(show,["fsb7"],46.0)
+        .call(setTel,["送信、購入、削除など、取り消しにくい操作は、実行前にあなたの確認を求められます（第2章）"],46.0)
+        .fromTo(Q(".fsb7 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},46.3)
+        .fromTo(Q(".fsb7 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},47.3)
+        .fromTo(QA(".fsb7 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},48.1)
+        .fromTo(Q(".fsb7 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},50.6)
+        .to({},{duration:6},51.1);
+    }
+  });
 })();
 </script>
 
