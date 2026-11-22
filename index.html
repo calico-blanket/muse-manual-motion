@@ -466,6 +466,22 @@
 .fs-dw-item{font-weight:700;color:var(--muted);font-size:clamp(14px,4.3vw,18px);line-height:1.5;overflow-wrap:break-word}
 .fs-dw-bottom{display:flex;align-items:center;justify-content:space-between;gap:6px;border-top:1.5px solid var(--line);padding-top:8px}
 .fs-dw-grp{display:flex;align-items:center;gap:5px;font-weight:800;color:var(--ink);font-size:clamp(14px,4.3vw,18px);white-space:nowrap}
+/* v10 (4.4): pop-over menu and settings-row parts for the fs stage,
+   modelled on the static .popmenu / .mini rows of figures 4 and 5:
+   menu items stack with hairlines, the item to tap carries a gold
+   inset ring (.hl), and settings rows live inside .fs-phone. The
+   same gold ring highlights the control to tap in a phone top bar
+   (.fs-ph-btn.hl) or a drawer bottom group (.fs-dw-grp.hl). */
+.fs-popmenu{width:100%;max-width:min(88%,340px);background:#fff;border:2.5px solid var(--line-strong);border-radius:14px;box-shadow:0 8px 20px rgba(60,50,20,.16);padding:6px;display:flex;flex-direction:column;text-align:left}
+.fs-popmenu span{font-weight:700;color:var(--ink);font-size:clamp(15px,4.9vw,20px);padding:.45em .7em;border-radius:9px;line-height:1.4;overflow-wrap:break-word}
+.fs-popmenu span + span{border-top:1.5px solid var(--line)}
+.fs-popmenu span.hl{background:#fdf6e0;box-shadow:inset 0 0 0 2.5px #c8a24a;font-weight:900}
+.fs-ph-row{display:flex;align-items:center;justify-content:space-between;gap:6px;font-weight:700;color:var(--ink);font-size:clamp(14px,4.3vw,18px);padding:.34em .2em;border-top:1.5px solid var(--line);line-height:1.45;overflow-wrap:break-word}
+.fs-ph-row:first-child{border-top:none}
+.fs-ph-row .chev{color:var(--muted);font-weight:900;flex:0 0 auto}
+.fs-ph-row.hl{background:#fdf6e0;box-shadow:inset 0 0 0 2.5px #c8a24a;border-radius:9px;font-weight:900;padding-left:.5em;padding-right:.5em}
+.fs-ph-btn.hl{box-shadow:0 0 0 3px #c8a24a;border-color:#c8a24a}
+.fs-dw-grp.hl{box-shadow:0 0 0 3px #c8a24a;border-radius:10px;padding:2px 6px}
 @media print{.fsunit{height:auto;display:block}.fsunit .fsstage{display:block}.fs-screen{height:auto;min-height:0}.fs-scenes{overflow:visible}.fs-scene{position:static;visibility:hidden;display:none}.fs-scene.fs-final{visibility:visible;display:flex}.fs-fit{transform:none!important}}
 
 </style>
@@ -1091,157 +1107,306 @@
 
 
 
+      <div class="fsunit">
       <h3 id="ch4-1"><span class="no">4.1</span>メインチャットとサイドチャット</h3>
-      <p>Museのチャットには、メインチャットとサイドチャットの2種類があります。</p>
-      <div class="tblwrap">
-        <table>
-          <caption>メインチャットとサイドチャットの違い</caption>
-          <thead><tr><th scope="col">項目</th><th scope="col">メインチャット</th><th scope="col">サイドチャット</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">位置づけ</th><td>最初からある、中心のチャット</td><td>話題ごとに自分で作るチャット</td></tr>
-            <tr><th scope="row">向いている使い方</th><td>短い質問、雑談</td><td>長くなりそうなテーマ（学習、制作、旅行の計画、続けて調べることなど）</td></tr>
-          </tbody>
-        </table>
+<div class="fsstage" id="fs-s41" data-fs="s41"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene fsj1 on"><div class="fs-pillrow"><span class="fs-tag">4.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">チャットは、2種類あります</div>
+    <div class="fs-tokrow"><span class="fs-chip c1">メインチャット</span><span class="fs-chip gold c2">サイドチャット</span></div>
+  </div></div></div>
+  <div class="fs-scene fsj2"><div class="fs-pillrow"><span class="fs-tag">4.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>位置づけ</h5>
+      <div class="fs-sign g1">メインチャット：最初からある、中心のチャット</div>
+      <div class="fs-sign g2">サイドチャット：話題ごとに自分で作るチャット</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsj3"><div class="fs-pillrow"><span class="fs-tag">4.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>向いている使い方</h5>
+      <div class="fs-sign g1">メインチャット：短い質問、雑談</div>
+      <div class="fs-sign g2">サイドチャット：長くなりそうなテーマ</div>
+      <div class="fs-sign g3">学習、制作、旅行の計画、続けて調べることなど</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsj4"><div class="fs-pillrow"><span class="fs-tag">4.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-tokrow"><span class="fs-chip">メインチャット</span></div>
+    <div class="fs-arrow">↓</div>
+    <div class="fs-signs">
+      <h5>サイドチャット（話題ごと）</h5>
+      <div class="fs-sign g1">サイドチャット ― 学習</div>
+      <div class="fs-sign g2">サイドチャット ― 制作</div>
+      <div class="fs-sign g3">サイドチャット ― 旅行の計画</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsj5"><div class="fs-pillrow"><span class="fs-tag">4.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-formula">チャットの記録は、そのチャットの中だけに残ります</div>
+    <div class="fs-mem">どのチャットでも共通なのは、メモリーだけ<small>Museが記録した好みや決定事項</small></div>
+  </div></div></div>
+  <div class="fs-scene fsj6"><div class="fs-pillrow"><span class="fs-tag">4.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">正確に引き継げるとは、限りません</div>
+    <div class="fs-formula">Museは過去のチャットを検索して、一部を参照できます</div>
+  </div></div></div>
+  <div class="fs-scene fsj7 fs-final"><div class="fs-pillrow"><span class="fs-tag">4.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">続きは、引き継ぎ文で話します（5.5）</div>
+    <div class="fs-signs">
+      <h5>4.1のまとめ</h5>
+      <div class="fs-sign g1"><b>✓</b> チャットは2種類：メインとサイド</div>
+      <div class="fs-sign g2"><b>✓</b> 長くなりそうなテーマはサイドチャット</div>
+      <div class="fs-sign g3"><b>✓</b> 記録が共通なのはメモリーだけ</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">Museのチャットには、メインチャットとサイドチャットの2種類があります</div>
+</div></div>
       </div>
-      <p>チャットの記録は、そのチャットの中だけに残ります。どのチャットでも共通なのは、メモリー（Museが記録した好みや決定事項）だけです。Museは過去のチャットを検索して一部を参照できますが、正確に引き継げるとは限りません。続きを別のチャットで話すときは、引き継ぎ文を使います（<a href="#ch5-5">5.5</a>）。</p>
-      <figure>
-        <div class="diagram" role="img" aria-label="メインチャットから、話題ごとのサイドチャットが枝分かれする模式図">
-          <svg viewBox="0 0 520 190">
-            <rect x="10" y="70" width="130" height="52" rx="10" style="fill:var(--accent-soft)" stroke-width="2" stroke="var(--accent)"/>
-            <text x="75" y="93" text-anchor="middle" font-size="15" font-weight="700" style="fill:var(--ink)">メインチャット</text>
-            <text x="75" y="113" text-anchor="middle" font-size="12" style="fill:var(--muted)">短い質問・雑談</text>
-            <path d="M140 96 H200 M200 96 V36 M200 96 V96 M200 96 V156" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
-            <path d="M200 36 H228 M200 96 H228 M200 156 H228" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
-            <g font-size="14" font-weight="700">
-              <rect x="230" y="12" width="270" height="46" rx="10" style="fill:var(--bg)" stroke="var(--line-strong)" stroke-width="1.5"/>
-              <text x="248" y="41" style="fill:var(--ink)">サイドチャット ― 学習</text>
-              <rect x="230" y="72" width="270" height="46" rx="10" style="fill:var(--bg)" stroke="var(--line-strong)" stroke-width="1.5"/>
-              <text x="248" y="101" style="fill:var(--ink)">サイドチャット ― 制作</text>
-              <rect x="230" y="132" width="270" height="46" rx="10" style="fill:var(--bg)" stroke="var(--line-strong)" stroke-width="1.5"/>
-              <text x="248" y="161" style="fill:var(--ink)">サイドチャット ― 旅行の計画</text>
-            </g>
-          </svg>
-        </div>
-        <figcaption><b>図3</b> メインチャットとサイドチャット（模式図）。話題ごとに枝分かれします。</figcaption>
-      </figure>
 
-      
+      <div class="fsunit">
       <h3 id="ch4-2"><span class="no">4.2</span>なぜチャットを分けるのか</h3>
-      <div class="warn">
-        <p class="t">注意：メインチャットだけで何でも話し続けないでください。</p>
-        <p>長くなりそうな話題は、最初からサイドチャットで話します。理由は<a href="#ch5">第5章</a>で説明します。</p>
+<div class="fsstage" id="fs-s42" data-fs="s42"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene fsk1 on"><div class="fs-pillrow"><span class="fs-tag">4.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-tokrow"><span class="fs-chip gold">⚠ 注意</span></div>
+    <div class="fs-formula">メインチャットだけで何でも話し続けないでください</div>
+  </div></div></div>
+  <div class="fs-scene fsk2"><div class="fs-pillrow"><span class="fs-tag">4.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-formula">長くなりそうな話題は、最初からサイドチャットで話します</div>
+    <div class="fs-tokrow"><span class="fs-chip">理由は第5章で説明します</span></div>
+  </div></div></div>
+  <div class="fs-scene fsk3"><div class="fs-pillrow"><span class="fs-tag">4.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>分けると、こんな良さがあります</h5>
+      <div class="fs-sign g1">話題が混ざらない</div>
+      <div class="fs-sign g2">あとから探しやすい</div>
+      <div class="fs-sign g3">終わった話題はアーカイブで片づけられる（4.4）</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsk4 fs-final"><div class="fs-pillrow"><span class="fs-tag">4.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">長くなりそうな話題は、サイドチャットで</div>
+    <div class="fs-signs">
+      <h5>4.2のまとめ</h5>
+      <div class="fs-sign g1"><b>✓</b> メインチャットだけで話し続けない</div>
+      <div class="fs-sign g2"><b>✓</b> 分けると探しやすく、片づけもできる</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">注意：メインチャットだけで何でも話し続けないでください</div>
+</div></div>
       </div>
-      <p>分けると、話題が混ざらずあとから探しやすく、終わった話題はアーカイブで片づけられます（<a href="#ch4-4">4.4</a>）。</p>
 
+      <div class="fsunit">
       <h3 id="ch4-3"><span class="no">4.3</span>サイドチャットの作り方</h3>
-      <figure>
-        <p class="fig-title">メニュー画面</p>
-        <div class="drawer" role="img" aria-label="メニュー画面の模式図。上から①アシスタント名、②タブ欄、③スペース欄、④サイドチャット欄。最下部の左に⑤設定の歯車、中央に⑥検索欄、右に⑦新規作成の鉛筆アイコン。">
-          <div class="drawer-head">アシスタント名 <span class="fbadge">1</span></div>
-          <div class="drawer-sec">
-            <div class="cap">タブ <span class="fbadge">2</span></div>
-            <div class="note-line">長押しで並べ替えられます</div>
-            <div class="drawer-item sel">メインチャット</div>
-            <div class="drawer-item">フィード</div>
-            <div class="drawer-item">アイデア</div>
-            <div class="drawer-item">図書館</div>
-            <div class="drawer-item">目標</div>
-          </div>
-          <div class="drawer-div"></div>
-          <div class="drawer-sec">
-            <div class="cap">スペース <span class="fbadge">3</span></div>
-            <div class="drawer-item">スペース名 <span class="ex">（作ったものが並びます）</span></div>
-            <div class="drawer-item">＋ スペースを作成</div>
-          </div>
-          <div class="drawer-div"></div>
-          <div class="drawer-sec">
-            <div class="cap">サイドチャット <span class="fbadge">4</span></div>
-            <div class="drawer-item">サイドチャット名 <span class="ex">（タップで開く）</span></div>
-          </div>
-          <div class="drawer-bottom">
-            <span class="icon-btn"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M1 12h4M19 12h4M4.2 19.8 7 17M17 7l2.8-2.8"/></svg></span><span class="fbadge">5</span>
-            <span class="search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>検索 <span class="fbadge">6</span></span>
-            <span class="icon-btn key"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg></span><span class="fbadge">7</span>
-          </div>
+<div class="fsstage" id="fs-s43" data-fs="s43"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene fsl1 on"><div class="fs-pillrow"><span class="fs-tag">4.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-phone">
+      <div class="fs-ph-top">
+        <span class="fs-ph-grp"><span class="fs-ph-btn hl">≡</span><span class="fs-num n1">1</span></span>
+        <span class="fs-ph-peer"><span class="fs-ph-ava"></span>相手の名前</span>
+        <span class="fs-ph-btn">…</span>
+      </div>
+      <div class="fs-ph-zone">
+        <div class="fs-ph-cap"><span>メッセージ表示エリア</span></div>
+        <div class="fs-bub m">Museの返信が表示されます。</div>
+        <div class="fs-bub u">送ったメッセージが表示されます。</div>
+      </div>
+    </div>
+    <div class="fs-formula">チャット画面の左上の「≡」（図1の①）をタップして、メニュー画面を開く</div>
+  </div></div></div>
+  <div class="fs-scene fsl2"><div class="fs-pillrow"><span class="fs-tag">4.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-drawer">
+      <div class="fs-dw-head"><span>アシスタント名</span><span class="fs-num n1">1</span></div>
+      <div class="fs-dw-sec">
+        <div class="fs-dw-cap"><span>タブ</span><span class="fs-num n2">2</span></div>
+        <div class="fs-dw-item">メインチャット／フィード／アイデア／図書館／目標</div>
+      </div>
+      <div class="fs-dw-sec">
+        <div class="fs-dw-cap"><span>スペース</span><span class="fs-num n3">3</span></div>
+        <div class="fs-dw-item">スペース名（作ったものが並びます）</div>
+        <div class="fs-dw-item">＋ スペースを作成</div>
+      </div>
+      <div class="fs-dw-sec">
+        <div class="fs-dw-cap"><span>サイドチャット</span><span class="fs-num n4">4</span></div>
+        <div class="fs-dw-item">サイドチャット名（タップで開く）</div>
+      </div>
+      <div class="fs-dw-bottom">
+        <span class="fs-dw-grp"><span>⚙</span><span class="fs-num n5">5</span></span>
+        <span class="fs-dw-grp"><span>🔍 検索</span><span class="fs-num n6">6</span></span>
+        <span class="fs-dw-grp hl"><span>✏️</span><span class="fs-num n7">7</span></span>
+      </div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsl3"><div class="fs-pillrow"><span class="fs-tag">4.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-phone">
+      <div class="fs-ph-top">
+        <span class="fs-ph-btn">≡</span>
+        <span class="fs-ph-peer"><span class="fs-ph-ava"></span>新しいサイドチャット</span>
+        <span class="fs-ph-btn">…</span>
+      </div>
+      <div class="fs-ph-zone">
+        <div class="fs-ph-cap"><span>メッセージ表示エリア</span></div>
+        <div class="fs-bub m">会話は、まだ始まっていません</div>
+      </div>
+      <div class="fs-ph-zone">
+        <div class="fs-ph-input">
+          <span class="fs-ph-plus">＋</span>
+          <span class="fs-ph-field">メッセージを入力…</span>
+          <span class="fs-ph-mic">🎤</span>
         </div>
-        <figcaption><b>図2（再掲）</b> メニュー画面（模式図）。各部のはたらきは<a href="#ch3-1">3.1</a>の表を参照してください。</figcaption>
-      </figure>
-      <ol>
-        <li>チャット画面の左上の「≡」（図1の①）をタップして、メニュー画面を開く。</li>
-        <li>メニュー画面の右下の鉛筆アイコン（図2の⑦）をタップする。</li>
-        <li>新しいサイドチャットが開くので、最初のメッセージを送る。</li>
-      </ol>
-      <p>名前はMuseが自動で付けます。変えるときは、右上の「…」（図1の②）から「名前を変更」を選びます。</p>
-      <p>作ったサイドチャットは「サイドチャット」欄（図2の④）に並びます。見つからないときは、検索欄（図2の⑥）で探すか、Museに「〇〇について話したのは、どのサイドチャット？」と質問します。</p>
+      </div>
+    </div>
+    <div class="fs-formula">新しいサイドチャットが開くので、最初のメッセージを送る</div>
+  </div></div></div>
+  <div class="fs-scene fsl4"><div class="fs-pillrow"><span class="fs-tag">4.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>名前について</h5>
+      <div class="fs-sign g1">名前はClaudeが自動で付けます</div>
+      <div class="fs-sign g2">変えるときは、右上の「…」（図1の②）をタップします</div>
+      <div class="fs-sign g3">開いたメニューから「名前を変更」を選びます</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsl5"><div class="fs-pillrow"><span class="fs-tag">4.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>作ったサイドチャットの場所</h5>
+      <div class="fs-sign g1">「サイドチャット」欄（図2の④）に並びます</div>
+      <div class="fs-sign g2">タップで、そのチャットを開きます</div>
+      <div class="fs-sign g3">各部のはたらきは、3.1の表を参照してください</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsl6"><div class="fs-pillrow"><span class="fs-tag">4.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>見つからないときは</h5>
+      <div class="fs-sign g1">検索欄（図2の⑥）で探します</div>
+      <div class="fs-sign g2">Claudeに質問します</div>
+    </div>
+    <div class="fs-chat">
+      <div class="fs-bub u">〇〇について話したのは、どのサイドチャット？</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsl7 fs-final"><div class="fs-pillrow"><span class="fs-tag">4.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">作り方は、メニューから鉛筆アイコン</div>
+    <div class="fs-signs">
+      <h5>4.3のまとめ</h5>
+      <div class="fs-sign g1"><b>✓</b> 左上の「≡」でメニュー画面を開く</div>
+      <div class="fs-sign g2"><b>✓</b> 右下の鉛筆アイコンをタップ</div>
+      <div class="fs-sign g3"><b>✓</b> 最初のメッセージを送る</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">チャット画面の左上の「≡」（図1の①）をタップして、メニュー画面を開きます</div>
+</div></div>
+      </div>
 
+      <div class="fsunit">
       <h3 id="ch4-4"><span class="no">4.4</span>サイドチャットのアーカイブ</h3>
-      <h4>アーカイブとは</h4>
-      <p>アーカイブは、チャットを削除せずに一覧から外して保管する操作です。内容はそのまま残り、あとで一覧に戻せます。ファイルの圧縮（ZIP形式など）とは別のものです。</p>
-      <p class="small">※アーカイブしても、トークンの消費は減りません。</p>
-      <h4>アーカイブのしかた</h4>
-      <ol>
-        <li>アーカイブしたいサイドチャットを開く。</li>
-        <li>画面右上の「…」（図1の②）をタップする。</li>
-        <li>「アーカイブ」を選ぶ。</li>
-      </ol>
-      <figure>
-        <p class="fig-title">アーカイブのしかた</p>
-        <div class="steps" role="img" aria-label="アーカイブのしかたの模式図。手順2：サイドチャットを開き、画面右上の「…」をタップする。手順3：開いたメニューの「名前を変更」「固定」「アーカイブ」「削除」のうち、「アーカイブ」を選ぶ。">
-          <div class="step">
-            <div class="step-label"><span class="fbadge">2</span>右上の「…」をタップ</div>
-            <div class="mini" aria-hidden="true">
-              <div class="mini-head"><span class="circle-btn">≡</span><span class="t" style="text-align:center">サイドチャット名</span><span class="circle-btn hl">…</span></div>
-              <div class="mini-body"><div class="bubble-ph" style="width:70%"></div><div class="bubble-ph" style="width:50%;justify-self:end"></div><div class="bubble-ph" style="width:60%"></div></div>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-label"><span class="fbadge">3</span>「アーカイブ」を選ぶ</div>
-            <div class="mini" aria-hidden="true">
-              <div class="mini-head"><span class="circle-btn">≡</span><span class="t" style="text-align:center">サイドチャット名</span><span class="circle-btn">…</span></div>
-              <div class="popmenu"><span>名前を変更</span><span>固定</span><span class="hl">アーカイブ</span><span>削除</span></div>
-            </div>
-          </div>
-        </div>
-        <figcaption><b>図4</b> アーカイブのしかた（模式図）。番号は上の手順の番号に対応します。強調した枠が、タップする場所です。</figcaption>
-      </figure>
-      <h4>一覧に戻すしかた</h4>
-      <ol>
-        <li>メニュー画面の左下の歯車アイコン（図2の⑤）をタップして、設定を開く。</li>
-        <li>「データコントロール」を開く。</li>
-        <li>「アーカイブ済みのサイドチャット」を開く。</li>
-        <li>戻したいチャットの右側の「…」をタップする。</li>
-        <li>「アーカイブを解除」を選ぶ。</li>
-      </ol>
-      <figure>
-        <p class="fig-title">一覧に戻すしかた</p>
-        <div class="steps" role="img" aria-label="一覧に戻すしかたの模式図。手順2：設定画面で「データコントロール」を開く。手順3：データコントロール画面で「アーカイブ済みのサイドチャット」を開く。手順4と5：アーカイブしたチャットの右側の「…」をタップし、メニューの「名前を変更」「アーカイブを解除」「削除」のうち、「アーカイブを解除」を選ぶ。">
-          <div class="step">
-            <div class="step-label"><span class="fbadge">2</span>「データコントロール」</div>
-            <div class="mini" aria-hidden="true">
-              <div class="mini-head"><span class="circle-btn">‹</span><span class="t">設定</span></div>
-              <div class="mini-body"><div class="row"><span class="t">コネクター</span><span class="chev">›</span></div><div class="row ph"><span class="t">（ほかの項目）</span></div><div class="row hl"><span class="t">データコントロール</span><span class="chev">›</span></div><div class="row ph"><span class="t">（ほかの項目）</span></div></div>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-label"><span class="fbadge">3</span>「アーカイブ済みのサイドチャット」</div>
-            <div class="mini" aria-hidden="true">
-              <div class="mini-head"><span class="circle-btn">‹</span><span class="t">データコントロール</span></div>
-              <div class="mini-body"><div class="row"><span class="t">AIモデルの改善に協力する</span></div><div class="row hl"><span class="t">アーカイブ済みのサイドチャット</span><span class="chev">›</span></div><div class="row"><span class="t">Museにメモリーをインポート</span><span class="chev">›</span></div><div class="row"><span class="t">エージェントデータをダウンロード</span></div></div>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-label"><span class="fbadge">4</span><span class="fbadge">5</span>「…」→「アーカイブを解除」</div>
-            <div class="mini" aria-hidden="true">
-              <div class="mini-head"><span class="circle-btn">‹</span><span class="t">アーカイブ済みのサイド…</span></div>
-              <div class="mini-body"><div class="row"><span class="t">チャットの名前</span><span class="hl" style="border-radius:6px;padding:0 .35rem">…</span></div></div>
-              <div class="popmenu"><span>名前を変更</span><span class="hl">アーカイブを解除</span><span>削除</span></div>
-            </div>
-          </div>
-        </div>
-        <figcaption><b>図5</b> 一覧に戻すしかた（模式図）。番号は上の手順の番号に対応します。強調した枠が、タップする場所です。設定画面の項目は一部だけを示しています。</figcaption>
-      </figure>
-      <p class="small">※パソコン版では、チャット一覧の上の「…」→「アーカイブ済みのチャットを表示」で一覧を開き、チャットの「…」→「アーカイブから復元」を選びます。チャットの名前をクリックしても、一覧には戻りません。</p>
-
+<div class="fsstage" id="fs-s44" data-fs="s44"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene fsm1 on"><div class="fs-pillrow"><span class="fs-tag">4.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">アーカイブとは</div>
+    <div class="fs-formula">チャットを削除せずに一覧から外して保管する操作です</div>
+    <div class="fs-signs">
+      <h5>アーカイブすると</h5>
+      <div class="fs-sign g1">内容はそのまま残ります</div>
+      <div class="fs-sign g2">あとで一覧に戻せます</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsm2"><div class="fs-pillrow"><span class="fs-tag">4.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>間違えやすい点</h5>
+      <div class="fs-sign g1">ファイルの圧縮（ZIP形式など）とは別のものです</div>
+      <div class="fs-sign g2">アーカイブしても、トークンの消費は減りません</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsm3"><div class="fs-pillrow"><span class="fs-tag">4.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-phone">
+      <div class="fs-ph-top">
+        <span class="fs-ph-btn">≡</span>
+        <span class="fs-ph-peer"><span class="fs-ph-ava"></span>サイドチャット名</span>
+        <span class="fs-ph-grp"><span class="fs-ph-btn hl">…</span><span class="fs-num n2">2</span></span>
+      </div>
+      <div class="fs-ph-zone">
+        <div class="fs-bub m">Museの返信が表示されます。</div>
+        <div class="fs-bub u">送ったメッセージが表示されます。</div>
+      </div>
+    </div>
+    <div class="fs-signs">
+      <h5>アーカイブのしかた</h5>
+      <div class="fs-sign g1">① アーカイブしたいサイドチャットを開く</div>
+      <div class="fs-sign g2">② 画面右上の「…」（図1の②）をタップする</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsm4"><div class="fs-pillrow"><span class="fs-tag">4.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-popmenu">
+      <span>名前を変更</span><span>固定</span><span class="hl">アーカイブ</span><span>削除</span>
+    </div>
+    <div class="fs-formula">③ 開いたメニューから「アーカイブ」を選ぶ</div>
+  </div></div></div>
+  <div class="fs-scene fsm5"><div class="fs-pillrow"><span class="fs-tag">4.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-phone">
+      <div class="fs-ph-top">
+        <span class="fs-ph-btn">‹</span>
+        <span class="fs-ph-peer">設定</span>
+      </div>
+      <div>
+        <div class="fs-ph-row"><span>コネクター</span><span class="chev">›</span></div>
+        <div class="fs-ph-row hl"><span>データコントロール</span><span class="chev">›</span></div>
+        <div class="fs-ph-row"><span>（ほかの項目）</span></div>
+      </div>
+    </div>
+    <div class="fs-signs">
+      <h5>一覧に戻すしかた</h5>
+      <div class="fs-sign g1">① メニュー画面の左下の歯車アイコン（図2の⑤）をタップして、設定を開く</div>
+      <div class="fs-sign g2">② 「データコントロール」を開く</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsm6"><div class="fs-pillrow"><span class="fs-tag">4.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-phone">
+      <div class="fs-ph-top">
+        <span class="fs-ph-btn">‹</span>
+        <span class="fs-ph-peer">データコントロール</span>
+      </div>
+      <div>
+        <div class="fs-ph-row"><span>AIモデルの改善に協力する</span></div>
+        <div class="fs-ph-row hl"><span>アーカイブ済みのサイドチャット</span><span class="chev">›</span></div>
+        <div class="fs-ph-row"><span>Museにメモリーをインポート</span><span class="chev">›</span></div>
+        <div class="fs-ph-row"><span>エージェントデータをダウンロード</span></div>
+      </div>
+    </div>
+    <div class="fs-formula">③ 「アーカイブ済みのサイドチャット」を開く</div>
+    <div class="fs-formula">設定画面の項目は、一部だけを示しています</div>
+  </div></div></div>
+  <div class="fs-scene fsm7"><div class="fs-pillrow"><span class="fs-tag">4.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-phone">
+      <div class="fs-ph-top">
+        <span class="fs-ph-btn">‹</span>
+        <span class="fs-ph-peer">アーカイブ済みのサイド…</span>
+      </div>
+      <div>
+        <div class="fs-ph-row"><span>チャットの名前</span><span class="fs-ph-btn hl">…</span></div>
+      </div>
+    </div>
+    <div class="fs-popmenu">
+      <span>名前を変更</span><span class="hl">アーカイブを解除</span><span>削除</span>
+    </div>
+    <div class="fs-formula">④ チャットの右側の「…」をタップし、⑤「アーカイブを解除」を選ぶ</div>
+  </div></div></div>
+  <div class="fs-scene fsm8"><div class="fs-pillrow"><span class="fs-tag">4.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-formula">パソコン版では、チャット一覧の上の「…」→「アーカイブ済みのチャットを表示」で一覧を開き、チャットの「…」→「アーカイブから復元」を選びます</div>
+    <div class="fs-memcause">チャットの名前をクリックしても、一覧には戻りません</div>
+  </div></div></div>
+  <div class="fs-scene fsm9 fs-final"><div class="fs-pillrow"><span class="fs-tag">4.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">アーカイブは、消さずに片づける操作</div>
+    <div class="fs-signs">
+      <h5>4.4のまとめ</h5>
+      <div class="fs-sign g1"><b>✓</b> アーカイブは削除ではなく、保管</div>
+      <div class="fs-sign g2"><b>✓</b> 戻すときは、設定の「アーカイブ済みのサイドチャット」から</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">アーカイブは、チャットを削除せずに一覧から外して保管する操作です</div>
+</div></div>
+      </div>
           </section>
 
     <!-- ================= 第5章 ================= -->
@@ -2597,6 +2762,239 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
         .fromTo(Q(".fsh9 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},60.3)
         .fromTo(Q(".fsh9 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},61.3)
         .fromTo(QA(".fsh9 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},62.1)
+        .to({},{duration:6},65.5);
+    }
+  });
+  /* ================= 4.1 メインチャットとサイドチャット ================= */
+  var st41 = document.querySelector('[data-fs="s41"]');
+  if(st41) createUnit(st41, {
+    telopTexts: [
+      "Museのチャットには、メインチャットとサイドチャットの2種類があります",
+      "メインチャットは最初からある中心のチャット、サイドチャットは話題ごとに自分で作るチャットです",
+      "メインチャットは短い質問や雑談に、サイドチャットは長くなりそうなテーマに向いています",
+      "サイドチャットは、学習・制作・旅行の計画など、話題ごとに枝分かれします",
+      "チャットの記録はそのチャットの中だけに残ります。どのチャットでも共通なのは、メモリーだけです",
+      "Museは過去のチャットを検索して一部を参照できますが、正確に引き継げるとは限りません",
+      "続きを別のチャットで話すときは、引き継ぎ文を使います（5.5）"
+    ],
+    finalScene: "fsj7",
+    finalTelop: "続きを別のチャットで話すときは、引き継ぎ文を使います（5.5）",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* J1 two kinds of chat */
+      tl.call(show,["fsj1"],0)
+        .call(setTel,["Museのチャットには、メインチャットとサイドチャットの2種類があります"],0)
+        .fromTo(Q(".fsj1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(QA(".fsj1 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.6,ease:"back.out(2)"},1.1)
+      /* J2 table row 1: positioning */
+        .call(show,["fsj2"],7.5)
+        .call(setTel,["メインチャットは最初からある中心のチャット、サイドチャットは話題ごとに自分で作るチャットです"],7.5)
+        .fromTo(Q(".fsj2 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},7.8)
+        .fromTo(QA(".fsj2 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},8.6)
+      /* J3 table row 2: suitable uses */
+        .call(show,["fsj3"],15)
+        .call(setTel,["メインチャットは短い質問や雑談に、サイドチャットは長くなりそうなテーマに向いています"],15)
+        .fromTo(Q(".fsj3 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},15.3)
+        .fromTo(QA(".fsj3 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},16.1)
+      /* J4 figure 3: branching by topic */
+        .call(show,["fsj4"],22.5)
+        .call(setTel,["サイドチャットは、学習・制作・旅行の計画など、話題ごとに枝分かれします"],22.5)
+        .fromTo(Q(".fsj4 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},22.8)
+        .fromTo(Q(".fsj4 .fs-arrow"),{opacity:0},{opacity:1,duration:.4},23.5)
+        .fromTo(Q(".fsj4 .fs-signs"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},24)
+        .fromTo(QA(".fsj4 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.7},24.8)
+      /* J5 records stay inside the chat; memory is shared */
+        .call(show,["fsj5"],30)
+        .call(setTel,["チャットの記録はそのチャットの中だけに残ります。どのチャットでも共通なのは、メモリーだけです"],30)
+        .fromTo(Q(".fsj5 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},30.3)
+        .fromTo(Q(".fsj5 .fs-mem"),{opacity:0,scale:.85},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},31.3)
+      /* J6 search may not hand over accurately */
+        .call(show,["fsj6"],37.5)
+        .call(setTel,["Museは過去のチャットを検索して一部を参照できますが、正確に引き継げるとは限りません"],37.5)
+        .fromTo(Q(".fsj6 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},37.8)
+        .fromTo(Q(".fsj6 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},38.7)
+      /* J7 recap: use a handover note (5.5) */
+        .call(show,["fsj7"],45)
+        .call(setTel,["続きを別のチャットで話すときは、引き継ぎ文を使います（5.5）"],45)
+        .fromTo(Q(".fsj7 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},45.3)
+        .fromTo(Q(".fsj7 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},46.3)
+        .fromTo(QA(".fsj7 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},47.1)
+        .to({},{duration:6},50.5);
+    }
+  });
+
+  /* ================= 4.2 なぜチャットを分けるのか ================= */
+  var st42 = document.querySelector('[data-fs="s42"]');
+  if(st42) createUnit(st42, {
+    telopTexts: [
+      "注意：メインチャットだけで何でも話し続けないでください",
+      "長くなりそうな話題は、最初からサイドチャットで話します。理由は第5章で説明します",
+      "分けると、話題が混ざらずあとから探しやすく、終わった話題はアーカイブで片づけられます（4.4）",
+      "長くなりそうな話題は、最初からサイドチャットで話します"
+    ],
+    finalScene: "fsk4",
+    finalTelop: "長くなりそうな話題は、最初からサイドチャットで話します",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* K1 warning: do not keep everything in the main chat */
+      tl.call(show,["fsk1"],0)
+        .call(setTel,["注意：メインチャットだけで何でも話し続けないでください"],0)
+        .fromTo(Q(".fsk1 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},0.3)
+        .fromTo(Q(".fsk1 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},1.1)
+      /* K2 long topics start in a side chat; reasons in chapter 5 */
+        .call(show,["fsk2"],7.5)
+        .call(setTel,["長くなりそうな話題は、最初からサイドチャットで話します。理由は第5章で説明します"],7.5)
+        .fromTo(Q(".fsk2 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},7.8)
+        .fromTo(Q(".fsk2 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},8.8)
+      /* K3 merits of splitting */
+        .call(show,["fsk3"],15)
+        .call(setTel,["分けると、話題が混ざらずあとから探しやすく、終わった話題はアーカイブで片づけられます（4.4）"],15)
+        .fromTo(Q(".fsk3 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},15.3)
+        .fromTo(QA(".fsk3 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},16.1)
+      /* K4 recap */
+        .call(show,["fsk4"],22.5)
+        .call(setTel,["長くなりそうな話題は、最初からサイドチャットで話します"],22.5)
+        .fromTo(Q(".fsk4 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},22.8)
+        .fromTo(Q(".fsk4 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},23.8)
+        .fromTo(QA(".fsk4 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},24.6)
+        .to({},{duration:6},28);
+    }
+  });
+
+  /* ================= 4.3 サイドチャットの作り方 ================= */
+  var st43 = document.querySelector('[data-fs="s43"]');
+  if(st43) createUnit(st43, {
+    telopTexts: [
+      "チャット画面の左上の「≡」（図1の①）をタップして、メニュー画面を開きます",
+      "メニュー画面の右下の鉛筆アイコン（図2の⑦）をタップします",
+      "新しいサイドチャットが開くので、最初のメッセージを送ります",
+      "名前はClaudeが自動で付けます。変えるときは、右上の「…」から「名前を変更」を選びます",
+      "作ったサイドチャットは、メニュー画面の「サイドチャット」欄（図2の④）に並びます",
+      "見つからないときは、検索欄（図2の⑥）で探すか、Claudeに質問します",
+      "新しいサイドチャットは、メニュー画面の右下の鉛筆アイコンから作ります"
+    ],
+    finalScene: "fsl7",
+    finalTelop: "新しいサイドチャットは、メニュー画面の右下の鉛筆アイコンから作ります",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* L1 step 1: open the menu screen from the top-left */
+      tl.call(show,["fsl1"],0)
+        .call(setTel,["チャット画面の左上の「≡」（図1の①）をタップして、メニュー画面を開きます"],0)
+        .fromTo(Q(".fsl1 .fs-phone"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(Q(".fsl1 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},1.2)
+        .fromTo(Q(".fsl1 .fs-ph-btn.hl"),{scale:.8},{scale:1,duration:.5,ease:"back.out(3)"},2)
+      /* L2 step 2: tap the pencil icon at the bottom-right of the menu */
+        .call(show,["fsl2"],7.5)
+        .call(setTel,["メニュー画面の右下の鉛筆アイコン（図2の⑦）をタップします"],7.5)
+        .fromTo(Q(".fsl2 .fs-drawer"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},7.8)
+        .fromTo(Q(".fsl2 .fs-dw-grp.hl"),{scale:.85},{scale:1,duration:.5,ease:"back.out(3)"},9.3)
+      /* L3 step 3: a new side chat opens; send the first message */
+        .call(show,["fsl3"],15)
+        .call(setTel,["新しいサイドチャットが開くので、最初のメッセージを送ります"],15)
+        .fromTo(Q(".fsl3 .fs-phone"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},15.3)
+        .fromTo(Q(".fsl3 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},16.2)
+      /* L4 the name is automatic; how to rename */
+        .call(show,["fsl4"],22.5)
+        .call(setTel,["名前はClaudeが自動で付けます。変えるときは、右上の「…」から「名前を変更」を選びます"],22.5)
+        .fromTo(Q(".fsl4 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},22.8)
+        .fromTo(QA(".fsl4 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},23.6)
+      /* L5 created chats line up in the side-chat column */
+        .call(show,["fsl5"],30)
+        .call(setTel,["作ったサイドチャットは、メニュー画面の「サイドチャット」欄（図2の④）に並びます"],30)
+        .fromTo(Q(".fsl5 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},30.3)
+        .fromTo(QA(".fsl5 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},31.1)
+      /* L6 when you cannot find it: search or ask Muse */
+        .call(show,["fsl6"],37.5)
+        .call(setTel,["見つからないときは、検索欄（図2の⑥）で探すか、Claudeに質問します"],37.5)
+        .fromTo(Q(".fsl6 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},37.8)
+        .fromTo(QA(".fsl6 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},38.6)
+        .fromTo(Q(".fsl6 .fs-bub"),{opacity:0,y:12},{opacity:1,y:0,duration:.5},40.2)
+      /* L7 recap */
+        .call(show,["fsl7"],45)
+        .call(setTel,["新しいサイドチャットは、メニュー画面の右下の鉛筆アイコンから作ります"],45)
+        .fromTo(Q(".fsl7 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},45.3)
+        .fromTo(Q(".fsl7 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},46.3)
+        .fromTo(QA(".fsl7 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},47.1)
+        .to({},{duration:6},50.5);
+    }
+  });
+
+  /* ================= 4.4 サイドチャットのアーカイブ ================= */
+  var st44 = document.querySelector('[data-fs="s44"]');
+  if(st44) createUnit(st44, {
+    telopTexts: [
+      "アーカイブは、チャットを削除せずに一覧から外して保管する操作です",
+      "ファイルの圧縮（ZIP形式など）とは別のものです。アーカイブしても、トークンの消費は減りません",
+      "アーカイブしたいサイドチャットを開き、画面右上の「…」（図1の②）をタップします",
+      "開いたメニューから「アーカイブ」を選びます",
+      "一覧に戻すには、メニュー画面の左下の歯車アイコン（図2の⑤）をタップして、設定を開きます",
+      "設定で「データコントロール」を開きます",
+      "「アーカイブ済みのサイドチャット」を開きます",
+      "戻したいチャットの右側の「…」をタップし、「アーカイブを解除」を選びます",
+      "パソコン版では、「アーカイブ済みのチャットを表示」から一覧を開き、「アーカイブから復元」を選びます",
+      "アーカイブしたチャットは、設定の「アーカイブ済みのサイドチャット」から一覧に戻せます"
+    ],
+    finalScene: "fsm9",
+    finalTelop: "アーカイブしたチャットは、設定の「アーカイブ済みのサイドチャット」から一覧に戻せます",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* M1 what archiving is */
+      tl.call(show,["fsm1"],0)
+        .call(setTel,["アーカイブは、チャットを削除せずに一覧から外して保管する操作です"],0)
+        .fromTo(Q(".fsm1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(Q(".fsm1 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},1.1)
+        .fromTo(Q(".fsm1 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},1.9)
+        .fromTo(QA(".fsm1 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},2.7)
+      /* M2 two easy misunderstandings */
+        .call(show,["fsm2"],7.5)
+        .call(setTel,["ファイルの圧縮（ZIP形式など）とは別のものです。アーカイブしても、トークンの消費は減りません"],7.5)
+        .fromTo(Q(".fsm2 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},7.8)
+        .fromTo(QA(".fsm2 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},8.6)
+      /* M3 archive steps 1-2: open the chat, tap the top-right menu */
+        .call(show,["fsm3"],15)
+        .call(setTel,["アーカイブしたいサイドチャットを開き、画面右上の「…」（図1の②）をタップします"],15)
+        .fromTo(Q(".fsm3 .fs-phone"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},15.3)
+        .fromTo(Q(".fsm3 .fs-ph-btn.hl"),{scale:.8},{scale:1,duration:.5,ease:"back.out(3)"},16.5)
+        .fromTo(Q(".fsm3 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},17.2)
+        .fromTo(QA(".fsm3 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},18)
+      /* M4 archive step 3: choose Archive in the menu (figure 4) */
+        .call(show,["fsm4"],22.5)
+        .call(setTel,["開いたメニューから「アーカイブ」を選びます"],22.5)
+        .fromTo(Q(".fsm4 .fs-popmenu"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},22.8)
+        .fromTo(QA(".fsm4 .fs-popmenu span"),{opacity:0},{opacity:1,duration:.4,stagger:.25},23.5)
+        .fromTo(Q(".fsm4 .fs-popmenu .hl"),{scale:.92},{scale:1,duration:.5,ease:"back.out(3)"},24.8)
+        .fromTo(Q(".fsm4 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},25.5)
+      /* M5 restore steps 1-2: gear icon to Settings, then Data Controls */
+        .call(show,["fsm5"],30)
+        .call(setTel,["一覧に戻すには、メニュー画面の左下の歯車アイコン（図2の⑤）をタップして、設定を開きます"],30)
+        .fromTo(Q(".fsm5 .fs-phone"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},30.3)
+        .fromTo(Q(".fsm5 .fs-ph-row.hl"),{scale:.96},{scale:1,duration:.5,ease:"back.out(3)"},31.5)
+        .fromTo(Q(".fsm5 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},32.2)
+        .fromTo(QA(".fsm5 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},33)
+        .call(setTel,["設定で「データコントロール」を開きます"],34.5)
+      /* M6 restore step 3: open Archived Side Chats (figure 5) */
+        .call(show,["fsm6"],37.5)
+        .call(setTel,["「アーカイブ済みのサイドチャット」を開きます"],37.5)
+        .fromTo(Q(".fsm6 .fs-phone"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},37.8)
+        .fromTo(Q(".fsm6 .fs-ph-row.hl"),{scale:.96},{scale:1,duration:.5,ease:"back.out(3)"},39)
+        .fromTo(QA(".fsm6 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5,stagger:.6},39.8)
+      /* M7 restore steps 4-5: the chat's menu, then Unarchive */
+        .call(show,["fsm7"],45)
+        .call(setTel,["戻したいチャットの右側の「…」をタップし、「アーカイブを解除」を選びます"],45)
+        .fromTo(Q(".fsm7 .fs-phone"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},45.3)
+        .fromTo(Q(".fsm7 .fs-popmenu"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},46.3)
+        .fromTo(Q(".fsm7 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},47.5)
+      /* M8 on PC: show archived chats, then restore */
+        .call(show,["fsm8"],52.5)
+        .call(setTel,["パソコン版では、「アーカイブ済みのチャットを表示」から一覧を開き、「アーカイブから復元」を選びます"],52.5)
+        .fromTo(Q(".fsm8 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},52.8)
+        .fromTo(Q(".fsm8 .fs-memcause"),{opacity:0,y:16},{opacity:1,y:0,duration:.6},54.4)
+      /* M9 recap */
+        .call(show,["fsm9"],60)
+        .call(setTel,["アーカイブしたチャットは、設定の「アーカイブ済みのサイドチャット」から一覧に戻せます"],60)
+        .fromTo(Q(".fsm9 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},60.3)
+        .fromTo(Q(".fsm9 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},61.3)
+        .fromTo(QA(".fsm9 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},62.1)
         .to({},{duration:6},65.5);
     }
   });
