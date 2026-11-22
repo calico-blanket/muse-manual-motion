@@ -351,11 +351,11 @@
    an opacity fade, so the chat card is only as tall as the bubbles
    already shown; the fit measurement forces the final state with a
    temporary .fs-measuring class on the stage. */
-/* v6.2 playback pace: CSS-side entrance durations are multiplied by
+/* v6.4 playback pace: CSS-side entrance durations are multiplied by
    --fs-durfactor. Keep in sync with FS_DURATION_SCALE in the JS engine
    below (the same number, defined there as the single source for the
-   timeline; 1.5 = every duration 1.5x longer, loop about 113s). */
-#fs-s51{--fs-durfactor:1.5}
+   timeline; 2 = every duration 2x longer, loop about 200s). */
+#fs-s51{--fs-durfactor:2}
 .fsstage{margin:2px 0 6px}
 @media(min-width:861px){.fsstage{width:calc(100% + 5rem);margin-left:-2.5rem}}
 @media(max-width:860px){.fsstage{width:calc(100% + 2.2rem);margin-left:-1.1rem}}
@@ -1759,15 +1759,18 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
     QA(".fs-scene").forEach(function(sc){ sc.classList.toggle("on", sc.classList.contains(id)); });
     scheduleFit();
   }
-  /* v6.2 playback pace: FS_DURATION_SCALE stretches every duration in
-     the timeline — scene holds, entrance intervals, fades, the closing
-     hold and the repeat delay — by this one factor, applied through
-     timeScale so the whole loop scales uniformly. 1.5 makes one loop
-     75.2s x 1.5 = about 113s (was about 75s). To slow it further, e.g.
-     1.5 for about 112s, change this number to 1.5 and set the matching
-     --fs-durfactor in the stylesheet (used by the CSS bubble entrance)
-     to the same value. Reduced-motion static display is unaffected. */
-  var FS_DURATION_SCALE = 1.5;
+  /* v6.4 playback pace: FS_DURATION_SCALE stretches every duration in
+     the timeline — entrance intervals, fades and the repeat delay — by
+     this one factor, applied through timeScale so the whole loop scales
+     uniformly. On top of that, each scene's end hold (the silent gap
+     after its last element, before the next scene) is doubled in the
+     position values themselves, so the effective stillness before a
+     scene change is about 4x the original definition. One loop is
+     (97.2s timeline + 3s repeat delay) x 2.0 = about 200s. Keep the
+     matching --fs-durfactor in the stylesheet (used by the CSS bubble
+     entrance) at the same value. Reduced-motion static display is
+     unaffected. */
+  var FS_DURATION_SCALE = 2.0;
   var tl = gsap.timeline({repeat: reduced ? 0 : -1, repeatDelay: 3});
   tl.timeScale(1 / FS_DURATION_SCALE);
   /* S1 intro (a) */
@@ -1779,59 +1782,59 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
     .call(showBub,[3],3.2).call(showBub,[4],4).call(showBub,[5],4.8)
     .fromTo(Q(".fss1 .fs-actor"),{opacity:0,x:-24},{opacity:1,x:0,duration:.6},0.5)
   /* S2 context (b) */
-    .call(show,["fss2"],7)
-    .call(setTel,["コンテキスト＝返信で参照する情報全体。このチャットの記録とメモリーファイルが含まれ、返信のたびに最初から読み直します"],7)
-    .fromTo(Q(".fss2 .fs-ctxbox"),{opacity:0,scale:.97},{opacity:1,scale:1,duration:.6},7.3)
-    .fromTo(QA(".fss2 .fs-paper"),{opacity:0,y:16},{opacity:1,y:0,duration:.45,stagger:.5},7.8)
-    .fromTo(Q(".fss2 .fs-mem"),{opacity:0,scale:.85},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},9.6)
-    .fromTo(Q(".fss2 .fs-reread"),{opacity:0},{opacity:1,duration:.4},10.4)
-    .to(Q(".fss2 .fs-stack"),{y:-6,duration:.35,yoyo:true,repeat:5,ease:"sine.inOut"},11)
+    .call(show,["fss2"],8.7)
+    .call(setTel,["コンテキスト＝返信で参照する情報全体。このチャットの記録とメモリーファイルが含まれ、返信のたびに最初から読み直します"],8.7)
+    .fromTo(Q(".fss2 .fs-ctxbox"),{opacity:0,scale:.97},{opacity:1,scale:1,duration:.6},9)
+    .fromTo(QA(".fss2 .fs-paper"),{opacity:0,y:16},{opacity:1,y:0,duration:.45,stagger:.5},9.5)
+    .fromTo(Q(".fss2 .fs-mem"),{opacity:0,scale:.85},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},11.3)
+    .fromTo(Q(".fss2 .fs-reread"),{opacity:0},{opacity:1,duration:.4},12.1)
+    .to(Q(".fss2 .fs-stack"),{y:-6,duration:.35,yoyo:true,repeat:5,ease:"sine.inOut"},12.7)
   /* S3 token definition (c) */
-    .call(show,["fss3"],16)
-    .call(setTel,["トークンとは、AIが文章を処理する最小単位。利用量はトークン数で数え、1回の返信ではコンテキスト全体と返信の両方が数えられます"],16)
-    .fromTo(QA(".fss3 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.7,ease:"back.out(2)"},16.8)
-    .fromTo(Q(".fss3 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},19.4)
-    .fromTo(Q(".fss3 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},21.4)
+    .call(show,["fss3"],20.6)
+    .call(setTel,["トークンとは、AIが文章を処理する最小単位。利用量はトークン数で数え、1回の返信ではコンテキスト全体と返信の両方が数えられます"],20.6)
+    .fromTo(QA(".fss3 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.7,ease:"back.out(2)"},21.4)
+    .fromTo(Q(".fss3 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},24)
+    .fromTo(Q(".fss3 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},26)
   /* S4 PC usage display (d) */
-    .call(show,["fss4"],26)
-    .call(setTel,["パソコン版では返信の下に使用量が出ます。inは読み込んだ量、outは返信の長さ。例は約22万を読み込み、765の返信です"],26)
-    .fromTo(Q(".fss4 .fs-pc"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},26.6)
-    .fromTo(QA(".fss4 .fs-note"),{opacity:0,y:12},{opacity:1,y:0,duration:.5,stagger:.9},28.4)
+    .call(show,["fss4"],34.7)
+    .call(setTel,["パソコン版では返信の下に使用量が出ます。inは読み込んだ量、outは返信の長さ。例は約22万を読み込み、765の返信です"],34.7)
+    .fromTo(Q(".fss4 .fs-pc"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},35.3)
+    .fromTo(QA(".fss4 .fs-note"),{opacity:0,y:12},{opacity:1,y:0,duration:.5,stagger:.9},37.1)
   /* S5 consumption grows (e) */
-    .call(show,["fss5"],34)
-    .call(setTel,["コンテキストが長いほど、1回の返信ごとのトークン消費が増えます。長い資料を渡す・長い返信を求める場合も増えます"],34)
-    .fromTo(Q(".fss5 .fs-meterwrap"),{opacity:0},{opacity:1,duration:.5},34.6)
-    .fromTo(Q(".fss5 .fs-meter i"),{width:"10%"},{width:"72%",duration:2.4,ease:"power1.inOut"},35)
-    .fromTo(QA(".fss5 .fs-doc"),{opacity:0,y:-18},{opacity:1,y:0,duration:.5,stagger:.8,ease:"back.out(1.8)"},38)
-    .to(Q(".fss5 .fs-meter i"),{width:"94%",duration:.8,ease:"power2.out"},39.6)
+    .call(show,["fss5"],46.9)
+    .call(setTel,["コンテキストが長いほど、1回の返信ごとのトークン消費が増えます。長い資料を渡す・長い返信を求める場合も増えます"],46.9)
+    .fromTo(Q(".fss5 .fs-meterwrap"),{opacity:0},{opacity:1,duration:.5},47.5)
+    .fromTo(Q(".fss5 .fs-meter i"),{width:"10%"},{width:"72%",duration:2.4,ease:"power1.inOut"},47.9)
+    .fromTo(QA(".fss5 .fs-doc"),{opacity:0,y:-18},{opacity:1,y:0,duration:.5,stagger:.8,ease:"back.out(1.8)"},50.9)
+    .to(Q(".fss5 .fs-meter i"),{width:"94%",duration:.8,ease:"power2.out"},52.5)
   /* S6a buried instruction (f, first half) */
-    .call(show,["fss6a"],42)
-    .call(setTel,["大事な指示がコンテキストの中で埋もれて、応答の精度が少しずつ落ちていきます"],42)
-    .fromTo(Q(".fss6a .fs-ctxbox"),{opacity:0},{opacity:1,duration:.5},42.6)
-    .fromTo(Q(".fss6a .fs-inst"),{opacity:0,scale:.8},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},43)
-    .fromTo(QA(".fss6a .fs-paper"),{opacity:0,y:16},{opacity:1,y:0,duration:.45,stagger:.6},44)
+    .call(show,["fss6a"],56.5)
+    .call(setTel,["大事な指示がコンテキストの中で埋もれて、応答の精度が少しずつ落ちていきます"],56.5)
+    .fromTo(Q(".fss6a .fs-ctxbox"),{opacity:0},{opacity:1,duration:.5},57.1)
+    .fromTo(Q(".fss6a .fs-inst"),{opacity:0,scale:.8},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},57.5)
+    .fromTo(QA(".fss6a .fs-paper"),{opacity:0,y:16},{opacity:1,y:0,duration:.45,stagger:.6},58.5)
   /* S6b gentle slope (f, second half) */
-    .call(show,["fss6b"],48)
-    .call(setTel,["質の下がり方は、崖ではなく緩やかな坂です"],48)
-    .fromTo(Q(".fss6b .fs-slope"),{opacity:0},{opacity:1,duration:.5},48.6)
-    .fromTo(Q(".fss6b .fs-line"),{strokeDashoffset:100},{strokeDashoffset:0,duration:3,ease:"power1.inOut"},49)
+    .call(show,["fss6b"],64.85)
+    .call(setTel,["質の下がり方は、崖ではなく緩やかな坂です"],64.85)
+    .fromTo(Q(".fss6b .fs-slope"),{opacity:0},{opacity:1,duration:.5},65.45)
+    .fromTo(Q(".fss6b .fs-line"),{strokeDashoffset:100},{strokeDashoffset:0,duration:3,ease:"power1.inOut"},65.85)
   /* S7 no benchmark + signs (g, h) */
-    .call(show,["fss7"],54)
-    .call(setTel,["何回のやりとりで下がるという目安はありません。こんなサインが見えたら、移りどきです"],54)
-    .fromTo(Q(".fss7 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},54.4)
-    .fromTo(Q(".fss7 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},57)
-    .fromTo(QA(".fss7 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:1},57.8)
+    .call(show,["fss7"],72.85)
+    .call(setTel,["何回のやりとりで下がるという目安はありません。こんなサインが見えたら、移りどきです"],72.85)
+    .fromTo(Q(".fss7 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},73.25)
+    .fromTo(Q(".fss7 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},75.85)
+    .fromTo(QA(".fss7 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:1},76.65)
   /* S8 move to a new chat (i) */
-    .call(show,["fss8"],63)
-    .call(setTel,["故障ではなく仕組みどおりの動きです。新しいチャットに移れば元に戻ります"],63)
-    .fromTo(Q(".fss8 .fs-room2"),{opacity:0},{opacity:1,duration:.6},63.6)
-    .fromTo(Q(".fss8 .mw2"),{opacity:0},{opacity:1,duration:.4},63.8)
-    .fromTo(Q(".fss8 .mw2 .fs-meter i"),{width:"94%"},{width:"12%",duration:1,ease:"power2.out"},64.2)
-    .fromTo(Q(".fss8 .fs-actor"),{opacity:0,x:-36},{opacity:1,x:16,duration:1.8,ease:"power1.inOut"},64.4)
-    .fromTo(QA(".fss8 .fs-spark"),{scale:0,opacity:0},{scale:1,opacity:1,duration:.45,stagger:.3,ease:"back.out(2.4)"},66.4)
-    .call(setTel,["新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）"],68)
-    .fromTo(Q(".fss8 .fs-memcause"),{opacity:0,y:16},{opacity:1,y:0,duration:.6},68.2)
-    .to({},{duration:3.4});
+    .call(show,["fss8"],84.6)
+    .call(setTel,["故障ではなく仕組みどおりの動きです。新しいチャットに移れば元に戻ります"],84.6)
+    .fromTo(Q(".fss8 .fs-room2"),{opacity:0},{opacity:1,duration:.6},85.2)
+    .fromTo(Q(".fss8 .mw2"),{opacity:0},{opacity:1,duration:.4},85.4)
+    .fromTo(Q(".fss8 .mw2 .fs-meter i"),{width:"94%"},{width:"12%",duration:1,ease:"power2.out"},85.8)
+    .fromTo(Q(".fss8 .fs-actor"),{opacity:0,x:-36},{opacity:1,x:16,duration:1.8,ease:"power1.inOut"},86)
+    .fromTo(QA(".fss8 .fs-spark"),{scale:0,opacity:0},{scale:1,opacity:1,duration:.45,stagger:.3,ease:"back.out(2.4)"},88)
+    .call(setTel,["新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）"],89.6)
+    .fromTo(Q(".fss8 .fs-memcause"),{opacity:0,y:16},{opacity:1,y:0,duration:.6},89.8)
+    .to({},{duration:6.8});
   tl.pause(0); st._tl = tl;
   fitAll();
   if(reduced){ tl.progress(1); show("fss8"); gsap.set(QA(".fss8 *"),{opacity:1}); setTel("新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）"); fitAll(); return; }
