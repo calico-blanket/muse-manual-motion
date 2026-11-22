@@ -312,56 +312,73 @@
 @media print{.ms-screen *{visibility:visible!important}}
 
 
-/* ===== v5 fullscreen explainer unit (manual-motion): 5.1 ===== */
-.fsstage{margin:18px 0 6px}
+/* ===== v5 fullscreen explainer unit (manual-motion): 5.1 — mobile-safe layout (v5.1 fix) ===== */
+/* Design: scenes are grouped (.fs-scene). Only the active scene is visible
+   (visibility toggle, no crossfade ghosts). Inside a scene everything is in
+   normal flex flow, max-width:100%, wrapping text — nothing can stick out
+   sideways at 360-430px. The stage reserves a bottom safe zone for the telop
+   bar and the fixed "back to chapters" button (bottom-right). */
+.fsstage{margin:2px 0 6px}
 @media(min-width:861px){.fsstage{width:calc(100% + 5rem);margin-left:-2.5rem}}
 @media(max-width:860px){.fsstage{width:calc(100% + 2.2rem);margin-left:-1.1rem}}
-.fs-screen{position:relative;height:100svh;min-height:560px;overflow:hidden;background:linear-gradient(180deg,#eafaf1 0%,#fdfdf8 76%,#e7dcc8 76.2%,#e7dcc8 100%);border-top:2.5px solid var(--line);border-bottom:2.5px solid var(--line);box-shadow:0 6px 18px rgba(60,50,20,.10)}
-.fs-tag{position:absolute;top:14px;left:14px;z-index:9;background:var(--accent);color:#fff;font-weight:800;font-size:14px;border-radius:999px;padding:4px 14px}
-.fs-title{position:absolute;top:6%;left:0;right:0;text-align:center;font-weight:900;color:var(--accent-d);font-size:clamp(22px,6vw,44px);z-index:4;padding:0 4%}
-.fs-chat{position:absolute;left:5%;top:20%;width:40%;height:56%;background:#fff;border:2.5px solid var(--line);border-radius:16px;box-shadow:0 6px 16px rgba(60,50,20,.13);padding:3%;z-index:3}
-.fs-bub{border-radius:12px;padding:.45em .8em;font-size:clamp(13px,3.4vw,20px);font-weight:700;margin-bottom:6%;max-width:90%;line-height:1.45}
-.fs-bub.u{background:var(--accent);color:#fff;margin-left:auto}
-.fs-bub.m{background:#eef3f0;color:var(--ink)}
-.fs-actor{position:absolute;width:24%;max-width:190px;z-index:5}
-.fs-ctxbox{position:absolute;right:4%;top:19%;width:48%;height:58%;border:3px dashed var(--accent);border-radius:16px;background:rgba(255,255,255,.55);z-index:2}
-.fs-ctxlab{position:absolute;top:-1em;left:50%;transform:translateX(-50%);background:#eafaf1;padding:0 .6em;font-weight:900;color:var(--accent-d);font-size:clamp(15px,4vw,24px);white-space:nowrap}
-.fs-stack{position:absolute;left:8%;bottom:16%;width:38%;height:52%}
-.fs-paper{position:absolute;left:0;width:100%;height:24%;background:#fff;border:2px solid #b9cdc0;border-radius:8px;box-shadow:0 2px 6px rgba(60,50,20,.12);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:clamp(11px,3vw,17px);color:var(--ink)}
-.fs-inst{position:absolute;left:-4%;width:108%;height:24%;background:#fdf6e0;border:3px solid #c8a24a;border-radius:8px;font-weight:900;color:#7a5c14;font-size:clamp(12px,3.2vw,19px);display:flex;align-items:center;justify-content:center;z-index:3}
-.fs-mem{position:absolute;right:6%;bottom:10%;background:#f4faf7;border:2.5px solid var(--accent);border-radius:10px;padding:.35em .8em;font-weight:800;color:var(--ink);font-size:clamp(12px,3.2vw,19px);z-index:3}
+#ch5-1{scroll-margin-top:3.4rem}
+.fs-screen{position:relative;height:calc(100svh - 112px);min-height:480px;overflow:hidden;background:linear-gradient(180deg,#eafaf1 0%,#fdfdf8 78%,#e7dcc8 78.2%,#e7dcc8 100%);border-top:2.5px solid var(--line);border-bottom:2.5px solid var(--line);box-shadow:0 6px 18px rgba(60,50,20,.10)}
+.fs-screen *, .fs-screen *::before, .fs-screen *::after{box-sizing:border-box}
+.fs-tag{position:absolute;top:12px;left:12px;z-index:9;background:var(--accent);color:#fff;font-weight:800;font-size:14px;border-radius:999px;padding:4px 14px}
+.fs-scene{position:absolute;top:0;left:0;right:0;bottom:118px;padding:46px 16px 26px;display:flex;flex-direction:column;align-items:center;gap:12px;visibility:hidden;opacity:0;pointer-events:none;overflow:hidden}
+.fs-scene.on{visibility:visible;opacity:1}
+.fs-scene > *{max-width:100%}
+.fs-row{display:flex;gap:10px;width:100%;max-width:440px;align-items:flex-start}
+.fs-title{font-weight:900;color:var(--accent-d);font-size:clamp(21px,6vw,40px);text-align:center;line-height:1.4;width:100%}
+.fs-chat{flex:1 1 auto;min-width:0;background:#fff;border:2.5px solid var(--line);border-radius:16px;box-shadow:0 6px 16px rgba(60,50,20,.13);padding:12px}
+.fs-bub{border-radius:12px;padding:.45em .8em;font-size:clamp(13px,3.6vw,19px);font-weight:700;margin-bottom:10px;line-height:1.45;overflow-wrap:break-word}
+.fs-bub:last-child{margin-bottom:0}
+.fs-bub.u{background:var(--accent);color:#fff;margin-left:12%}
+.fs-bub.m{background:#eef3f0;color:var(--ink);margin-right:12%}
+.fs-actor{flex:0 0 auto;width:clamp(72px,26vw,118px);max-width:38vw;position:relative}
+.fs-ctxbox{width:100%;max-width:440px;border:3px dashed var(--accent);border-radius:16px;background:rgba(255,255,255,.55);padding:12px 12px 14px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.fs-ctxlab{font-weight:900;color:var(--accent-d);font-size:clamp(15px,4.4vw,23px);text-align:center;line-height:1.45;overflow-wrap:break-word;width:100%}
+.fs-reread{font-weight:900;color:var(--accent-d);font-size:clamp(13px,3.9vw,21px);text-align:center;line-height:1.5}
+.fs-stack{position:relative;width:min(78%,300px);height:172px;flex:0 0 auto}
+.fs-paper{position:absolute;left:0;width:100%;height:40px;background:#fff;border:2px solid #b9cdc0;border-radius:8px;box-shadow:0 2px 6px rgba(60,50,20,.12);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:clamp(11px,3.2vw,16px);color:var(--ink);text-align:center;padding:0 4px}
+.fs-inst{position:absolute;left:0;width:100%;height:40px;background:#fdf6e0;border:3px solid #c8a24a;border-radius:8px;font-weight:900;color:#7a5c14;font-size:clamp(12px,3.4vw,18px);display:flex;align-items:center;justify-content:center;z-index:3;text-align:center;padding:0 4px}
+.fs-mem{background:#f4faf7;border:2.5px solid var(--accent);border-radius:10px;padding:.4em .8em;font-weight:800;color:var(--ink);font-size:clamp(12px,3.4vw,18px);text-align:center;line-height:1.5;max-width:100%}
 .fs-mem small{display:block;font-weight:700;color:var(--muted);font-size:.78em}
-.fs-reread{position:absolute;left:6%;top:8%;font-weight:900;color:var(--accent-d);font-size:clamp(14px,3.8vw,23px);z-index:3}
-.fs-tok{position:absolute;left:5%;right:5%;top:22%;z-index:3;text-align:center}
-.fs-tokrow{display:flex;flex-wrap:wrap;gap:2.5%;justify-content:center;margin-bottom:5%}
-.fs-chip{background:#fff;border:3px solid var(--accent);border-radius:12px;padding:.5em .7em;font-weight:900;color:var(--accent-d);font-size:clamp(15px,4.4vw,27px);box-shadow:0 4px 10px rgba(60,50,20,.12)}
-.fs-formula{background:#fff;border:2.5px solid var(--line);border-radius:14px;padding:.7em .9em;font-weight:800;color:var(--ink);font-size:clamp(13px,3.6vw,22px);line-height:1.6;box-shadow:0 5px 12px rgba(60,50,20,.12);margin:0 auto 4%;max-width:92%}
+.fs-tokrow{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;width:100%;max-width:440px}
+.fs-chip{background:#fff;border:3px solid var(--accent);border-radius:12px;padding:.45em .65em;font-weight:900;color:var(--accent-d);font-size:clamp(15px,4.6vw,26px);box-shadow:0 4px 10px rgba(60,50,20,.12);line-height:1.35;text-align:center;overflow-wrap:break-word;max-width:100%}
+.fs-formula{background:#fff;border:2.5px solid var(--line);border-radius:14px;padding:.65em .85em;font-weight:800;color:var(--ink);font-size:clamp(13px,3.8vw,21px);line-height:1.6;box-shadow:0 5px 12px rgba(60,50,20,.12);width:100%;max-width:440px;text-align:center;overflow-wrap:break-word}
 .fs-formula b{color:#b3541e}
-.fs-pc{position:absolute;left:6%;right:6%;top:20%;background:#fff;border:3px solid var(--line-strong);border-radius:16px;box-shadow:0 8px 20px rgba(60,50,20,.16);padding:4%;z-index:3}
-.fs-pc .fs-bub{margin-bottom:3%}
-.fs-usage{font-family:ui-monospace,monospace;font-weight:800;font-size:clamp(17px,5vw,32px);color:var(--ink);border-top:2px solid var(--line);padding-top:.5em;text-align:center}
+.fs-pc{width:100%;max-width:440px;background:#fff;border:3px solid var(--line-strong);border-radius:16px;box-shadow:0 8px 20px rgba(60,50,20,.16);padding:14px}
+.fs-pc .fs-bub{margin-right:0}
+.fs-usage{font-family:ui-monospace,monospace;font-weight:800;font-size:clamp(17px,5.4vw,31px);color:var(--ink);border-top:2px solid var(--line);padding-top:.5em;text-align:center;overflow-wrap:break-word}
 .fs-usage .in{color:#146856}.fs-usage .out{color:#b3541e}
-.fs-usage-note{display:flex;gap:3%;margin-top:4%}
-.fs-note{flex:1;background:#f4faf7;border:2px solid var(--accent);border-radius:10px;padding:.5em;font-size:clamp(11px,3vw,17px);font-weight:700;line-height:1.5;text-align:center}
+.fs-usage-note{display:flex;gap:8px;margin-top:12px}
+.fs-note{flex:1 1 0;min-width:0;background:#f4faf7;border:2px solid var(--accent);border-radius:10px;padding:.5em .35em;font-size:clamp(11px,3.1vw,16px);font-weight:700;line-height:1.55;text-align:center;overflow-wrap:break-word}
 .fs-note.o{background:#fdf3e7;border-color:#c8a24a}
-.fs-meterwrap{position:absolute;left:6%;right:6%;top:34%;z-index:3}
-.fs-meterlab{font-weight:900;color:var(--accent-d);font-size:clamp(15px,4.2vw,25px);margin-bottom:2%}
-.fs-meter{height:34px;background:#fff;border:3px solid var(--line);border-radius:999px;overflow:hidden}
+.fs-meterwrap{width:100%;max-width:440px}
+.fs-meterlab{font-weight:900;color:var(--accent-d);font-size:clamp(15px,4.4vw,24px);margin-bottom:8px;line-height:1.45;overflow-wrap:break-word}
+.fs-meter{height:32px;background:#fff;border:3px solid var(--line);border-radius:999px;overflow:hidden}
 .fs-meter i{display:block;height:100%;width:10%;background:linear-gradient(90deg,#e0a83c,#d05545)}
-.fs-meterrow{display:flex;gap:3%;margin-top:5%}
-.fs-doc{flex:1;background:#fff;border:3px solid #8aa79a;border-radius:12px;font-weight:900;color:var(--ink);font-size:clamp(13px,3.6vw,21px);padding:.8em .5em;text-align:center;box-shadow:0 5px 12px rgba(60,50,20,.14)}
-.fs-slope{position:absolute;left:5%;right:5%;top:23%;width:90%;z-index:2}
-.fs-bigq{position:absolute;top:20%;left:0;right:0;text-align:center;font-weight:900;color:var(--accent-d);font-size:clamp(20px,5.6vw,38px);z-index:3;padding:0 5%;line-height:1.5}
-.fs-signs{position:absolute;left:6%;right:6%;top:36%;background:#fff;border:3px solid var(--accent);border-radius:16px;box-shadow:0 7px 16px rgba(60,50,20,.14);padding:4%;z-index:4}
-.fs-signs h5{margin:0 0 .4em;font-size:clamp(16px,4.4vw,26px);color:var(--accent-d)}
-.fs-sign{font-size:clamp(14px,3.8vw,22px);font-weight:700;color:var(--ink);padding:.45em 0;border-top:1.5px solid var(--line);line-height:1.5}
+.fs-meterrow{display:flex;gap:8px;margin-top:12px}
+.fs-doc{flex:1 1 0;min-width:0;background:#fff;border:3px solid #8aa79a;border-radius:12px;font-weight:900;color:var(--ink);font-size:clamp(12px,3.5vw,20px);padding:.7em .35em;text-align:center;box-shadow:0 5px 12px rgba(60,50,20,.14);line-height:1.5;overflow-wrap:break-word}
+.fs-slope{width:100%;max-width:440px;height:auto}
+.fs-bigq{font-weight:900;color:var(--accent-d);font-size:clamp(19px,5.6vw,36px);text-align:center;line-height:1.55;width:100%;overflow-wrap:break-word}
+.fs-signs{width:100%;max-width:440px;background:#fff;border:3px solid var(--accent);border-radius:16px;box-shadow:0 7px 16px rgba(60,50,20,.14);padding:14px}
+.fs-signs h5{margin:0 0 .35em;font-size:clamp(16px,4.6vw,25px);color:var(--accent-d)}
+.fs-sign{font-size:clamp(13px,3.8vw,21px);font-weight:700;color:var(--ink);padding:.45em 0;border-top:1.5px solid var(--line);line-height:1.55;overflow-wrap:break-word}
 .fs-sign b{color:#d05545}
-.fs-room2{position:absolute;right:5%;bottom:18%;width:42%;height:46%;background:#fff;border:3px solid var(--accent);border-radius:16px;box-shadow:0 7px 16px rgba(60,50,20,.13);z-index:2}
-.fs-room2 span{position:absolute;top:-1.15em;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:clamp(14px,3.8vw,22px);font-weight:900;color:var(--accent-d);background:#eafaf1;padding:0 .5em}
-.fs-memcause{position:absolute;left:5%;bottom:19%;width:42%;background:#fdf6e0;border:3px solid #c8a24a;border-radius:14px;padding:.8em;font-weight:800;color:#7a5c14;font-size:clamp(13px,3.5vw,20px);line-height:1.55;z-index:4;box-shadow:0 6px 14px rgba(60,50,20,.14)}
-.fs-spark{position:absolute;color:#e5a83c;font-weight:900;font-size:clamp(22px,6vw,40px);z-index:6}
-.fs-telop{position:absolute;left:0;right:0;bottom:0;z-index:9;background:rgba(18,38,28,.92);color:#fff;font-weight:800;font-size:clamp(16px,4.4vw,26px);line-height:1.55;padding:.7em 1em;min-height:3.4em;display:flex;align-items:center}
-@media print{.fs-screen *{visibility:visible!important}.fs-screen{height:auto;min-height:0}}
+.fs-room2{flex:1.15 1 0;min-width:0;background:#fff;border:3px solid var(--accent);border-radius:16px;box-shadow:0 7px 16px rgba(60,50,20,.13);min-height:118px;padding:10px 6px;display:flex;align-items:flex-start;justify-content:center}
+.fs-room2 span{font-size:clamp(14px,4vw,21px);font-weight:900;color:var(--accent-d);text-align:center;line-height:1.4}
+.fs-memcause{flex:1 1 0;min-width:0;background:#fdf6e0;border:3px solid #c8a24a;border-radius:14px;padding:.7em .6em;font-weight:800;color:#7a5c14;font-size:clamp(12px,3.5vw,19px);line-height:1.6;box-shadow:0 6px 14px rgba(60,50,20,.14);overflow-wrap:break-word}
+.fs-actorrow{display:flex;align-items:flex-end;gap:14px;justify-content:center;width:100%}
+.fs-spark{color:#e5a83c;font-weight:900;font-size:clamp(22px,6vw,38px);line-height:1}
+.fs-telop{position:absolute;left:0;right:0;bottom:0;z-index:9;background:rgba(18,38,28,.92);color:#fff;font-weight:800;font-size:clamp(16px,2.2vw,24px);line-height:1.55;padding:.7em 1em;min-height:118px;display:flex;align-items:center;overflow-wrap:break-word}
+@media(max-width:900px){
+  .fs-scene{bottom:140px;padding:44px 14px 30px}
+  .fs-telop{font-size:15px;padding:.8em 10.6rem .8em .95em;min-height:140px}
+  .fs-actor{width:clamp(72px,26vw,104px)}
+}
+@media print{.fs-screen{height:auto;min-height:0}.fs-scene{position:static;visibility:hidden;display:none}.fs-scene.fss8{visibility:visible;display:flex}.fs-telop{position:static}}
 
 </style>
 </head>
@@ -858,72 +875,104 @@
       <h3 id="ch5-1"><span class="no">5.1</span>長いチャットで起きること</h3>
 <div class="fsstage" id="fs-s51" data-fs="s51v5"><div class="fs-screen">
   <span class="fs-tag">5.1</span>
-  <div class="fs-title t1">1つのチャットが長くなると…</div>
-  <div class="fs-chat">
-    <div class="fs-bub u b1">旅行の計画を立てて</div>
-    <div class="fs-bub m b2">いいですね、考えます</div>
-    <div class="fs-bub u b3">日程も決めて</div>
-    <div class="fs-bub m b4">分かりました</div>
-    <div class="fs-bub u b5">予算も入れて</div>
-    <div class="fs-bub m b6">…（あれ、前と似た返事に）</div>
-  </div>
-  <div class="fs-ctxbox">
-    <span class="fs-ctxlab">コンテキスト＝参照する情報全体</span>
-    <span class="fs-reread">↻ 返信のたびに最初から読み直す</span>
-    <div class="fs-stack">
-      <div class="fs-paper pp1" style="bottom:6%">このチャットの記録 ①</div>
-      <div class="fs-paper pp2" style="bottom:20%">このチャットの記録 ②</div>
-      <div class="fs-paper pp3" style="bottom:34%">このチャットの記録 ③</div>
-      <div class="fs-inst" style="bottom:34%">★ 大事な指示</div>
-      <div class="fs-paper pp4" style="bottom:48%">記録 ④</div>
-      <div class="fs-paper pp5" style="bottom:62%">記録 ⑤</div>
-      <div class="fs-paper pp6" style="bottom:76%">記録 ⑥</div>
+  <div class="fs-scene fss1 on">
+    <div class="fs-title t1">1つのチャットが長くなると…</div>
+    <div class="fs-row">
+      <div class="fs-chat">
+        <div class="fs-bub u b1">旅行の計画を立てて</div>
+        <div class="fs-bub m b2">いいですね、考えます</div>
+        <div class="fs-bub u b3">日程も決めて</div>
+        <div class="fs-bub m b4">分かりました</div>
+        <div class="fs-bub u b5">予算も入れて</div>
+        <div class="fs-bub m b6">…（あれ、前と似た返事に）</div>
+      </div>
+      <div class="mactor fs-actor"></div>
     </div>
-    <span class="fs-mem">＋ メモリーファイル<small>MEMORY.md など（6.1）</small></span>
   </div>
-  <div class="fs-tok">
+  <div class="fs-scene fss2">
+    <div class="fs-ctxbox">
+      <span class="fs-ctxlab">コンテキスト＝参照する情報全体</span>
+      <span class="fs-reread">↻ 返信のたびに最初から読み直す</span>
+      <div class="fs-stack">
+        <div class="fs-paper pp1" style="bottom:0">このチャットの記録 ①</div>
+        <div class="fs-paper pp2" style="bottom:43px">このチャットの記録 ②</div>
+        <div class="fs-paper pp3" style="bottom:86px">このチャットの記録 ③</div>
+      </div>
+      <span class="fs-mem">＋ メモリーファイル<small>MEMORY.md など（6.1）</small></span>
+    </div>
+  </div>
+  <div class="fs-scene fss3">
     <div class="fs-tokrow">
       <span class="fs-chip c1">トークン</span><span class="fs-chip c2">＝ AIが文章を処理する</span><span class="fs-chip c3">最小単位</span>
     </div>
     <div class="fs-formula f1">AIの利用量は <b>トークン数</b> で計算されます</div>
     <div class="fs-formula f2">1回の返信で数えられるのは<br><b>読み直したコンテキスト全体</b> ＋ <b>返信そのもの</b> の両方</div>
   </div>
-  <div class="fs-pc">
-    <div class="fs-bub m">パソコン版では、返信の下に使用量が出ます</div>
-    <div class="fs-usage"><span class="in">220.4k in</span> / <span class="out">765 out</span></div>
-    <div class="fs-usage-note">
-      <div class="fs-note n1"><b>in</b>＝読み込んだ量の合計<br>220.4k（kは千）＝約22万トークン</div>
-      <div class="fs-note o n2"><b>out</b>＝返信そのものの長さ<br>765トークン</div>
+  <div class="fs-scene fss4">
+    <div class="fs-pc">
+      <div class="fs-bub m">パソコン版では、返信の下に使用量が出ます</div>
+      <div class="fs-usage"><span class="in">220.4k in</span> / <span class="out">765 out</span></div>
+      <div class="fs-usage-note">
+        <div class="fs-note n1"><b>in</b>＝読み込んだ量の合計<br>220.4k（kは千）＝約22万トークン</div>
+        <div class="fs-note o n2"><b>out</b>＝返信そのものの長さ<br>765トークン</div>
+      </div>
     </div>
   </div>
-  <div class="fs-meterwrap">
-    <div class="fs-meterlab">トークン消費（1回の返信ごと）</div>
-    <div class="fs-meter"><i></i></div>
-    <div class="fs-meterrow">
-      <div class="fs-doc d1">📄 長い資料を渡す → 増える</div>
-      <div class="fs-doc d2">✍ 長い返信を求める → 増える</div>
+  <div class="fs-scene fss5">
+    <div class="fs-meterwrap">
+      <div class="fs-meterlab">トークン消費（1回の返信ごと）</div>
+      <div class="fs-meter"><i></i></div>
+      <div class="fs-meterrow">
+        <div class="fs-doc d1">📄 長い資料を渡す → 増える</div>
+        <div class="fs-doc d2">✍ 長い返信を求める → 増える</div>
+      </div>
     </div>
   </div>
-  <svg class="fs-slope" viewBox="0 0 400 190" aria-hidden="true">
-    <line x1="16" y1="10" x2="16" y2="168" stroke="#b9cdc0" stroke-width="3"/>
-    <line x1="16" y1="168" x2="392" y2="168" stroke="#b9cdc0" stroke-width="3"/>
-    <path class="fs-line" d="M18,30 C 150,48 260,105 390,150" fill="none" stroke="#d05545" stroke-width="6" stroke-linecap="round" pathLength="100" style="stroke-dasharray:100;stroke-dashoffset:100"/>
-    <text x="22" y="26" font-size="19" font-weight="900" fill="#14532d">応答の質</text>
-    <text x="150" y="188" font-size="16" font-weight="800" fill="#7a5c14">崖ではなく、緩やかな坂</text>
-    <text x="238" y="40" font-size="15" font-weight="800" fill="#55606e">短いチャット → 長いチャット</text>
-  </svg>
-  <div class="fs-bigq">何回のやりとりで下がる？<br>→ 目安はありません</div>
-  <div class="fs-signs">
-    <h5>移りどきのサイン</h5>
-    <div class="fs-sign g1"><b>✓</b> 前と同じことを返信してくる</div>
-    <div class="fs-sign g2"><b>✓</b> 間違いが多くなってきた</div>
-    <div class="fs-sign g3"><b>✓</b> 前に伝えた指示や条件が守られない</div>
+  <div class="fs-scene fss6a">
+    <div class="fs-ctxbox">
+      <span class="fs-ctxlab">コンテキスト＝参照する情報全体</span>
+      <div class="fs-stack">
+        <div class="fs-inst" style="bottom:0">★ 大事な指示</div>
+        <div class="fs-paper pp4" style="bottom:43px">記録 ④</div>
+        <div class="fs-paper pp5" style="bottom:86px">記録 ⑤</div>
+        <div class="fs-paper pp6" style="bottom:129px">記録 ⑥</div>
+      </div>
+    </div>
   </div>
-  <div class="fs-room2"><span>新しい会話</span></div>
-  <div class="fs-memcause">新しいチャットでも同じことが起きるときは、<br>メモリーが原因かもしれません（6.3）</div>
-  <div class="mactor fs-actor" style="left:5%;bottom:16%"></div>
-  <div class="fs-spark sp1" style="right:24%;top:30%">✦</div>
-  <div class="fs-spark sp2" style="right:9%;top:48%">✦</div>
+  <div class="fs-scene fss6b">
+    <svg class="fs-slope" viewBox="0 0 400 190" aria-hidden="true">
+      <line x1="16" y1="10" x2="16" y2="168" stroke="#b9cdc0" stroke-width="3"/>
+      <line x1="16" y1="168" x2="392" y2="168" stroke="#b9cdc0" stroke-width="3"/>
+      <path class="fs-line" d="M18,30 C 150,48 260,105 390,150" fill="none" stroke="#d05545" stroke-width="6" stroke-linecap="round" pathLength="100" style="stroke-dasharray:100;stroke-dashoffset:100"/>
+      <text x="22" y="26" font-size="19" font-weight="900" fill="#14532d">応答の質</text>
+      <text x="150" y="188" font-size="16" font-weight="800" fill="#7a5c14">崖ではなく、緩やかな坂</text>
+      <text x="172" y="40" font-size="14" font-weight="800" fill="#55606e">短いチャット → 長いチャット</text>
+    </svg>
+  </div>
+  <div class="fs-scene fss7">
+    <div class="fs-bigq">何回のやりとりで下がる？<br>→ 目安はありません</div>
+    <div class="fs-signs">
+      <h5>移りどきのサイン</h5>
+      <div class="fs-sign g1"><b>✓</b> 前と同じことを返信してくる</div>
+      <div class="fs-sign g2"><b>✓</b> 間違いが多くなってきた</div>
+      <div class="fs-sign g3"><b>✓</b> 前に伝えた指示や条件が守られない</div>
+    </div>
+  </div>
+  <div class="fs-scene fss8">
+    <div class="fs-row">
+      <div class="fs-room2"><span>新しい会話</span></div>
+      <div class="fs-memcause">新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）</div>
+    </div>
+    <div class="fs-meterwrap mw2">
+      <div class="fs-meterlab">トークン消費（1回の返信ごと）</div>
+      <div class="fs-meter"><i style="width:94%"></i></div>
+    </div>
+    <div class="fs-actorrow">
+      <span class="fs-spark sp1">✦</span>
+      <div class="mactor fs-actor"></div>
+      <span class="fs-spark sp2">✦</span>
+    </div>
+  </div>
   <div class="fs-telop">1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます。理由は、返信を作る仕組みにあります</div>
 </div></div>
 <h3 id="ch5-2"><span class="no">5.2</span>トークンとは</h3>
@@ -1557,7 +1606,7 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
 
 
 <script>
-/* ===== v5 fullscreen explainer engine (manual-motion): 5.1 ===== */
+/* ===== v5 fullscreen explainer engine (manual-motion): 5.1 — scene-group switching (v5.1 fix) ===== */
 (function(){
   if(!window.gsap) return;
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1566,75 +1615,75 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
   function QA(s){ return Array.prototype.slice.call(st.querySelectorAll(s)); }
   var tel = Q(".fs-telop");
   function setTel(t){ tel.textContent = t; }
-  gsap.set(QA(".fs-chat,.fs-ctxbox,.fs-tok,.fs-pc,.fs-meterwrap,.fs-slope,.fs-bigq,.fs-signs,.fs-room2,.fs-memcause,.fs-spark,.fs-title"),{opacity:0});
-  gsap.set(QA(".fs-bub,.fs-paper,.fs-inst,.fs-chip,.fs-formula,.fs-note,.fs-doc,.fs-sign"),{opacity:0});
-  gsap.set(Q(".fs-mem"),{opacity:0}); gsap.set(Q(".fs-reread"),{opacity:0});
+  /* Scenes are switched discretely: only one .fs-scene has .on (visibility:visible).
+     Non-active scenes are visibility:hidden, so a paused timeline can never
+     leave a translucent ghost of another scene on screen. */
+  function show(id){
+    QA(".fs-scene").forEach(function(sc){ sc.classList.toggle("on", sc.classList.contains(id)); });
+  }
   var tl = gsap.timeline({repeat: reduced ? 0 : -1, repeatDelay: 3});
   /* S1 intro (a) */
-  tl.call(setTel,["1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます。理由は、返信を作る仕組みにあります"],0)
-    .fromTo(Q(".fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
-    .fromTo(Q(".fs-chat"),{opacity:0},{opacity:1,duration:.5},0.5)
-    .fromTo(QA(".fs-chat .b1, .fs-chat .b2"),{opacity:0,y:10},{opacity:1,y:0,duration:.5,stagger:.8},0.8)
-    .fromTo(Q(".fs-actor"),{opacity:0,x:-30},{opacity:1,x:0,duration:.6},0.5)
+  tl.call(show,["fss1"],0)
+    .call(setTel,["1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます。理由は、返信を作る仕組みにあります"],0)
+    .fromTo(Q(".fss1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+    .fromTo(QA(".fss1 .fs-bub"),{opacity:0,y:10},{opacity:1,y:0,duration:.5,stagger:.8},0.8)
+    .fromTo(Q(".fss1 .fs-actor"),{opacity:0,x:-24},{opacity:1,x:0,duration:.6},0.5)
   /* S2 context (b) */
+    .call(show,["fss2"],7)
     .call(setTel,["コンテキスト＝返信で参照する情報全体。このチャットの記録とメモリーファイルが含まれ、返信のたびに最初から読み直します"],7)
-    .to(Q(".fs-title"),{opacity:0,duration:.4},7)
-    .fromTo(Q(".fs-ctxbox"),{opacity:0,scale:.94},{opacity:1,scale:1,duration:.6},7.3)
-    .fromTo(QA(".fs-stack .pp1, .fs-stack .pp2, .fs-stack .pp3"),{opacity:0,y:16},{opacity:1,y:0,duration:.45,stagger:.5},7.8)
-    .fromTo(Q(".fs-mem"),{opacity:0,scale:.7},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},9.6)
-    .fromTo(Q(".fs-reread"),{opacity:0},{opacity:1,duration:.4},10.4)
-    .to(Q(".fs-stack"),{y:-6,duration:.35,yoyo:true,repeat:5,ease:"sine.inOut"},11)
+    .fromTo(Q(".fss2 .fs-ctxbox"),{opacity:0,scale:.97},{opacity:1,scale:1,duration:.6},7.3)
+    .fromTo(QA(".fss2 .fs-paper"),{opacity:0,y:16},{opacity:1,y:0,duration:.45,stagger:.5},7.8)
+    .fromTo(Q(".fss2 .fs-mem"),{opacity:0,scale:.85},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},9.6)
+    .fromTo(Q(".fss2 .fs-reread"),{opacity:0},{opacity:1,duration:.4},10.4)
+    .to(Q(".fss2 .fs-stack"),{y:-6,duration:.35,yoyo:true,repeat:5,ease:"sine.inOut"},11)
   /* S3 token definition (c) */
+    .call(show,["fss3"],16)
     .call(setTel,["トークンとは、AIが文章を処理する最小単位。利用量はトークン数で数え、1回の返信ではコンテキスト全体と返信の両方が数えられます"],16)
-    .to(QA(".fs-chat,.fs-ctxbox"),{opacity:0,duration:.5},16)
-    .fromTo(Q(".fs-tok"),{opacity:0},{opacity:1,duration:.4},16.6)
-    .fromTo(QA(".fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.7,ease:"back.out(2)"},16.8)
-    .fromTo(Q(".fs-tok .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},19.4)
-    .fromTo(Q(".fs-tok .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},21.4)
+    .fromTo(QA(".fss3 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.7,ease:"back.out(2)"},16.8)
+    .fromTo(Q(".fss3 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},19.4)
+    .fromTo(Q(".fss3 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},21.4)
   /* S4 PC usage display (d) */
+    .call(show,["fss4"],26)
     .call(setTel,["パソコン版では返信の下に使用量が出ます。inは読み込んだ量、outは返信の長さ。例は約22万を読み込み、765の返信です"],26)
-    .to(Q(".fs-tok"),{opacity:0,duration:.5},26)
-    .fromTo(Q(".fs-pc"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},26.6)
-    .fromTo(Q(".fs-pc .fs-bub"),{opacity:0},{opacity:1,duration:.4},27)
-    .fromTo(QA(".fs-note"),{opacity:0,y:12},{opacity:1,y:0,duration:.5,stagger:.9},28.4)
+    .fromTo(Q(".fss4 .fs-pc"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},26.6)
+    .fromTo(QA(".fss4 .fs-note"),{opacity:0,y:12},{opacity:1,y:0,duration:.5,stagger:.9},28.4)
   /* S5 consumption grows (e) */
+    .call(show,["fss5"],34)
     .call(setTel,["コンテキストが長いほど、1回の返信ごとのトークン消費が増えます。長い資料を渡す・長い返信を求める場合も増えます"],34)
-    .to(Q(".fs-pc"),{opacity:0,duration:.5},34)
-    .fromTo(Q(".fs-meterwrap"),{opacity:0},{opacity:1,duration:.5},34.6)
-    .to(Q(".fs-meter i"),{width:"72%",duration:2.4,ease:"power1.inOut"},35)
-    .fromTo(QA(".fs-doc"),{opacity:0,y:-18},{opacity:1,y:0,duration:.5,stagger:.8,ease:"back.out(1.8)"},38)
-    .to(Q(".fs-meter i"),{width:"94%",duration:.8,ease:"power2.out"},39.6)
+    .fromTo(Q(".fss5 .fs-meterwrap"),{opacity:0},{opacity:1,duration:.5},34.6)
+    .fromTo(Q(".fss5 .fs-meter i"),{width:"10%"},{width:"72%",duration:2.4,ease:"power1.inOut"},35)
+    .fromTo(QA(".fss5 .fs-doc"),{opacity:0,y:-18},{opacity:1,y:0,duration:.5,stagger:.8,ease:"back.out(1.8)"},38)
+    .to(Q(".fss5 .fs-meter i"),{width:"94%",duration:.8,ease:"power2.out"},39.6)
   /* S6a buried instruction (f, first half) */
+    .call(show,["fss6a"],42)
     .call(setTel,["大事な指示がコンテキストの中で埋もれて、応答の精度が少しずつ落ちていきます"],42)
-    .to(Q(".fs-meterwrap"),{opacity:0,duration:.5},42)
-    .fromTo(Q(".fs-ctxbox"),{opacity:0},{opacity:1,duration:.5},42.6)
-    .fromTo(Q(".fs-inst"),{opacity:0,scale:.7},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},43)
-    .fromTo(QA(".fs-stack .pp4, .fs-stack .pp5, .fs-stack .pp6"),{opacity:0,y:16},{opacity:1,y:0,duration:.45,stagger:.6},44)
+    .fromTo(Q(".fss6a .fs-ctxbox"),{opacity:0},{opacity:1,duration:.5},42.6)
+    .fromTo(Q(".fss6a .fs-inst"),{opacity:0,scale:.8},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},43)
+    .fromTo(QA(".fss6a .fs-paper"),{opacity:0,y:16},{opacity:1,y:0,duration:.45,stagger:.6},44)
   /* S6b gentle slope (f, second half) */
+    .call(show,["fss6b"],48)
     .call(setTel,["質の下がり方は、崖ではなく緩やかな坂です"],48)
-    .to(Q(".fs-ctxbox"),{opacity:0,duration:.5},48)
-    .fromTo(Q(".fs-slope"),{opacity:0},{opacity:1,duration:.5},48.6)
-    .to(Q(".fs-line"),{strokeDashoffset:0,duration:3,ease:"power1.inOut"},49)
+    .fromTo(Q(".fss6b .fs-slope"),{opacity:0},{opacity:1,duration:.5},48.6)
+    .fromTo(Q(".fss6b .fs-line"),{strokeDashoffset:100},{strokeDashoffset:0,duration:3,ease:"power1.inOut"},49)
   /* S7 no benchmark + signs (g, h) */
+    .call(show,["fss7"],54)
     .call(setTel,["何回のやりとりで下がるという目安はありません。こんなサインが見えたら、移りどきです"],54)
-    .to(Q(".fs-slope"),{opacity:0,duration:.5},54)
-    .fromTo(Q(".fs-bigq"),{opacity:0,scale:.85},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},54.4)
-    .fromTo(Q(".fs-signs"),{opacity:0,x:30},{opacity:1,x:0,duration:.6},57)
-    .fromTo(QA(".fs-sign"),{opacity:.2},{opacity:1,duration:.45,stagger:1},57.8)
-    .to(Q(".fs-actor"),{rotate:5,duration:.18,yoyo:true,repeat:5,ease:"sine.inOut"},58.4)
+    .fromTo(Q(".fss7 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},54.4)
+    .fromTo(Q(".fss7 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},57)
+    .fromTo(QA(".fss7 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:1},57.8)
   /* S8 move to a new chat (i) */
+    .call(show,["fss8"],63)
     .call(setTel,["故障ではなく仕組みどおりの動きです。新しいチャットに移れば元に戻ります"],63)
-    .to(QA(".fs-signs,.fs-bigq"),{opacity:0,duration:.5},63)
-    .fromTo(Q(".fs-room2"),{opacity:0},{opacity:1,duration:.6},63.6)
-    .fromTo(Q(".fs-meterwrap"),{opacity:0},{opacity:1,duration:.4},63.8)
-    .to(Q(".fs-meter i"),{width:"12%",duration:1,ease:"power2.out"},64.2)
-    .to(Q(".fs-actor"),{left:"62%",duration:1.8,ease:"power1.inOut"},64.4)
-    .fromTo(QA(".fs-spark"),{scale:0,opacity:0},{scale:1,opacity:1,duration:.45,stagger:.3,ease:"back.out(2.4)"},66.4)
+    .fromTo(Q(".fss8 .fs-room2"),{opacity:0},{opacity:1,duration:.6},63.6)
+    .fromTo(Q(".fss8 .mw2"),{opacity:0},{opacity:1,duration:.4},63.8)
+    .fromTo(Q(".fss8 .mw2 .fs-meter i"),{width:"94%"},{width:"12%",duration:1,ease:"power2.out"},64.2)
+    .fromTo(Q(".fss8 .fs-actor"),{opacity:0,x:-36},{opacity:1,x:16,duration:1.8,ease:"power1.inOut"},64.4)
+    .fromTo(QA(".fss8 .fs-spark"),{scale:0,opacity:0},{scale:1,opacity:1,duration:.45,stagger:.3,ease:"back.out(2.4)"},66.4)
     .call(setTel,["新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）"],68)
-    .fromTo(Q(".fs-memcause"),{opacity:0,y:16},{opacity:1,y:0,duration:.6},68.2)
+    .fromTo(Q(".fss8 .fs-memcause"),{opacity:0,y:16},{opacity:1,y:0,duration:.6},68.2)
     .to({},{duration:3.4});
   tl.pause(0); st._tl = tl;
-  if(reduced){ tl.progress(1); setTel("新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）"); return; }
+  if(reduced){ tl.progress(1); show("fss8"); gsap.set(QA(".fss8 *"),{opacity:1}); setTel("新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）"); return; }
   if("IntersectionObserver" in window){
     new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) tl.play(); else tl.pause(); }); },{threshold:.25}).observe(st);
   } else tl.play();
