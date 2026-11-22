@@ -687,53 +687,159 @@
 
 
 
+      <div class="fsunit">
       <h3 id="ch2-1"><span class="no">2.1</span>指示のしかた（プロンプト）</h3>
-<div class="mstage" id="ms-s21" data-ms="s21"><div class="ms-screen">
-  <span class="ms-tag">2.1</span>
-  <div class="mwin w21">
-    <div class="mbub u">来週の旅行の持ち物リストを作って</div>
-    <div class="mbub m">はい、季節に合わせて作りますね</div>
-    <div class="mchip ok">✓ 伝わった</div>
+<div class="fsstage" id="fs-s21" data-fs="s21"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene fsc1 on"><div class="fs-pillrow"><span class="fs-tag">2.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">AIへの指示文 ＝ プロンプト</div>
+    <div class="fs-chat">
+      <div class="fs-bub u">来週の旅行の持ち物リストを作って</div>
+      <div class="fs-bub m">はい、季節に合わせて作りますね</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsc2"><div class="fs-pillrow"><span class="fs-tag">2.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">決まった書式はありません</div>
+    <div class="fs-formula f1">自然な文章で、そのまま書けます</div>
+    <div class="fs-tokrow"><span class="fs-chip gold">分からない用語は、Museに質問できます</span></div>
+  </div></div></div>
+  <div class="fs-scene fsc3"><div class="fs-pillrow"><span class="fs-tag">2.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">書き方のコツは3つ</div>
+    <div class="fs-signs">
+      <h5>プロンプトの書き方</h5>
+      <div class="fs-sign g1"><b>1</b> 目的を一文で伝える</div>
+      <div class="fs-sign g2"><b>2</b> 条件を添える</div>
+      <div class="fs-sign g3"><b>3</b> 結果を確認し、修正点を具体的に伝える</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsc4"><div class="fs-pillrow"><span class="fs-tag">2.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">条件を添える</div>
+    <div class="fs-formula f1">添える条件は、対象・量・出力の形式など</div>
+    <div class="fs-tokrow">
+      <span class="fs-chip s1">例：「2人分・3日分で」</span><span class="fs-chip s2">例：「表形式で」</span>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsc5"><div class="fs-pillrow"><span class="fs-tag">2.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">プロンプトの例</div>
+    <div class="fs-chat" id="prompt-example">
+      <div class="fs-bub u">週末の買い物リストを作って。2人分・3日分で、なるべく安く済むようにして。</div>
+    </div>
+    <div class="fs-tokrow">
+      <span class="fs-chip s1">目的：買い物リストを作って</span><span class="fs-chip s2">条件：2人分・3日分で、なるべく安く</span>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsc6 fs-final"><div class="fs-pillrow"><span class="fs-tag">2.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">結果を確認して、<br>修正点を具体的に伝える</div>
+    <div class="fs-signs">
+      <h5>3つ目のコツ</h5>
+      <div class="fs-sign g1"><b>✓</b> 結果を確認する</div>
+      <div class="fs-sign g2"><b>✓</b> 修正点を具体的に伝える</div>
+    </div>
+  </div></div></div>
   </div>
-  <div class="mactor a21"></div>
+  <div class="fs-telop">AIへの指示文を「プロンプト」と呼びます</div>
 </div></div>
-
-      <p>AIへの指示文を「プロンプト」と呼びます。決まった書式はなく、自然な文章で書けます。分からない用語が出てきたら、Museに質問できます。</p>
-      <ol>
-        <li>目的を一文で伝える。</li>
-        <li>条件を添える（対象、量、出力の形式など）。例：「2人分・3日分で」「表形式で」</li>
-        <li>結果を確認し、修正点を具体的に伝える。</li>
-      </ol>
-      <div class="copybox" id="prompt-example">
-        <p class="cb-label">プロンプトの例</p>
-        <pre>週末の買い物リストを作って。2人分・3日分で、なるべく安く済むようにして。</pre>
-        <div class="copyrow"><button class="copy-btn" type="button" aria-label="プロンプトの例をコピーする">コピーする</button><span class="copy-msg" role="status"></span></div>
       </div>
 
+      <div class="fsunit">
       <h3 id="ch2-2"><span class="no">2.2</span>確認が入る操作</h3>
-      <p>指示された範囲の作業は、次のように扱われます。</p>
-      <div class="tblwrap">
-        <table>
-          <caption>確認なしで進む操作と、実行前に確認が入る操作</caption>
-          <thead><tr><th scope="col">確認なしで進む</th><th scope="col">実行前に確認が入る</th></tr></thead>
-          <tbody>
-            <tr><td>調べもの、ページやファイルの読み取り</td><td>メールやメッセージの送信</td></tr>
-            <tr><td>要約、整理、比較</td><td>投稿など、外部への公開</td></tr>
-            <tr><td>下書きやファイルの作成</td><td>ログインを伴う操作</td></tr>
-            <tr><td></td><td>削除など、取り消しにくい操作</td></tr>
-            <tr><td></td><td>購入（支払い）</td></tr>
-          </tbody>
-        </table>
+<div class="fsstage" id="fs-s22" data-fs="s22"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene fsd1 on"><div class="fs-pillrow"><span class="fs-tag">2.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">操作には、2つの扱いがあります</div>
+    <div class="fs-tokrow">
+      <span class="fs-chip c1">確認なしで進む</span><span class="fs-chip gold c2">実行前に確認が入る</span>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsd2"><div class="fs-pillrow"><span class="fs-tag">2.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">確認なしで進む</div>
+    <div class="fs-cards">
+      <div class="fs-doc d1">🔍 調べもの</div>
+      <div class="fs-doc d2">📖 ページやファイルの読み取り</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsd3"><div class="fs-pillrow"><span class="fs-tag">2.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">確認なしで進む（つづき）</div>
+    <div class="fs-cards">
+      <div class="fs-doc d1">📝 要約・整理・比較</div>
+      <div class="fs-doc d2">✍️ 下書きやファイルの作成</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsd4"><div class="fs-pillrow"><span class="fs-tag">2.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">実行前に確認が入る</div>
+    <div class="fs-cards">
+      <div class="fs-doc d1">✉️ メールやメッセージの送信</div>
+      <div class="fs-doc d2">📣 投稿など、外部への公開</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsd5"><div class="fs-pillrow"><span class="fs-tag">2.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">実行前に確認が入る（つづき）</div>
+    <div class="fs-signs">
+      <h5>確認が入る操作</h5>
+      <div class="fs-sign g1">🔐 ログインを伴う操作</div>
+      <div class="fs-sign g2">🗑️ 削除など、取り消しにくい操作</div>
+      <div class="fs-sign g3">🛒 購入（支払い）</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsd6 fs-final"><div class="fs-pillrow"><span class="fs-tag">2.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">取り消しにくい操作ほど、実行前に確認</div>
+    <div class="fs-signs">
+      <h5>まとめ</h5>
+      <div class="fs-sign g1"><b>✓</b> 確認なし：調べもの・要約・下書きなど</div>
+      <div class="fs-sign g2"><b>✓</b> 確認あり：送信・公開・ログイン・削除・購入</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">指示された範囲の作業は、確認なしで進むものと、実行前に確認が入るものがあります</div>
+</div></div>
       </div>
 
+      <div class="fsunit">
       <h3 id="ch2-3"><span class="no">2.3</span>購入のときの確認</h3>
-      <p>購入は、毎回あらためて確認が入ります。</p>
-      <ul>
-        <li>ほかの操作をまとめて許可していても、購入には適用されません。</li>
-        <li>カートへの追加や支払い方法の選択だけでは、支払いは確定しません。</li>
-        <li>商品、合計額、配送先が変わると、もう一度確認が入ります。</li>
-      </ul>
-      <p class="small">※例外：決まった時刻に自動で実行する作業（定期実行）で支払いを許可した場合、同じ店・同じ支払い方法なら、次の回からも許可が有効になることがあります。</p>
+<div class="fsstage" id="fs-s23" data-fs="s23"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene fse1 on"><div class="fs-pillrow"><span class="fs-tag">2.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">購入は、毎回あらためて確認が入ります</div>
+    <div class="fs-actorrow">
+      <span class="fs-spark sp1">✦</span>
+      <div class="mactor fs-actor"></div>
+      <span class="fs-spark sp2">✦</span>
+    </div>
+    <div class="fs-tokrow"><span class="fs-chip gold">支払いの前に、必ず確認</span></div>
+  </div></div></div>
+  <div class="fs-scene fse2"><div class="fs-pillrow"><span class="fs-tag">2.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">購入には適用されません</div>
+    <div class="fs-formula f1">ほかの操作をまとめて許可していても</div>
+    <div class="fs-formula f2">その許可は、購入には適用されません</div>
+  </div></div></div>
+  <div class="fs-scene fse3"><div class="fs-pillrow"><span class="fs-tag">2.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">カートに入れただけでは…</div>
+    <div class="fs-cards">
+      <div class="fs-doc d1">🛒 カートへの追加</div>
+      <div class="fs-doc d2">💳 支払い方法の選択</div>
+    </div>
+    <div class="fs-formula f1">この段階では、支払いは確定しません</div>
+  </div></div></div>
+  <div class="fs-scene fse4"><div class="fs-pillrow"><span class="fs-tag">2.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">内容が変わると、もう一度確認</div>
+    <div class="fs-tokrow">
+      <span class="fs-chip s1">商品</span><span class="fs-chip s2">合計額</span><span class="fs-chip s3">配送先</span>
+    </div>
+    <div class="fs-formula f1">どれかが変わると、もう一度確認が入ります</div>
+  </div></div></div>
+  <div class="fs-scene fse5"><div class="fs-pillrow"><span class="fs-tag">2.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">例外：定期実行の場合</div>
+    <div class="fs-formula f1">決まった時刻に自動で実行する作業（定期実行）で、支払いを許可した場合は</div>
+  </div></div></div>
+  <div class="fs-scene fse6 fs-final"><div class="fs-pillrow"><span class="fs-tag">2.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">同じ店・同じ支払い方法なら</div>
+    <div class="fs-formula f1">次の回からも、許可が有効になることがあります</div>
+    <div class="fs-tokrow"><span class="fs-chip gold">※ 例外は、定期実行の場合だけ</span></div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">購入は、毎回あらためて確認が入ります</div>
+</div></div>
+      </div>
     </section>
 
     <!-- ================= 第3章 ================= -->
@@ -2062,6 +2168,168 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
         .fromTo(QA(".fsb7 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},48.1)
         .fromTo(Q(".fsb7 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},50.6)
         .to({},{duration:6},51.1);
+    }
+  });
+
+  /* ================= 2.1 指示のしかた（プロンプト） ================= */
+  var st21 = document.querySelector('[data-fs="s21"]');
+  if(st21) createUnit(st21, {
+    telopTexts: [
+      "AIへの指示文を「プロンプト」と呼びます",
+      "決まった書式はなく、自然な文章で書けます。分からない用語が出てきたら、Museに質問できます",
+      "書き方のコツは3つ。目的を一文で伝え、条件を添え、結果を確認して修正点を具体的に伝えます",
+      "条件を添えます（対象、量、出力の形式など）。例：「2人分・3日分で」「表形式で」",
+      "プロンプトの例です。「週末の買い物リストを作って。2人分・3日分で、なるべく安く済むようにして」",
+      "結果を確認し、修正点を具体的に伝えるのが、3つ目のコツです"
+    ],
+    finalScene: "fsc6",
+    finalTelop: "結果を確認し、修正点を具体的に伝えるのが、3つ目のコツです",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* C1 a prompt is the instruction text you give the AI */
+      tl.call(show,["fsc1"],0)
+        .call(setTel,["AIへの指示文を「プロンプト」と呼びます"],0)
+        .fromTo(Q(".fsc1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(Q(".fsc1 .fs-chat"),{opacity:0,y:16},{opacity:1,y:0,duration:.5},1.0)
+        .fromTo(QA(".fsc1 .fs-chat .fs-bub"),{opacity:0,y:10},{opacity:1,y:0,duration:.45,stagger:.7},1.6)
+      /* C2 no fixed format; ask Muse about unknown terms */
+        .call(show,["fsc2"],7.5)
+        .call(setTel,["決まった書式はなく、自然な文章で書けます。分からない用語が出てきたら、Museに質問できます"],7.5)
+        .fromTo(Q(".fsc2 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},7.8)
+        .fromTo(Q(".fsc2 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},8.6)
+        .fromTo(Q(".fsc2 .gold"),{opacity:0,scale:.85},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},9.6)
+      /* C3 the three tips at a glance */
+        .call(show,["fsc3"],15.0)
+        .call(setTel,["書き方のコツは3つ。目的を一文で伝え、条件を添え、結果を確認して修正点を具体的に伝えます"],15.0)
+        .fromTo(Q(".fsc3 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},15.3)
+        .fromTo(Q(".fsc3 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},16.1)
+        .fromTo(QA(".fsc3 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},16.9)
+      /* C4 attach conditions (audience, amount, output format) */
+        .call(show,["fsc4"],22.5)
+        .call(setTel,["条件を添えます（対象、量、出力の形式など）。例：「2人分・3日分で」「表形式で」"],22.5)
+        .fromTo(Q(".fsc4 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},22.8)
+        .fromTo(Q(".fsc4 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},23.6)
+        .fromTo(QA(".fsc4 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.6,ease:"back.out(2)"},24.6)
+      /* C5 the worked example, in full */
+        .call(show,["fsc5"],30.0)
+        .call(setTel,["プロンプトの例です。「週末の買い物リストを作って。2人分・3日分で、なるべく安く済むようにして」"],30.0)
+        .fromTo(Q(".fsc5 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},30.3)
+        .fromTo(Q(".fsc5 .fs-chat"),{opacity:0,y:16},{opacity:1,y:0,duration:.5},31.1)
+        .fromTo(Q(".fsc5 .fs-bub"),{opacity:0,y:10},{opacity:1,y:0,duration:.45},31.7)
+        .fromTo(QA(".fsc5 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.6,ease:"back.out(2)"},33.0)
+      /* C6 check the result and name the fixes concretely */
+        .call(show,["fsc6"],38.5)
+        .call(setTel,["結果を確認し、修正点を具体的に伝えるのが、3つ目のコツです"],38.5)
+        .fromTo(Q(".fsc6 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},38.8)
+        .fromTo(Q(".fsc6 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},39.8)
+        .fromTo(QA(".fsc6 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},40.6)
+        .to({},{duration:6},42.5);
+    }
+  });
+
+  /* ================= 2.2 確認が入る操作 ================= */
+  var st22 = document.querySelector('[data-fs="s22"]');
+  if(st22) createUnit(st22, {
+    telopTexts: [
+      "指示された範囲の作業は、確認なしで進むものと、実行前に確認が入るものがあります",
+      "調べものや、ページ・ファイルの読み取りは、確認なしで進みます",
+      "要約、整理、比較や、下書き・ファイルの作成も、確認なしで進みます",
+      "メールやメッセージの送信、投稿など外部への公開は、実行前に確認が入ります",
+      "ログインを伴う操作、削除など取り消しにくい操作、購入（支払い）も、実行前に確認が入ります",
+      "確認なしで進む操作と、実行前に確認が入る操作があります"
+    ],
+    finalScene: "fsd6",
+    finalTelop: "確認なしで進む操作と、実行前に確認が入る操作があります",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* D1 two kinds of operations */
+      tl.call(show,["fsd1"],0)
+        .call(setTel,["指示された範囲の作業は、確認なしで進むものと、実行前に確認が入るものがあります"],0)
+        .fromTo(Q(".fsd1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(QA(".fsd1 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.6,ease:"back.out(2)"},1.0)
+      /* D2 no confirmation: research and reading */
+        .call(show,["fsd2"],7.5)
+        .call(setTel,["調べものや、ページ・ファイルの読み取りは、確認なしで進みます"],7.5)
+        .fromTo(Q(".fsd2 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},7.8)
+        .fromTo(QA(".fsd2 .fs-doc"),{opacity:0,y:18},{opacity:1,y:0,duration:.5,stagger:.7,ease:"back.out(1.8)"},8.6)
+      /* D3 no confirmation: summaries, organizing, drafts */
+        .call(show,["fsd3"],15.0)
+        .call(setTel,["要約、整理、比較や、下書き・ファイルの作成も、確認なしで進みます"],15.0)
+        .fromTo(Q(".fsd3 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},15.3)
+        .fromTo(QA(".fsd3 .fs-doc"),{opacity:0,y:18},{opacity:1,y:0,duration:.5,stagger:.7,ease:"back.out(1.8)"},16.1)
+      /* D4 confirmation first: sending and publishing */
+        .call(show,["fsd4"],22.5)
+        .call(setTel,["メールやメッセージの送信、投稿など外部への公開は、実行前に確認が入ります"],22.5)
+        .fromTo(Q(".fsd4 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},22.8)
+        .fromTo(QA(".fsd4 .fs-doc"),{opacity:0,y:18},{opacity:1,y:0,duration:.5,stagger:.7,ease:"back.out(1.8)"},23.6)
+      /* D5 confirmation first: logins, deletion, purchases */
+        .call(show,["fsd5"],30.0)
+        .call(setTel,["ログインを伴う操作、削除など取り消しにくい操作、購入（支払い）も、実行前に確認が入ります"],30.0)
+        .fromTo(Q(".fsd5 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},30.3)
+        .fromTo(Q(".fsd5 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},31.1)
+        .fromTo(QA(".fsd5 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},31.9)
+      /* D6 recap */
+        .call(show,["fsd6"],38.5)
+        .call(setTel,["確認なしで進む操作と、実行前に確認が入る操作があります"],38.5)
+        .fromTo(Q(".fsd6 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},38.8)
+        .fromTo(Q(".fsd6 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},39.8)
+        .fromTo(QA(".fsd6 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},40.6)
+        .to({},{duration:6},42.5);
+    }
+  });
+
+  /* ================= 2.3 購入のときの確認 ================= */
+  var st23 = document.querySelector('[data-fs="s23"]');
+  if(st23) createUnit(st23, {
+    telopTexts: [
+      "購入は、毎回あらためて確認が入ります",
+      "ほかの操作をまとめて許可していても、購入には適用されません",
+      "カートへの追加や支払い方法の選択だけでは、支払いは確定しません",
+      "商品、合計額、配送先が変わると、もう一度確認が入ります",
+      "例外として、決まった時刻に自動で実行する作業（定期実行）で、支払いを許可した場合は",
+      "同じ店・同じ支払い方法なら、次の回からも許可が有効になることがあります"
+    ],
+    finalScene: "fse6",
+    finalTelop: "同じ店・同じ支払い方法なら、次の回からも許可が有効になることがあります",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* E1 every purchase asks again */
+      tl.call(show,["fse1"],0)
+        .call(setTel,["購入は、毎回あらためて確認が入ります"],0)
+        .fromTo(Q(".fse1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(Q(".fse1 .fs-actor"),{opacity:0,x:-24},{opacity:1,x:0,duration:.6},1.0)
+        .fromTo(QA(".fse1 .fs-spark"),{scale:0,opacity:0},{scale:1,opacity:1,duration:.45,stagger:.3,ease:"back.out(2.4)"},1.5)
+        .fromTo(Q(".fse1 .gold"),{opacity:0,scale:.85},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},2.0)
+      /* E2 blanket permission never covers purchases */
+        .call(show,["fse2"],7.5)
+        .call(setTel,["ほかの操作をまとめて許可していても、購入には適用されません"],7.5)
+        .fromTo(Q(".fse2 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},7.8)
+        .fromTo(Q(".fse2 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},8.6)
+        .fromTo(Q(".fse2 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},9.6)
+      /* E3 cart and payment method alone do not settle payment */
+        .call(show,["fse3"],15.0)
+        .call(setTel,["カートへの追加や支払い方法の選択だけでは、支払いは確定しません"],15.0)
+        .fromTo(Q(".fse3 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},15.3)
+        .fromTo(QA(".fse3 .fs-doc"),{opacity:0,y:18},{opacity:1,y:0,duration:.5,stagger:.7,ease:"back.out(1.8)"},16.1)
+        .fromTo(Q(".fse3 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},17.8)
+      /* E4 any change asks again */
+        .call(show,["fse4"],22.5)
+        .call(setTel,["商品、合計額、配送先が変わると、もう一度確認が入ります"],22.5)
+        .fromTo(Q(".fse4 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},22.8)
+        .fromTo(QA(".fse4 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.6,ease:"back.out(2)"},23.6)
+        .fromTo(Q(".fse4 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},25.4)
+      /* E5 the exception: scheduled runs */
+        .call(show,["fse5"],30.0)
+        .call(setTel,["例外として、決まった時刻に自動で実行する作業（定期実行）で、支払いを許可した場合は"],30.0)
+        .fromTo(Q(".fse5 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},30.3)
+        .fromTo(Q(".fse5 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},31.1)
+      /* E6 same shop and payment method: permission can carry over */
+        .call(show,["fse6"],38.5)
+        .call(setTel,["同じ店・同じ支払い方法なら、次の回からも許可が有効になることがあります"],38.5)
+        .fromTo(Q(".fse6 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},38.8)
+        .fromTo(Q(".fse6 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},39.6)
+        .fromTo(Q(".fse6 .gold"),{opacity:0,scale:.85},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},40.6)
+        .to({},{duration:6},42.5);
     }
   });
 })();
