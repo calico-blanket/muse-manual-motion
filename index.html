@@ -436,6 +436,36 @@
 .fs-cards .fs-doc{flex:1 1 0}
 .fs-arrow{align-self:center;flex:0 0 auto;font-weight:900;color:var(--accent-d);font-size:clamp(18px,5.4vw,28px);line-height:1}
 .fs-chip.gold{border-color:#c8a24a;color:#7a5c14;background:#fdf6e0}
+/* v9 (3.1): compact phone / drawer schematics for the fs stage. The
+   static .phone/.drawer figures are too tall for a scene and their
+   .fbadge numbers are only 12px, so the stage gets its own compact
+   parts: numbered badges (.fs-num, 24px circles) sit in normal flow
+   next to the element they label, and each diagram zone is a row. */
+.fs-num{display:inline-grid;place-items:center;width:24px;height:24px;flex:0 0 auto;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;font-size:14px;line-height:1}
+.fs-phone{width:100%;max-width:min(88%,340px);background:#fff;border:3px solid var(--line-strong);border-radius:20px;box-shadow:0 8px 20px rgba(60,50,20,.16);padding:9px 11px;display:flex;flex-direction:column;gap:6px;text-align:left}
+.fs-ph-top{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.fs-ph-grp{display:flex;align-items:center;gap:5px;min-width:0}
+.fs-ph-btn{display:inline-grid;place-items:center;width:32px;height:32px;flex:0 0 auto;border:2px solid var(--line-strong);border-radius:50%;font-weight:900;color:var(--ink);font-size:16px;background:#fff;line-height:1}
+.fs-ph-peer{display:flex;align-items:center;gap:6px;font-weight:800;color:var(--ink);font-size:clamp(14px,4.3vw,18px);white-space:nowrap}
+.fs-ph-ava{width:26px;height:26px;flex:0 0 auto;border-radius:50%;background:var(--accent-soft);border:2px solid var(--accent)}
+.fs-ph-zone{border-top:1.5px solid var(--line);padding-top:6px}
+.fs-ph-cap{display:flex;align-items:center;justify-content:space-between;gap:6px;font-weight:800;color:var(--accent-d);font-size:clamp(14px,4.3vw,18px);margin-bottom:5px}
+.fs-ph-zone .fs-bub{font-size:clamp(14px,4.3vw,19px)}
+.fs-ph-input{display:flex;align-items:center;gap:6px}
+.fs-ph-plus{font-weight:900;font-size:20px;color:var(--ink);flex:0 0 auto;line-height:1}
+.fs-ph-field{flex:1 1 auto;min-width:0;border:2px solid var(--line);border-radius:999px;padding:.32em .7em;color:var(--muted);font-weight:700;font-size:clamp(14px,4.3vw,18px);white-space:nowrap;overflow:hidden}
+.fs-ph-mic{font-size:17px;flex:0 0 auto;line-height:1}
+.fs-ph-tabs{display:flex;gap:4px}
+.fs-ph-tab{flex:1 1 0;min-width:0;text-align:center;font-weight:700;color:var(--muted);font-size:clamp(14px,3.9vw,16px);padding:.28em 0;border-radius:8px;background:#eef3f0;white-space:nowrap}
+.fs-ph-tab.on{color:var(--accent-d);background:var(--accent-soft)}
+.fs-drawer{width:100%;max-width:min(92%,360px);background:#fff;border:3px solid var(--line-strong);border-radius:16px;box-shadow:0 8px 20px rgba(60,50,20,.16);padding:10px 12px;display:flex;flex-direction:column;gap:6px;text-align:left}
+.fs-signs .fs-ph-tabs{margin-top:10px}
+.fs-dw-head{display:flex;align-items:center;justify-content:space-between;gap:6px;font-weight:900;color:var(--accent-d);font-size:clamp(16px,5vw,22px)}
+.fs-dw-sec{border-top:1.5px solid var(--line);padding-top:6px}
+.fs-dw-cap{display:flex;align-items:center;justify-content:space-between;gap:6px;font-weight:800;color:var(--ink);font-size:clamp(14px,4.3vw,18px);margin-bottom:3px}
+.fs-dw-item{font-weight:700;color:var(--muted);font-size:clamp(14px,4.3vw,18px);line-height:1.5;overflow-wrap:break-word}
+.fs-dw-bottom{display:flex;align-items:center;justify-content:space-between;gap:6px;border-top:1.5px solid var(--line);padding-top:8px}
+.fs-dw-grp{display:flex;align-items:center;gap:5px;font-weight:800;color:var(--ink);font-size:clamp(14px,4.3vw,18px);white-space:nowrap}
 @media print{.fsunit{height:auto;display:block}.fsunit .fsstage{display:block}.fs-screen{height:auto;min-height:0}.fs-scenes{overflow:visible}.fs-scene{position:static;visibility:hidden;display:none}.fs-scene.fs-final{visibility:visible;display:flex}.fs-fit{transform:none!important}}
 
 </style>
@@ -848,132 +878,210 @@
 
 
 
+      <div class="fsunit">
       <h3 id="ch3-1"><span class="no">3.1</span>画面各部の名称</h3>
-<div class="mstage" id="ms-s31" data-ms="s31"><div class="ms-screen">
-  <span class="ms-tag">3.1</span>
-  <div class="mphone p31"><div class="mp-head">≡ Muse</div><div class="mp-body"></div><div class="mp-input"></div><div class="mring"></div></div>
-  <div class="mlab l1">メニュー</div>
-  <div class="mlab l2">チャットの場所</div>
-  <div class="mlab l3">入力欄</div>
-  <div class="mlab l4">設定</div>
-  <div class="mactor a31"></div>
+<div class="fsstage" id="fs-s31" data-fs="s31"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene fsg1 on"><div class="fs-pillrow"><span class="fs-tag">3.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">画面は、2つあります</div>
+    <div class="fs-tokrow">
+      <span class="fs-chip c1">図1 チャット画面</span><span class="fs-chip gold c2">図2 メニュー画面</span>
+    </div>
+    <div class="fs-formula">※ iPhone版やパソコン版では、ボタンの位置や表記が異なる場合があります</div>
+  </div></div></div>
+  <div class="fs-scene fsg2"><div class="fs-pillrow"><span class="fs-tag">3.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-tokrow"><span class="fs-chip">図1 チャット画面（模式図）</span></div>
+    <div class="fs-phone">
+      <div class="fs-ph-top">
+        <span class="fs-ph-grp"><span class="fs-ph-btn">≡</span><span class="fs-num n1">1</span></span>
+        <span class="fs-ph-grp"><span class="fs-ph-peer"><span class="fs-ph-ava"></span>相手の名前</span><span class="fs-num n3">3</span></span>
+        <span class="fs-ph-grp"><span class="fs-ph-btn">…</span><span class="fs-num n2">2</span></span>
+      </div>
+      <div class="fs-ph-zone">
+        <div class="fs-ph-cap"><span>メッセージ表示エリア</span><span class="fs-num n4">4</span></div>
+        <div class="fs-bub m">Museの返信が表示されます。</div>
+        <div class="fs-bub u">送ったメッセージが表示されます。</div>
+      </div>
+      <div class="fs-ph-zone">
+        <div class="fs-ph-input">
+          <span class="fs-ph-plus">＋</span><span class="fs-num n5">5</span>
+          <span class="fs-ph-field">メッセージを入力…</span><span class="fs-num n6">6</span>
+          <span class="fs-ph-mic">🎤</span><span class="fs-num n7">7</span>
+        </div>
+      </div>
+      <div class="fs-ph-zone">
+        <div class="fs-ph-cap"><span>タブバー</span><span class="fs-num n8">8</span></div>
+        <div class="fs-ph-tabs">
+          <span class="fs-ph-tab on">チャット</span><span class="fs-ph-tab">フィード</span><span class="fs-ph-tab">アイデア</span><span class="fs-ph-tab">図書館</span><span class="fs-ph-tab">目標</span>
+        </div>
+      </div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsg3"><div class="fs-pillrow"><span class="fs-tag">3.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>図1 チャット画面 ①②</h5>
+      <div class="fs-sign g1">① メニューボタン「≡」（左上）：メニュー画面（図2）を開きます。チャットの一覧、新しいサイドチャットの作成、設定はここから</div>
+      <div class="fs-sign g2">② チャットメニュー「…」（右上）：いま開いているチャットのメニューを開きます。項目は「名前を変更」「固定」「アーカイブ」「削除」</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsg4"><div class="fs-pillrow"><span class="fs-tag">3.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>図1 チャット画面 ③④</h5>
+      <div class="fs-sign g1">③ 相手のアイコンと名前（上部中央）：いま話している相手を表示します</div>
+      <div class="fs-sign g2">④ メッセージ表示エリア（中央）：送ったメッセージとMuseの返信が、時間の順に表示されます。メッセージを長押しすると、絵文字でリアクションを付けられます</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsg5"><div class="fs-pillrow"><span class="fs-tag">3.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>図1 チャット画面 ⑤⑥</h5>
+      <div class="fs-sign g1">⑤ 「＋」（入力欄の左端）：ファイルや写真を追加します</div>
+      <div class="fs-sign g2">⑥ 入力欄（下部）：メッセージを入力して送ります。表示される文字はチャットごとに変わります</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsg6"><div class="fs-pillrow"><span class="fs-tag">3.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>図1 チャット画面 ⑦⑧</h5>
+      <div class="fs-sign g1">⑦ マイク（入力欄の右端）：音声で入力します</div>
+      <div class="fs-sign g2">⑧ タブバー（最下部）：画面を切り替えます</div>
+      <div class="fs-ph-tabs">
+        <span class="fs-ph-tab on">チャット</span><span class="fs-ph-tab">フィード</span><span class="fs-ph-tab">アイデア</span><span class="fs-ph-tab">図書館</span><span class="fs-ph-tab">目標</span>
+      </div>
+      <div class="fs-sign g3">チャットは「チャット」を使います</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsg7"><div class="fs-pillrow"><span class="fs-tag">3.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-tokrow"><span class="fs-chip gold">図2 メニュー画面（模式図）</span></div>
+    <div class="fs-drawer">
+      <div class="fs-dw-head"><span>アシスタント名</span><span class="fs-num n1">1</span></div>
+      <div class="fs-dw-sec">
+        <div class="fs-dw-cap"><span>タブ</span><span class="fs-num n2">2</span></div>
+        <div class="fs-dw-item">メインチャット／フィード／アイデア／図書館／目標</div>
+      </div>
+      <div class="fs-dw-sec">
+        <div class="fs-dw-cap"><span>スペース</span><span class="fs-num n3">3</span></div>
+        <div class="fs-dw-item">スペース名（作ったものが並びます）</div>
+        <div class="fs-dw-item">＋ スペースを作成</div>
+      </div>
+      <div class="fs-dw-sec">
+        <div class="fs-dw-cap"><span>サイドチャット</span><span class="fs-num n4">4</span></div>
+        <div class="fs-dw-item">サイドチャット名（タップで開く）</div>
+      </div>
+      <div class="fs-dw-bottom">
+        <span class="fs-dw-grp"><span>⚙</span><span class="fs-num n5">5</span></span>
+        <span class="fs-dw-grp"><span>🔍 検索</span><span class="fs-num n6">6</span></span>
+        <span class="fs-dw-grp"><span>✏️</span><span class="fs-num n7">7</span></span>
+      </div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsg8"><div class="fs-pillrow"><span class="fs-tag">3.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>図2 メニュー画面 ①②</h5>
+      <div class="fs-sign g1">① アシスタント名（上部）：あなたのMuseの名前を表示します</div>
+      <div class="fs-sign g2">② 「タブ」欄：メインチャット、フィード、アイデア、図書館、目標への入り口。長押しで並べ替えられます</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsg9"><div class="fs-pillrow"><span class="fs-tag">3.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>図2 メニュー画面 ③④</h5>
+      <div class="fs-sign g1">③ 「スペース」欄：Museが作った動画やWebページの置き場所（7.1）</div>
+      <div class="fs-sign g2">④ 「サイドチャット」欄：サイドチャットの一覧。タップでそのチャットを開きます</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsg10"><div class="fs-pillrow"><span class="fs-tag">3.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>図2 メニュー画面 ⑤⑥⑦</h5>
+      <div class="fs-sign g1">⑤ 歯車アイコン（左下）：設定を開きます（3.2）</div>
+      <div class="fs-sign g2">⑥ 検索欄（下部中央）：チャットなどを検索します</div>
+      <div class="fs-sign g3">⑦ 鉛筆アイコン（右下）：新しいサイドチャットを作ります（4.3）</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsg11 fs-final"><div class="fs-pillrow"><span class="fs-tag">3.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">設定は、メニューの左下の歯車から</div>
+    <div class="fs-signs">
+      <h5>3.1のまとめ</h5>
+      <div class="fs-sign g1"><b>✓</b> チャット画面（図1）の各部は①〜⑧</div>
+      <div class="fs-sign g2"><b>✓</b> メニュー画面（図2）の各部は①〜⑦</div>
+      <div class="fs-sign g3"><b>✓</b> メニューは、左上「≡」から開きます</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">図はAndroidスマートフォンの画面です。チャット画面（図1）と、左上の「≡」で開くメニュー画面（図2）があります</div>
 </div></div>
-
-      <p>図はAndroidスマートフォンの画面です。チャット画面（図1）と、左上の「≡」で開くメニュー画面（図2）があります。</p>
-      <p class="small">※iPhone版やパソコン版では、ボタンの位置や表記が異なる場合があります。</p>
-
-      <figure>
-        <p class="fig-title">チャット画面</p>
-        <div class="phone" role="img" aria-label="チャット画面の模式図。左上に①メニューボタン、右上に②チャットメニュー、上部中央に③相手のアイコンと名前、中央に④メッセージ表示エリア、下部に⑤追加ボタン、⑥入力欄、⑦マイク、最下部に⑧タブバー。">
-          <div class="phone-top">
-            <div class="btn-col"><span class="circle-btn">≡</span><span class="fbadge">1</span></div>
-            <div class="peer"><div class="avatar">アイコン</div><div class="pname">相手の名前 <span class="fbadge">3</span></div></div>
-            <div class="btn-col"><span class="circle-btn">…</span><span class="fbadge">2</span></div>
-          </div>
-          <div class="msgs">
-            <div class="cap">メッセージ表示エリア <span class="fbadge">4</span></div>
-            <div class="bubble them">Museの返信が表示されます。</div>
-            <div class="bubble me">送ったメッセージが表示されます。</div>
-          </div>
-          <div class="phone-input">
-            <span class="plus">＋</span><span class="fbadge">5</span>
-            <span class="ph">メッセージを入力… <span class="fbadge">6</span></span>
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg><span class="fbadge">7</span>
-          </div>
-          <div class="tabbar-cap"><div class="cap">タブバー <span class="fbadge">8</span></div></div>
-          <div class="tabbar">
-            <div class="tab on"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>チャット</div>
-            <div class="tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0V9"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>フィード</div>
-            <div class="tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>アイデア</div>
-            <div class="tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="6" r="2.5"/><circle cx="12" cy="6" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="8.5" cy="17" r="2.5"/><circle cx="15.5" cy="17" r="2.5"/></svg>図書館</div>
-            <div class="tab"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m9 12 2 2 4-4"/></svg>目標</div>
-          </div>
-        </div>
-        <figcaption><b>図1</b> チャット画面（模式図）。番号は下の表に対応します。</figcaption>
-      </figure>
-      <div class="tblwrap">
-        <table>
-          <caption>図1 チャット画面の各部</caption>
-          <thead><tr><th scope="col">番号</th><th scope="col">名称</th><th scope="col">はたらき</th></tr></thead>
-          <tbody>
-            <tr><td class="no">①</td><th scope="row">メニューボタン「≡」（左上）</th><td>メニュー画面（図2）を開く。チャットの一覧、新しいサイドチャットの作成、設定はここから。</td></tr>
-            <tr><td class="no">②</td><th scope="row">チャットメニュー「…」（右上）</th><td>いま開いているチャットのメニューを開く。項目は「名前を変更」「固定」「アーカイブ」「削除」。</td></tr>
-            <tr><td class="no">③</td><th scope="row">相手のアイコンと名前（上部中央）</th><td>いま話している相手を表示する。</td></tr>
-            <tr><td class="no">④</td><th scope="row">メッセージ表示エリア（中央）</th><td>送ったメッセージとMuseの返信が、時間の順に表示される。メッセージを長押しすると、絵文字でリアクションを付けられる。</td></tr>
-            <tr><td class="no">⑤</td><th scope="row">「＋」（入力欄の左端）</th><td>ファイルや写真を追加する。</td></tr>
-            <tr><td class="no">⑥</td><th scope="row">入力欄（下部）</th><td>メッセージを入力して送る。表示される文字はチャットごとに変わる。</td></tr>
-            <tr><td class="no">⑦</td><th scope="row">マイク（入力欄の右端）</th><td>音声で入力する。</td></tr>
-            <tr><td class="no">⑧</td><th scope="row">タブバー（最下部）</th><td>画面を切り替える。左から「チャット」「フィード」「アイデア」「図書館」「目標」。チャットは「チャット」を使う。</td></tr>
-          </tbody>
-        </table>
       </div>
 
-      <figure>
-        <p class="fig-title">メニュー画面</p>
-        <div class="drawer" role="img" aria-label="メニュー画面の模式図。上から①アシスタント名、②タブ欄、③スペース欄、④サイドチャット欄。最下部の左に⑤設定の歯車、中央に⑥検索欄、右に⑦新規作成の鉛筆アイコン。">
-          <div class="drawer-head">アシスタント名 <span class="fbadge">1</span></div>
-          <div class="drawer-sec">
-            <div class="cap">タブ <span class="fbadge">2</span></div>
-            <div class="note-line">長押しで並べ替えられます</div>
-            <div class="drawer-item sel">メインチャット</div>
-            <div class="drawer-item">フィード</div>
-            <div class="drawer-item">アイデア</div>
-            <div class="drawer-item">図書館</div>
-            <div class="drawer-item">目標</div>
-          </div>
-          <div class="drawer-div"></div>
-          <div class="drawer-sec">
-            <div class="cap">スペース <span class="fbadge">3</span></div>
-            <div class="drawer-item">スペース名 <span class="ex">（作ったものが並びます）</span></div>
-            <div class="drawer-item">＋ スペースを作成</div>
-          </div>
-          <div class="drawer-div"></div>
-          <div class="drawer-sec">
-            <div class="cap">サイドチャット <span class="fbadge">4</span></div>
-            <div class="drawer-item">サイドチャット名 <span class="ex">（タップで開く）</span></div>
-          </div>
-          <div class="drawer-bottom">
-            <span class="icon-btn"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M1 12h4M19 12h4M4.2 19.8 7 17M17 7l2.8-2.8"/></svg></span><span class="fbadge">5</span>
-            <span class="search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>検索 <span class="fbadge">6</span></span>
-            <span class="icon-btn key"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg></span><span class="fbadge">7</span>
-          </div>
-        </div>
-        <figcaption><b>図2</b> メニュー画面（模式図）。番号は下の表に対応します。スペース名・サイドチャット名は仮の表示です。</figcaption>
-      </figure>
-      <div class="tblwrap">
-        <table>
-          <caption>図2 メニュー画面の各部</caption>
-          <thead><tr><th scope="col">番号</th><th scope="col">名称</th><th scope="col">はたらき</th></tr></thead>
-          <tbody>
-            <tr><td class="no">①</td><th scope="row">アシスタント名（上部）</th><td>あなたのMuseの名前を表示する。</td></tr>
-            <tr><td class="no">②</td><th scope="row">「タブ」欄</th><td>メインチャット、フィード、アイデア、図書館、目標への入り口。長押しで並べ替えられる。</td></tr>
-            <tr><td class="no">③</td><th scope="row">「スペース」欄</th><td>Museが作った動画やWebページの置き場所（<a href="#ch7-1">7.1</a>）。</td></tr>
-            <tr><td class="no">④</td><th scope="row">「サイドチャット」欄</th><td>サイドチャットの一覧。タップでそのチャットを開く。</td></tr>
-            <tr><td class="no">⑤</td><th scope="row">歯車アイコン（左下）</th><td>設定を開く（<a href="#ch3-2">3.2</a>）。</td></tr>
-            <tr><td class="no">⑥</td><th scope="row">検索欄（下部中央）</th><td>チャットなどを検索する。</td></tr>
-            <tr><td class="no">⑦</td><th scope="row">鉛筆アイコン（右下）</th><td>新しいサイドチャットを作る（<a href="#ch4-3">4.3</a>）。</td></tr>
-          </tbody>
-        </table>
-      </div>
-
+      <div class="fsunit">
       <h3 id="ch3-2"><span class="no">3.2</span>設定画面</h3>
-      <p>設定は、歯車アイコン（図2の⑤）から開きます。項目の並びや有無は、アプリのバージョンによって変わることがあります。</p>
-      <h4>利用状況</h4>
-      <p>設定画面のいちばん上で、プランごとの使用済みの割合と、上限がリセットされる日を確認できます（利用枠の種類は<a href="#ch5-3">5.3</a>）。</p>
-      <h4>データコントロール</h4>
-      <p>「データコントロール」には、自分のデータに関する操作がまとまっています。</p>
-      <div class="tblwrap">
-        <table>
-          <caption>データコントロールの項目（画面の並び順）</caption>
-          <thead><tr><th scope="col">項目</th><th scope="col">できること</th><th scope="col">補足</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">AIモデルの改善に協力する</th><td>オンにすると、Museとのやりとりが、MetaのAIモデルの学習（開発・改善）に使用される。</td><td>オフにすると、学習には使用されない。</td></tr>
-            <tr><th scope="row">アーカイブ済みのサイドチャット</th><td>アーカイブしたチャットの一覧を開く。各チャットの「…」から、アーカイブの解除や削除ができる。</td><td>手順は<a href="#ch4-4">4.4</a>。</td></tr>
-            <tr><th scope="row">Museにメモリーをインポート</th><td>ほかのAIアシスタントで使っていた情報を、Museのメモリーに移す。</td><td>Museが用意したプロンプトをほかのAIに送り、返ってきた要約をMuseに貼る方法と、チャットの書き出しファイル（ZIP）を取り込む方法がある。</td></tr>
-            <tr><th scope="row">エージェントデータをダウンロード</th><td>Museに保存されている自分のデータをまとめてダウンロードする。</td><td>含まれる内容は、ダウンロードしたファイルで確かめられる。</td></tr>
-            <tr><th scope="row">「（Museの名前）をリセット」</th><td>チャット履歴、ファイル、実行中のタスクなど、Museのデータをすべて削除する。</td><td><strong>元に戻せない。</strong></td></tr>
-          </tbody>
-        </table>
+<div class="fsstage" id="fs-s32" data-fs="s32"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene fsh1 on"><div class="fs-pillrow"><span class="fs-tag">3.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">設定は、歯車アイコンから開きます</div>
+    <div class="fs-tokrow"><span class="fs-chip gold">⚙ 歯車アイコン（図2の⑤）</span></div>
+    <div class="fs-formula">項目の並びや有無は、アプリのバージョンによって変わることがあります</div>
+  </div></div></div>
+  <div class="fs-scene fsh2"><div class="fs-pillrow"><span class="fs-tag">3.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">利用状況は、いちばん上で確認</div>
+    <div class="fs-meterwrap">
+      <div class="fs-meterlab">プランごとの使用済みの割合</div>
+      <div class="fs-meter"><i></i></div>
+    </div>
+    <div class="fs-formula">上限がリセットされる日も確認できます（利用枠の種類は5.3）</div>
+  </div></div></div>
+  <div class="fs-scene fsh3"><div class="fs-pillrow"><span class="fs-tag">3.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-formula">「データコントロール」には、自分のデータに関する操作がまとまっています</div>
+    <div class="fs-signs">
+      <h5>AIモデルの改善に協力する</h5>
+      <div class="fs-sign g1">オンにすると、Museとのやりとりが、MetaのAIモデルの学習（開発・改善）に使用されます</div>
+      <div class="fs-sign g2">オフにすると、学習には使用されません</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsh4"><div class="fs-pillrow"><span class="fs-tag">3.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>アーカイブ済みのサイドチャット</h5>
+      <div class="fs-sign g1">アーカイブしたチャットの一覧を開きます</div>
+      <div class="fs-sign g2">各チャットの「…」から、アーカイブの解除や削除ができます</div>
+      <div class="fs-sign g3">手順は4.4</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsh5"><div class="fs-pillrow"><span class="fs-tag">3.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>Museにメモリーをインポート</h5>
+      <div class="fs-sign g1">ほかのAIアシスタントで使っていた情報を、Museのメモリーに移します</div>
+      <div class="fs-sign g2">方法1：Museが用意したプロンプトをほかのAIに送り、返ってきた要約をMuseに貼ります</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsh6"><div class="fs-pillrow"><span class="fs-tag">3.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>Museにメモリーをインポート（つづき）</h5>
+      <div class="fs-sign g1">方法2：チャットの書き出しファイル（ZIP）を取り込みます</div>
+    </div>
+    <div class="fs-formula">方法1：プロンプトをほかのAIに送り、返ってきた要約をMuseに貼ります</div>
+  </div></div></div>
+  <div class="fs-scene fsh7"><div class="fs-pillrow"><span class="fs-tag">3.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>エージェントデータをダウンロード</h5>
+      <div class="fs-sign g1">Museに保存されている自分のデータを、まとめてダウンロードします</div>
+      <div class="fs-sign g2">含まれる内容は、ダウンロードしたファイルで確かめられます</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsh8"><div class="fs-pillrow"><span class="fs-tag">3.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>「（Museの名前）をリセット」</h5>
+      <div class="fs-sign g1">チャット履歴、ファイル、実行中のタスクなど、Museのデータをすべて削除します</div>
+      <div class="fs-sign g2"><b>元に戻せません</b></div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fsh9 fs-final"><div class="fs-pillrow"><span class="fs-tag">3.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">自分のデータの操作は、データコントロールに</div>
+    <div class="fs-signs">
+      <h5>3.2のまとめ</h5>
+      <div class="fs-sign g1"><b>✓</b> 設定は、歯車アイコンから開きます</div>
+      <div class="fs-sign g2"><b>✓</b> 利用状況は、設定画面のいちばん上で確認</div>
+      <div class="fs-sign g3"><b>✓</b> リセットは元に戻せないので、注意します</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">設定は、歯車アイコン（図2の⑤）から開きます</div>
+</div></div>
       </div>
     </section>
 
@@ -2330,6 +2438,166 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
         .fromTo(Q(".fse6 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},39.6)
         .fromTo(Q(".fse6 .gold"),{opacity:0,scale:.85},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},40.6)
         .to({},{duration:6},42.5);
+    }
+  });
+  /* ================= 3.1 画面各部の名称 ================= */
+  var st31 = document.querySelector('[data-fs="s31"]');
+  if(st31) createUnit(st31, {
+    telopTexts: [
+      "図はAndroidスマートフォンの画面です。チャット画面（図1）と、左上の「≡」で開くメニュー画面（図2）があります",
+      "図1はチャット画面の模式図です。①〜⑧が、各部の位置を示します",
+      "①メニューボタン（左上）でメニュー画面を開きます。②チャットメニュー（右上）の項目は「名前を変更」「固定」「アーカイブ」「削除」です",
+      "③には、いま話している相手を表示します。④メッセージ表示エリアには、やりとりが時間の順に表示されます",
+      "⑤「＋」でファイルや写真を追加します。⑥入力欄にメッセージを入力して送ります",
+      "⑦マイク（入力欄の右端）で音声入力ができます。⑧タブバー（最下部）で画面を切り替えます",
+      "図2はメニュー画面の模式図です。スペース名・サイドチャット名は仮の表示です",
+      "①アシスタント名（上部）と、②「タブ」欄（長押しで並べ替えられます）が並びます",
+      "③「スペース」欄は動画やWebページの置き場所、④「サイドチャット」欄はサイドチャットの一覧です",
+      "⑤歯車アイコンで設定を開きます。⑥検索欄でチャットなどを検索、⑦鉛筆アイコンで新しいサイドチャットを作ります",
+      "チャット画面とメニュー画面の各部の名称を確認しました。設定は、メニューの左下の歯車アイコンから開きます"
+    ],
+    finalScene: "fsg11",
+    finalTelop: "チャット画面とメニュー画面の各部の名称を確認しました。設定は、メニューの左下の歯車アイコンから開きます",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* G1 two screens */
+      tl.call(show,["fsg1"],0)
+        .call(setTel,["図はAndroidスマートフォンの画面です。チャット画面（図1）と、左上の「≡」で開くメニュー画面（図2）があります"],0)
+        .fromTo(Q(".fsg1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(QA(".fsg1 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.6,ease:"back.out(2)"},1.0)
+        .fromTo(Q(".fsg1 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},2.4)
+      /* G2 figure 1: chat screen schematic, badges pop in numeric order */
+        .call(show,["fsg2"],7.5)
+        .call(setTel,["図1はチャット画面の模式図です。①〜⑧が、各部の位置を示します"],7.5)
+        .fromTo(Q(".fsg2 .fs-chip"),{opacity:0,scale:.85},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},7.8)
+        .fromTo(Q(".fsg2 .fs-phone"),{opacity:0,y:18},{opacity:1,y:0,duration:.6},8.4);
+      for(var bi = 1; bi <= 8; bi++){
+        tl.fromTo(Q(".fsg2 .n" + bi),{opacity:0,scale:.4},{opacity:1,scale:1,duration:.4,ease:"back.out(2.2)"},9.2 + (bi - 1) * 0.22);
+      }
+      /* G3 figure 1 items 1-2 */
+      tl.call(show,["fsg3"],15)
+        .call(setTel,["①メニューボタン（左上）でメニュー画面を開きます。②チャットメニュー（右上）の項目は「名前を変更」「固定」「アーカイブ」「削除」です"],15)
+        .fromTo(Q(".fsg3 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},15.3)
+        .fromTo(QA(".fsg3 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},16.1)
+      /* G4 figure 1 items 3-4 */
+        .call(show,["fsg4"],22.5)
+        .call(setTel,["③には、いま話している相手を表示します。④メッセージ表示エリアには、やりとりが時間の順に表示されます"],22.5)
+        .fromTo(Q(".fsg4 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},22.8)
+        .fromTo(QA(".fsg4 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},23.6)
+      /* G5 figure 1 items 5-6 */
+        .call(show,["fsg5"],30)
+        .call(setTel,["⑤「＋」でファイルや写真を追加します。⑥入力欄にメッセージを入力して送ります"],30)
+        .fromTo(Q(".fsg5 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},30.3)
+        .fromTo(QA(".fsg5 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},31.1)
+      /* G6 figure 1 items 7-8 (busier scene: tighter staggers, longer slot) */
+        .call(show,["fsg6"],37.5)
+        .call(setTel,["⑦マイク（入力欄の右端）で音声入力ができます。⑧タブバー（最下部）で画面を切り替えます"],37.5)
+        .fromTo(Q(".fsg6 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.5},37.8)
+        .fromTo(QA(".fsg6 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.55},38.5)
+        .fromTo(Q(".fsg6 .fs-ph-tabs"),{opacity:0},{opacity:1,duration:.4},39.9)
+      /* G7 figure 2: menu screen schematic, badges pop in numeric order */
+        .call(show,["fsg7"],46.5)
+        .call(setTel,["図2はメニュー画面の模式図です。スペース名・サイドチャット名は仮の表示です"],46.5)
+        .fromTo(Q(".fsg7 .fs-chip"),{opacity:0,scale:.85},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},46.8)
+        .fromTo(Q(".fsg7 .fs-drawer"),{opacity:0,y:18},{opacity:1,y:0,duration:.6},47.4);
+      for(var bj = 1; bj <= 7; bj++){
+        tl.fromTo(Q(".fsg7 .n" + bj),{opacity:0,scale:.4},{opacity:1,scale:1,duration:.4,ease:"back.out(2.2)"},48.3 + (bj - 1) * 0.22);
+      }
+      /* G8 figure 2 items 1-2 */
+      tl.call(show,["fsg8"],54)
+        .call(setTel,["①アシスタント名（上部）と、②「タブ」欄（長押しで並べ替えられます）が並びます"],54)
+        .fromTo(Q(".fsg8 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},54.3)
+        .fromTo(QA(".fsg8 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},55.1)
+      /* G9 figure 2 items 3-4 */
+        .call(show,["fsg9"],61.5)
+        .call(setTel,["③「スペース」欄は動画やWebページの置き場所、④「サイドチャット」欄はサイドチャットの一覧です"],61.5)
+        .fromTo(Q(".fsg9 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},61.8)
+        .fromTo(QA(".fsg9 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},62.6)
+      /* G10 figure 2 items 5-7 */
+        .call(show,["fsg10"],69)
+        .call(setTel,["⑤歯車アイコンで設定を開きます。⑥検索欄でチャットなどを検索、⑦鉛筆アイコンで新しいサイドチャットを作ります"],69)
+        .fromTo(Q(".fsg10 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},69.3)
+        .fromTo(QA(".fsg10 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},70.1)
+      /* G11 recap */
+        .call(show,["fsg11"],77.5)
+        .call(setTel,["チャット画面とメニュー画面の各部の名称を確認しました。設定は、メニューの左下の歯車アイコンから開きます"],77.5)
+        .fromTo(Q(".fsg11 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},77.8)
+        .fromTo(Q(".fsg11 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},78.8)
+        .fromTo(QA(".fsg11 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},79.6)
+        .to({},{duration:6},83);
+    }
+  });
+
+  /* ================= 3.2 設定画面 ================= */
+  var st32 = document.querySelector('[data-fs="s32"]');
+  if(st32) createUnit(st32, {
+    telopTexts: [
+      "設定は、歯車アイコン（図2の⑤）から開きます",
+      "設定画面のいちばん上で、プランごとの使用済みの割合と、上限がリセットされる日を確認できます",
+      "「データコントロール」には、自分のデータに関する操作がまとまっています",
+      "アーカイブ済みのサイドチャットでは、アーカイブしたチャットの一覧を開けます",
+      "Museにメモリーをインポートでは、ほかのAIアシスタントで使っていた情報を、Museのメモリーに移せます",
+      "インポートの方法は2つあります。プロンプトで要約を貼る方法と、書き出しファイル（ZIP）を取り込む方法です",
+      "エージェントデータをダウンロードすると、Museに保存されている自分のデータをまとめて保存できます",
+      "「（Museの名前）をリセット」すると、Museのデータをすべて削除します。元に戻せません",
+      "設定画面では、利用状況の確認と、自分のデータに関する操作ができます"
+    ],
+    finalScene: "fsh9",
+    finalTelop: "設定画面では、利用状況の確認と、自分のデータに関する操作ができます",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* H1 settings open from the gear icon */
+      tl.call(show,["fsh1"],0)
+        .call(setTel,["設定は、歯車アイコン（図2の⑤）から開きます"],0)
+        .fromTo(Q(".fsh1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(Q(".fsh1 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},1.1)
+        .fromTo(Q(".fsh1 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},1.9)
+      /* H2 usage at the top of the settings screen */
+        .call(show,["fsh2"],7.5)
+        .call(setTel,["設定画面のいちばん上で、プランごとの使用済みの割合と、上限がリセットされる日を確認できます"],7.5)
+        .fromTo(Q(".fsh2 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},7.8)
+        .fromTo(Q(".fsh2 .fs-meterwrap"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},8.5)
+        .fromTo(Q(".fsh2 .fs-meter i"),{width:"10%"},{width:"62%",duration:1,ease:"power2.out"},9.0)
+        .fromTo(Q(".fsh2 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},10.5)
+      /* H3 data control intro + item 1: help improve the AI model */
+        .call(show,["fsh3"],15)
+        .call(setTel,["「データコントロール」には、自分のデータに関する操作がまとまっています"],15)
+        .fromTo(Q(".fsh3 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},15.3)
+        .fromTo(Q(".fsh3 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},16.1)
+        .fromTo(QA(".fsh3 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},16.9)
+      /* H4 item 2: archived side chats */
+        .call(show,["fsh4"],22.5)
+        .call(setTel,["アーカイブ済みのサイドチャットでは、アーカイブしたチャットの一覧を開けます"],22.5)
+        .fromTo(Q(".fsh4 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},22.8)
+        .fromTo(QA(".fsh4 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},23.6)
+      /* H5 item 3: import memory, method 1 */
+        .call(show,["fsh5"],30)
+        .call(setTel,["Museにメモリーをインポートでは、ほかのAIアシスタントで使っていた情報を、Museのメモリーに移せます"],30)
+        .fromTo(Q(".fsh5 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},30.3)
+        .fromTo(QA(".fsh5 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},31.1)
+      /* H6 item 3 continued: method 2 */
+        .call(show,["fsh6"],37.5)
+        .call(setTel,["インポートの方法は2つあります。プロンプトで要約を貼る方法と、書き出しファイル（ZIP）を取り込む方法です"],37.5)
+        .fromTo(Q(".fsh6 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},37.8)
+        .fromTo(QA(".fsh6 .fs-sign"),{opacity:.25},{opacity:1,duration:.45},38.6)
+        .fromTo(Q(".fsh6 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},39.6)
+      /* H7 item 4: download agent data */
+        .call(show,["fsh7"],45)
+        .call(setTel,["エージェントデータをダウンロードすると、Museに保存されている自分のデータをまとめて保存できます"],45)
+        .fromTo(Q(".fsh7 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},45.3)
+        .fromTo(QA(".fsh7 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},46.1)
+      /* H8 item 5: reset (irreversible) */
+        .call(show,["fsh8"],52.5)
+        .call(setTel,["「（Museの名前）をリセット」すると、Museのデータをすべて削除します。元に戻せません"],52.5)
+        .fromTo(Q(".fsh8 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},52.8)
+        .fromTo(QA(".fsh8 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},53.6)
+      /* H9 recap */
+        .call(show,["fsh9"],60)
+        .call(setTel,["設定画面では、利用状況の確認と、自分のデータに関する操作ができます"],60)
+        .fromTo(Q(".fsh9 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},60.3)
+        .fromTo(Q(".fsh9 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},61.3)
+        .fromTo(QA(".fsh9 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},62.1)
+        .to({},{duration:6},65.5);
     }
   });
 })();
