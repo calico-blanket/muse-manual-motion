@@ -336,7 +336,21 @@
    computes ONE scale for all nine scenes — the minimum fit ratio across
    scenes, capped at 1.3 so roomy scenes may grow a little — and applies
    that same scale to every .fs-fit wrapper. Font size therefore never
-   jumps between scenes. */
+   jumps between scenes.
+   v6.1: the "5.1" pill used to be absolutely positioned over the scene
+   area and could cover the first letter of a centered scene title.
+   Each scene is now a flex column whose FIRST row is a normal-flow
+   pill row (.fs-pillrow, left-aligned, identical in all nine scenes,
+   so the pill never moves between scenes) and whose second row
+   (.fs-center, flex:1, overflow:hidden) centers the .fs-fit content —
+   pill and title live in separate flex rows and cannot overlap at any
+   font size. The fit is measured against the .fs-center box. Scene
+   typography and container widths were raised (containers up to
+   min(94%,600px), title >=30px at 390px wide before scaling), and the
+   S1 chat bubbles now enter via a display toggle (.shown) instead of
+   an opacity fade, so the chat card is only as tall as the bubbles
+   already shown; the fit measurement forces the final state with a
+   temporary .fs-measuring class on the stage. */
 .fsstage{margin:2px 0 6px}
 @media(min-width:861px){.fsstage{width:calc(100% + 5rem);margin-left:-2.5rem}}
 @media(max-width:860px){.fsstage{width:calc(100% + 2.2rem);margin-left:-1.1rem}}
@@ -347,63 +361,70 @@
 .fs-screen{position:relative;flex:1 1 auto;min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column;background:#fdfdf8;border-top:2.5px solid var(--line);border-bottom:2.5px solid var(--line);box-shadow:0 6px 18px rgba(60,50,20,.10)}
 .fs-scenes{position:relative;flex:1 1 auto;min-height:0;overflow:hidden;background:linear-gradient(180deg,#eafaf1 0%,#fdfdf8 76%,#e7dcc8 76.2%,#e7dcc8 100%)}
 .fs-screen *, .fs-screen *::before, .fs-screen *::after{box-sizing:border-box}
-.fs-tag{position:absolute;top:12px;left:12px;z-index:9;background:var(--accent);color:#fff;font-weight:800;font-size:14px;border-radius:999px;padding:4px 14px}
-.fs-scene{position:absolute;inset:0;padding:0;display:flex;align-items:center;justify-content:center;visibility:hidden;opacity:0;pointer-events:none;overflow:hidden}
+.fs-tag{display:inline-block;background:var(--accent);color:#fff;font-weight:800;font-size:15px;border-radius:999px;padding:4px 14px}
+.fs-pillrow{flex:0 0 auto;width:100%;padding:10px 12px 2px;text-align:left}
+.fs-center{position:relative;flex:1 1 auto;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.fs-scene{position:absolute;inset:0;padding:0;display:flex;flex-direction:column;visibility:hidden;opacity:0;pointer-events:none;overflow:hidden}
 .fs-scene.on{visibility:visible;opacity:1}
-.fs-fit{display:flex;flex-direction:column;align-items:center;gap:12px;padding:18px 16px;width:100%;transform-origin:center center}
+.fs-fit{display:flex;flex-direction:column;align-items:center;gap:12px;padding:18px 0;width:100%;transform-origin:center center}
 .fs-fit > *{max-width:100%}
-.fs-row{display:flex;gap:10px;width:100%;max-width:440px;align-items:flex-start}
-.fs-title{font-weight:900;color:var(--accent-d);font-size:clamp(21px,min(6vw,5.4svh),40px);text-align:center;line-height:1.4;width:100%}
-.fs-chat{flex:1 1 auto;min-width:0;background:#fff;border:2.5px solid var(--line);border-radius:16px;box-shadow:0 6px 16px rgba(60,50,20,.13);padding:12px}
-.fs-bub{border-radius:12px;padding:.45em .8em;font-size:clamp(13px,3.6vw,19px);font-weight:700;margin-bottom:10px;line-height:1.45;overflow-wrap:break-word}
+.fs-row{display:flex;gap:8px;width:100%;max-width:min(94%,600px);align-items:flex-start}
+.fs-title{font-weight:900;color:var(--accent-d);font-size:clamp(26px,min(7.9vw,6.2svh),46px);text-align:center;line-height:1.4;width:100%;max-width:min(94%,600px)}
+.fs-chat{flex:1 1 auto;min-width:0;background:#fff;border:2.5px solid var(--line);border-radius:16px;box-shadow:0 6px 16px rgba(60,50,20,.13);padding:8px}
+.fs-bub{border-radius:12px;padding:.38em .8em;font-size:clamp(15px,4.9vw,22px);font-weight:700;margin-bottom:6px;line-height:1.45;overflow-wrap:break-word}
 .fs-bub:last-child{margin-bottom:0}
 .fs-bub.u{background:var(--accent);color:#fff;margin-left:12%}
 .fs-bub.m{background:#eef3f0;color:var(--ink);margin-right:12%}
-.fs-actor{flex:0 0 auto;width:clamp(72px,26vw,118px);max-width:38vw;position:relative}
-.fs-ctxbox{width:100%;max-width:440px;border:3px dashed var(--accent);border-radius:16px;background:rgba(255,255,255,.55);padding:12px 12px 14px;display:flex;flex-direction:column;align-items:center;gap:10px}
-.fs-ctxlab{font-weight:900;color:var(--accent-d);font-size:clamp(15px,4.4vw,23px);text-align:center;line-height:1.45;overflow-wrap:break-word;width:100%}
-.fs-reread{font-weight:900;color:var(--accent-d);font-size:clamp(13px,3.9vw,21px);text-align:center;line-height:1.5}
-.fs-stack{position:relative;width:min(78%,300px);height:172px;flex:0 0 auto}
-.fs-paper{position:absolute;left:0;width:100%;height:40px;background:#fff;border:2px solid #b9cdc0;border-radius:8px;box-shadow:0 2px 6px rgba(60,50,20,.12);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:clamp(11px,3.2vw,16px);color:var(--ink);text-align:center;padding:0 4px}
-.fs-inst{position:absolute;left:0;width:100%;height:40px;background:#fdf6e0;border:3px solid #c8a24a;border-radius:8px;font-weight:900;color:#7a5c14;font-size:clamp(12px,3.4vw,18px);display:flex;align-items:center;justify-content:center;z-index:3;text-align:center;padding:0 4px}
-.fs-mem{background:#f4faf7;border:2.5px solid var(--accent);border-radius:10px;padding:.4em .8em;font-weight:800;color:var(--ink);font-size:clamp(12px,3.4vw,18px);text-align:center;line-height:1.5;max-width:100%}
-.fs-mem small{display:block;font-weight:700;color:var(--muted);font-size:.78em}
-.fs-tokrow{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;width:100%;max-width:440px}
-.fs-chip{background:#fff;border:3px solid var(--accent);border-radius:12px;padding:.45em .65em;font-weight:900;color:var(--accent-d);font-size:clamp(15px,4.6vw,26px);box-shadow:0 4px 10px rgba(60,50,20,.12);line-height:1.35;text-align:center;overflow-wrap:break-word;max-width:100%}
-.fs-formula{background:#fff;border:2.5px solid var(--line);border-radius:14px;padding:.65em .85em;font-weight:800;color:var(--ink);font-size:clamp(13px,3.8vw,21px);line-height:1.6;box-shadow:0 5px 12px rgba(60,50,20,.12);width:100%;max-width:440px;text-align:center;overflow-wrap:break-word}
+#fs-s51.fs-live .fss1 .fs-bub{display:none}
+#fs-s51.fs-live .fss1 .fs-bub.shown{display:block;animation:fsBubIn .5s ease both}
+@keyframes fsBubIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){#fs-s51.fs-live .fss1 .fs-bub.shown{animation:none}}
+#fs-s51.fs-measuring .fss1 .fs-bub{display:block!important;animation:none!important}
+.fs-actor{flex:0 0 auto;width:clamp(64px,20vw,92px);max-width:38vw;position:relative}
+.fss8 .fs-actor{width:clamp(56px,19vw,84px)}
+.fs-ctxbox{width:100%;max-width:min(94%,600px);border:3px dashed var(--accent);border-radius:16px;background:rgba(255,255,255,.55);padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.fs-ctxlab{font-weight:900;color:var(--accent-d);font-size:clamp(17px,5.6vw,26px);text-align:center;line-height:1.45;overflow-wrap:break-word;width:100%}
+.fs-reread{font-weight:900;color:var(--accent-d);font-size:clamp(15px,4.9vw,22px);text-align:center;line-height:1.5}
+.fs-stack{position:relative;width:min(80%,340px);height:172px;flex:0 0 auto}
+.fs-stack.st3{height:130px}
+.fs-paper{position:absolute;left:0;width:100%;height:40px;background:#fff;border:2px solid #b9cdc0;border-radius:8px;box-shadow:0 2px 6px rgba(60,50,20,.12);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:clamp(15px,5.2vw,24px);line-height:1.2;color:var(--ink);text-align:center;padding:0 4px}
+.fs-inst{position:absolute;left:0;width:100%;height:40px;background:#fdf6e0;border:3px solid #c8a24a;border-radius:8px;font-weight:900;color:#7a5c14;font-size:clamp(15px,5vw,24px);display:flex;align-items:center;justify-content:center;z-index:3;text-align:center;padding:0 4px}
+.fs-mem{background:#f4faf7;border:2.5px solid var(--accent);border-radius:10px;padding:.4em .8em;font-weight:800;color:var(--ink);font-size:clamp(15px,4.9vw,22px);text-align:center;line-height:1.5;max-width:100%}
+.fs-mem small{display:block;font-weight:700;color:var(--muted);font-size:.82em}
+.fs-tokrow{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;width:100%;max-width:min(94%,600px)}
+.fs-chip{background:#fff;border:3px solid var(--accent);border-radius:12px;padding:.45em .65em;font-weight:900;color:var(--accent-d);font-size:clamp(17px,5.4vw,28px);box-shadow:0 4px 10px rgba(60,50,20,.12);line-height:1.35;text-align:center;overflow-wrap:break-word;max-width:100%}
+.fs-formula{background:#fff;border:2.5px solid var(--line);border-radius:14px;padding:.65em .85em;font-weight:800;color:var(--ink);font-size:clamp(15px,5.1vw,24px);line-height:1.55;box-shadow:0 5px 12px rgba(60,50,20,.12);width:100%;max-width:min(94%,600px);text-align:center;overflow-wrap:break-word}
 .fs-formula b{color:#b3541e}
-.fs-pc{width:100%;max-width:440px;background:#fff;border:3px solid var(--line-strong);border-radius:16px;box-shadow:0 8px 20px rgba(60,50,20,.16);padding:14px}
+.fs-pc{width:100%;max-width:min(94%,600px);background:#fff;border:3px solid var(--line-strong);border-radius:16px;box-shadow:0 8px 20px rgba(60,50,20,.16);padding:14px}
 .fs-pc .fs-bub{margin-right:0}
-.fs-usage{font-family:ui-monospace,monospace;font-weight:800;font-size:clamp(17px,5.4vw,31px);color:var(--ink);border-top:2px solid var(--line);padding-top:.5em;text-align:center;overflow-wrap:break-word}
+.fs-usage{font-family:ui-monospace,monospace;font-weight:800;font-size:clamp(20px,7.4vw,36px);color:var(--ink);border-top:2px solid var(--line);padding-top:.5em;text-align:center;overflow-wrap:break-word}
 .fs-usage .in{color:#146856}.fs-usage .out{color:#b3541e}
 .fs-usage-note{display:flex;gap:8px;margin-top:12px}
-.fs-note{flex:1 1 0;min-width:0;background:#f4faf7;border:2px solid var(--accent);border-radius:10px;padding:.5em .35em;font-size:clamp(11px,3.1vw,16px);font-weight:700;line-height:1.55;text-align:center;overflow-wrap:break-word}
+.fs-note{flex:1 1 0;min-width:0;background:#f4faf7;border:2px solid var(--accent);border-radius:10px;padding:.5em .35em;font-size:clamp(14px,4.3vw,20px);font-weight:700;line-height:1.55;text-align:center;overflow-wrap:break-word}
 .fs-note.o{background:#fdf3e7;border-color:#c8a24a}
-.fs-meterwrap{width:100%;max-width:440px}
-.fs-meterlab{font-weight:900;color:var(--accent-d);font-size:clamp(15px,4.4vw,24px);margin-bottom:8px;line-height:1.45;overflow-wrap:break-word}
+.fs-meterwrap{width:100%;max-width:min(94%,600px)}
+.fs-meterlab{font-weight:900;color:var(--accent-d);font-size:clamp(17px,5.4vw,26px);margin-bottom:8px;line-height:1.45;overflow-wrap:break-word}
 .fs-meter{height:32px;background:#fff;border:3px solid var(--line);border-radius:999px;overflow:hidden}
 .fs-meter i{display:block;height:100%;width:10%;background:linear-gradient(90deg,#e0a83c,#d05545)}
 .fs-meterrow{display:flex;gap:8px;margin-top:12px}
-.fs-doc{flex:1 1 0;min-width:0;background:#fff;border:3px solid #8aa79a;border-radius:12px;font-weight:900;color:var(--ink);font-size:clamp(12px,3.5vw,20px);padding:.7em .35em;text-align:center;box-shadow:0 5px 12px rgba(60,50,20,.14);line-height:1.5;overflow-wrap:break-word}
-.fs-slope{width:100%;max-width:440px;height:auto}
-.fs-bigq{font-weight:900;color:var(--accent-d);font-size:clamp(19px,min(5.6vw,5svh),36px);text-align:center;line-height:1.55;width:100%;overflow-wrap:break-word}
-.fs-signs{width:100%;max-width:440px;background:#fff;border:3px solid var(--accent);border-radius:16px;box-shadow:0 7px 16px rgba(60,50,20,.14);padding:14px}
-.fs-signs h5{margin:0 0 .35em;font-size:clamp(16px,4.6vw,25px);color:var(--accent-d)}
-.fs-sign{font-size:clamp(13px,3.8vw,21px);font-weight:700;color:var(--ink);padding:.45em 0;border-top:1.5px solid var(--line);line-height:1.55;overflow-wrap:break-word}
+.fs-doc{flex:1 1 0;min-width:0;background:#fff;border:3px solid #8aa79a;border-radius:12px;font-weight:900;color:var(--ink);font-size:clamp(15px,4.9vw,22px);padding:.7em .35em;text-align:center;box-shadow:0 5px 12px rgba(60,50,20,.14);line-height:1.5;overflow-wrap:break-word}
+.fs-slope{width:100%;max-width:min(94%,600px);height:auto}
+.fs-bigq{font-weight:900;color:var(--accent-d);font-size:clamp(24px,min(7.4vw,5.8svh),42px);text-align:center;line-height:1.55;width:100%;max-width:min(94%,600px);overflow-wrap:break-word}
+.fs-signs{width:100%;max-width:min(94%,600px);background:#fff;border:3px solid var(--accent);border-radius:16px;box-shadow:0 7px 16px rgba(60,50,20,.14);padding:12px}
+.fs-signs h5{margin:0 0 .35em;font-size:clamp(18px,5.6vw,27px);color:var(--accent-d)}
+.fs-sign{font-size:clamp(15px,5.1vw,24px);font-weight:700;color:var(--ink);padding:.4em 0;border-top:1.5px solid var(--line);line-height:1.55;overflow-wrap:break-word}
 .fs-sign b{color:#d05545}
-.fs-room2{flex:1.15 1 0;min-width:0;background:#fff;border:3px solid var(--accent);border-radius:16px;box-shadow:0 7px 16px rgba(60,50,20,.13);min-height:118px;padding:10px 6px;display:flex;align-items:flex-start;justify-content:center}
-.fs-room2 span{font-size:clamp(14px,4vw,21px);font-weight:900;color:var(--accent-d);text-align:center;line-height:1.4}
-.fs-memcause{flex:1 1 0;min-width:0;background:#fdf6e0;border:3px solid #c8a24a;border-radius:14px;padding:.7em .6em;font-weight:800;color:#7a5c14;font-size:clamp(12px,3.5vw,19px);line-height:1.6;box-shadow:0 6px 14px rgba(60,50,20,.14);overflow-wrap:break-word}
+.fs-room2{flex:1 1 0;min-width:0;background:#fff;border:3px solid var(--accent);border-radius:16px;box-shadow:0 7px 16px rgba(60,50,20,.13);min-height:118px;padding:10px 6px;display:flex;align-items:flex-start;justify-content:center}
+.fs-room2 span{font-size:clamp(16px,5.4vw,24px);font-weight:900;color:var(--accent-d);text-align:center;line-height:1.4}
+.fs-memcause{flex:1.15 1 0;min-width:0;background:#fdf6e0;border:3px solid #c8a24a;border-radius:14px;padding:.6em;font-weight:800;color:#7a5c14;font-size:clamp(15px,4.9vw,22px);line-height:1.5;box-shadow:0 6px 14px rgba(60,50,20,.14);overflow-wrap:break-word}
 .fs-actorrow{display:flex;align-items:flex-end;gap:14px;justify-content:center;width:100%}
 .fs-spark{color:#e5a83c;font-weight:900;font-size:clamp(22px,6vw,38px);line-height:1}
 .fs-telop{flex:0 0 auto;background:rgba(18,38,28,.95);color:#fff;font-weight:800;font-size:clamp(16px,2.2vw,24px);line-height:1.5;padding:.7em 1em;overflow-wrap:break-word}
 @media(max-width:900px){
-  .fs-fit{padding:16px 14px;gap:10px}
+  .fs-fit{padding:12px 0;gap:8px}
   .fs-telop{font-size:15px;line-height:1.45;padding:12px 14px 78px}
-  .fs-actor{width:clamp(72px,26vw,104px)}
-  .fss8 .fs-actor{width:clamp(64px,22vw,96px)}
-  .fs-bub{margin-bottom:8px}
-  .fs-ctxbox{gap:8px}
+  .fs-bub.u{margin-left:8%}
+  .fs-bub.m{margin-right:0}
 }
 @media print{.fsunit{height:auto;display:block}.fsunit .fsstage{display:block}.fs-screen{height:auto;min-height:0}.fs-scenes{overflow:visible}.fs-scene{position:static;visibility:hidden;display:none}.fs-scene.fss8{visibility:visible;display:flex}.fs-fit{transform:none!important}}
 
@@ -903,8 +924,7 @@
       <h3 id="ch5-1"><span class="no">5.1</span>長いチャットで起きること</h3>
 <div class="fsstage" id="fs-s51" data-fs="s51v5"><div class="fs-screen">
   <div class="fs-scenes">
-  <span class="fs-tag">5.1</span>
-  <div class="fs-scene fss1 on"><div class="fs-fit">
+  <div class="fs-scene fss1 on"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
     <div class="fs-title t1">1つのチャットが長くなると…</div>
     <div class="fs-row">
       <div class="fs-chat">
@@ -917,27 +937,27 @@
       </div>
       <div class="mactor fs-actor"></div>
     </div>
-  </div></div>
-  <div class="fs-scene fss2"><div class="fs-fit">
+  </div></div></div>
+  <div class="fs-scene fss2"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
     <div class="fs-ctxbox">
       <span class="fs-ctxlab">コンテキスト＝参照する情報全体</span>
       <span class="fs-reread">↻ 返信のたびに最初から読み直す</span>
-      <div class="fs-stack">
+      <div class="fs-stack st3">
         <div class="fs-paper pp1" style="bottom:0">このチャットの記録 ①</div>
         <div class="fs-paper pp2" style="bottom:43px">このチャットの記録 ②</div>
         <div class="fs-paper pp3" style="bottom:86px">このチャットの記録 ③</div>
       </div>
       <span class="fs-mem">＋ メモリーファイル<small>MEMORY.md など（6.1）</small></span>
     </div>
-  </div></div>
-  <div class="fs-scene fss3"><div class="fs-fit">
+  </div></div></div>
+  <div class="fs-scene fss3"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
     <div class="fs-tokrow">
       <span class="fs-chip c1">トークン</span><span class="fs-chip c2">＝ AIが文章を処理する</span><span class="fs-chip c3">最小単位</span>
     </div>
     <div class="fs-formula f1">AIの利用量は <b>トークン数</b> で計算されます</div>
     <div class="fs-formula f2">1回の返信で数えられるのは<br><b>読み直したコンテキスト全体</b> ＋ <b>返信そのもの</b> の両方</div>
-  </div></div>
-  <div class="fs-scene fss4"><div class="fs-fit">
+  </div></div></div>
+  <div class="fs-scene fss4"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
     <div class="fs-pc">
       <div class="fs-bub m">パソコン版では、返信の下に使用量が出ます</div>
       <div class="fs-usage"><span class="in">220.4k in</span> / <span class="out">765 out</span></div>
@@ -946,8 +966,8 @@
         <div class="fs-note o n2"><b>out</b>＝返信そのものの長さ<br>765トークン</div>
       </div>
     </div>
-  </div></div>
-  <div class="fs-scene fss5"><div class="fs-fit">
+  </div></div></div>
+  <div class="fs-scene fss5"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
     <div class="fs-meterwrap">
       <div class="fs-meterlab">トークン消費（1回の返信ごと）</div>
       <div class="fs-meter"><i></i></div>
@@ -956,8 +976,8 @@
         <div class="fs-doc d2">✍ 長い返信を求める → 増える</div>
       </div>
     </div>
-  </div></div>
-  <div class="fs-scene fss6a"><div class="fs-fit">
+  </div></div></div>
+  <div class="fs-scene fss6a"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
     <div class="fs-ctxbox">
       <span class="fs-ctxlab">コンテキスト＝参照する情報全体</span>
       <div class="fs-stack">
@@ -967,18 +987,18 @@
         <div class="fs-paper pp6" style="bottom:129px">記録 ⑥</div>
       </div>
     </div>
-  </div></div>
-  <div class="fs-scene fss6b"><div class="fs-fit">
+  </div></div></div>
+  <div class="fs-scene fss6b"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
     <svg class="fs-slope" viewBox="0 0 400 190" aria-hidden="true">
       <line x1="16" y1="10" x2="16" y2="168" stroke="#b9cdc0" stroke-width="3"/>
       <line x1="16" y1="168" x2="392" y2="168" stroke="#b9cdc0" stroke-width="3"/>
       <path class="fs-line" d="M18,30 C 150,48 260,105 390,150" fill="none" stroke="#d05545" stroke-width="6" stroke-linecap="round" pathLength="100" style="stroke-dasharray:100;stroke-dashoffset:100"/>
-      <text x="22" y="26" font-size="19" font-weight="900" fill="#14532d">応答の質</text>
-      <text x="150" y="188" font-size="16" font-weight="800" fill="#7a5c14">崖ではなく、緩やかな坂</text>
-      <text x="172" y="40" font-size="14" font-weight="800" fill="#55606e">短いチャット → 長いチャット</text>
+      <text x="22" y="26" font-size="22" font-weight="900" fill="#14532d">応答の質</text>
+      <text x="150" y="188" font-size="19" font-weight="800" fill="#7a5c14">崖ではなく、緩やかな坂</text>
+      <text x="172" y="40" font-size="17" font-weight="800" fill="#55606e">短いチャット → 長いチャット</text>
     </svg>
-  </div></div>
-  <div class="fs-scene fss7"><div class="fs-fit">
+  </div></div></div>
+  <div class="fs-scene fss7"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
     <div class="fs-bigq">何回のやりとりで下がる？<br>→ 目安はありません</div>
     <div class="fs-signs">
       <h5>移りどきのサイン</h5>
@@ -986,8 +1006,8 @@
       <div class="fs-sign g2"><b>✓</b> 間違いが多くなってきた</div>
       <div class="fs-sign g3"><b>✓</b> 前に伝えた指示や条件が守られない</div>
     </div>
-  </div></div>
-  <div class="fs-scene fss8"><div class="fs-fit">
+  </div></div></div>
+  <div class="fs-scene fss8"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
     <div class="fs-row">
       <div class="fs-room2"><span>新しい会話</span></div>
       <div class="fs-memcause">新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）</div>
@@ -1001,7 +1021,7 @@
       <div class="mactor fs-actor"></div>
       <span class="fs-spark sp2">✦</span>
     </div>
-  </div></div>
+  </div></div></div>
   </div>
   <div class="fs-telop">1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます。理由は、返信を作る仕組みにあります</div>
 </div></div>
@@ -1642,9 +1662,16 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
   if(!window.gsap) return;
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var st = document.querySelector('[data-fs="s51v5"]'); if(!st) return;
+  st.classList.add("fs-live");
   function Q(s){ return st.querySelector(s); }
   function QA(s){ return Array.prototype.slice.call(st.querySelectorAll(s)); }
   var tel = Q(".fs-telop");
+  /* S1 chat bubbles enter through a display toggle (.shown), not an
+     opacity fade, so the chat card grows with its content instead of
+     reserving the final height from the start. */
+  var bubs = QA(".fss1 .fs-bub");
+  function resetBubs(){ bubs.forEach(function(b){ b.classList.remove("shown"); }); }
+  function showBub(i){ if(bubs[i]) bubs[i].classList.add("shown"); }
   function setTel(t){ tel.textContent = t; scheduleFit(); }
   /* Unified fit (v6): ONE scale for all nine scenes, so the font size never
      jumps when the scene changes. The telop is first pinned to the height
@@ -1660,7 +1687,13 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
      than expected. The telop itself is never scaled. The scale is NOT
      recomputed on scene switches (it is unified); it is recomputed on
      resize / orientation change, when webfonts finish loading, and when a
-     telop change alters the scene area. */
+     telop change alters the scene area.
+     v6.1: the area is the scene's .fs-center box (the flex row below the
+     pill row), and the measurement runs under a temporary .fs-measuring
+     class that forces the S1 bubbles into their final, shown state —
+     they are display:none until their entrance, so without this the S1
+     content height would be under-measured. The class is added and
+     removed synchronously inside fitAll, so it never paints. */
   var SCALE_MAX = 1.3;
   var TELOP_TEXTS = [
     "1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます。理由は、返信を作る仕組みにあります",
@@ -1686,16 +1719,20 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
   }
   function fitAll(){
     pinTelopHeight();
+    st.classList.add("fs-measuring");
+    void st.offsetHeight;
     var s = SCALE_MAX;
     QA(".fs-scene").forEach(function(sc){
       var fit = sc.querySelector(".fs-fit"); if(!fit) return;
-      var aw = sc.clientWidth, ah = sc.clientHeight;
+      var ctr = sc.querySelector(".fs-center");
+      var aw = ctr ? ctr.clientWidth : sc.clientWidth, ah = ctr ? ctr.clientHeight : sc.clientHeight;
       var ch = fit.offsetHeight, cw = 0, i, kid;
       for(i = 0; i < fit.children.length; i++){
         kid = fit.children[i].offsetWidth; if(kid > cw) cw = kid;
       }
       if(aw && ah && cw && ch) s = Math.min(s, ah / ch, aw / cw);
     });
+    st.classList.remove("fs-measuring");
     QA(".fs-fit").forEach(function(f){
       f.style.transform = s !== 1 ? "scale(" + s.toFixed(4) + ")" : "";
     });
@@ -1722,7 +1759,9 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
   tl.call(show,["fss1"],0)
     .call(setTel,["1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます。理由は、返信を作る仕組みにあります"],0)
     .fromTo(Q(".fss1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
-    .fromTo(QA(".fss1 .fs-bub"),{opacity:0,y:10},{opacity:1,y:0,duration:.5,stagger:.8},0.8)
+    .call(resetBubs,null,0)
+    .call(showBub,[0],0.8).call(showBub,[1],1.6).call(showBub,[2],2.4)
+    .call(showBub,[3],3.2).call(showBub,[4],4).call(showBub,[5],4.8)
     .fromTo(Q(".fss1 .fs-actor"),{opacity:0,x:-24},{opacity:1,x:0,duration:.6},0.5)
   /* S2 context (b) */
     .call(show,["fss2"],7)
