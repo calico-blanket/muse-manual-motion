@@ -312,40 +312,46 @@
 @media print{.ms-screen *{visibility:visible!important}}
 
 
-/* ===== v5 fullscreen explainer unit (manual-motion): 5.1 — telop-in-layout + scene auto-fit (v5.3 fix) ===== */
-/* Design: scenes are grouped (.fs-scene). Only the active scene is visible
-   (visibility toggle, no crossfade ghosts). Inside a scene everything is in
-   normal flex flow, max-width:100%, wrapping text — nothing can stick out
-   sideways at 360-430px. The stage (.fs-screen) is a vertical flex column:
-   the scene area (.fs-scenes, flex:1, min-height:0) sits ABOVE the telop
-   (.fs-telop), which is a normal-flow block — never an overlay — so a long
-   telop shrinks the scene area instead of covering the scene. The telop
-   text runs at (nearly) full width; the fixed "back to chapters" button
-   (bottom:1rem, ~44px tall, i.e. it occupies the bottom ~62px) is kept off
-   the text by a ~68px blank band INSIDE the telop block's bottom padding.
-   Auto-fit (v5.3): each scene's content lives in a .fs-fit wrapper. The JS
-   engine measures the wrapper's final-state layout size against the scene
-   area and, when it would overflow (e.g. a device rendering fonts larger
-   than expected), scales the wrapper down with transform:scale so the
-   whole scene is always fully visible instead of being clipped by
-   overflow:hidden. If the needed scale drops under .92 the scene first
-   gets a .tight class (smaller paddings/gaps) and is re-measured. */
+/* ===== v6 fullscreen explainer unit (manual-motion): 5.1 — viewport-fit section + centered scenes + unified scale ===== */
+/* Design: the whole 5.1 unit (.fsunit: heading + stage) is exactly one
+   viewport tall (height:100dvh, svh/vh fallbacks) and a flex column: the
+   heading is flex:0 0 auto and the stage flexes into the remaining height
+   (flex:1, min-height:0), so the telop can never be pushed off-screen and
+   no scroll-margin fudge is needed. Scenes are grouped (.fs-scene); only
+   the active scene is visible (visibility toggle, no crossfade ghosts).
+   Each scene is a flex box that centers its .fs-fit content wrapper on
+   both axes, so leftover space is split above and below instead of
+   pooling at the bottom. Inside a scene everything is in normal flex
+   flow, max-width:100%, wrapping text — nothing can stick out sideways
+   at 360-430px. The stage (.fs-screen) is a vertical flex column: the
+   scene area (.fs-scenes, flex:1, min-height:0) sits ABOVE the telop
+   (.fs-telop), which is a normal-flow block — never an overlay — so a
+   long telop shrinks the scene area instead of covering the scene. The
+   telop text runs at (nearly) full width; the fixed "back to chapters"
+   button (bottom:1rem, ~44px tall, i.e. it occupies the bottom ~62px) is
+   kept off the text by a ~68px blank band INSIDE the telop block's
+   bottom padding. The telop itself is never scaled.
+   Unified fit (v6): the JS engine pins the telop to its tallest text's
+   height (so the scene area is measured under the tightest telop), then
+   computes ONE scale for all nine scenes — the minimum fit ratio across
+   scenes, capped at 1.3 so roomy scenes may grow a little — and applies
+   that same scale to every .fs-fit wrapper. Font size therefore never
+   jumps between scenes. */
 .fsstage{margin:2px 0 6px}
 @media(min-width:861px){.fsstage{width:calc(100% + 5rem);margin-left:-2.5rem}}
 @media(max-width:860px){.fsstage{width:calc(100% + 2.2rem);margin-left:-1.1rem}}
-#ch5-1{scroll-margin-top:3.4rem}
-.fs-screen{position:relative;height:calc(100svh - 112px);min-height:480px;overflow:hidden;display:flex;flex-direction:column;background:#fdfdf8;border-top:2.5px solid var(--line);border-bottom:2.5px solid var(--line);box-shadow:0 6px 18px rgba(60,50,20,.10)}
+#ch5-1{scroll-margin-top:0}
+.fsunit{display:flex;flex-direction:column;height:100vh;height:100svh;height:100dvh}
+.fsunit #ch5-1{flex:0 0 auto;margin:.8rem 0 .55rem}
+.fsunit .fsstage{flex:1 1 auto;min-height:0;display:flex;margin-top:0;margin-bottom:0}
+.fs-screen{position:relative;flex:1 1 auto;min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column;background:#fdfdf8;border-top:2.5px solid var(--line);border-bottom:2.5px solid var(--line);box-shadow:0 6px 18px rgba(60,50,20,.10)}
 .fs-scenes{position:relative;flex:1 1 auto;min-height:0;overflow:hidden;background:linear-gradient(180deg,#eafaf1 0%,#fdfdf8 76%,#e7dcc8 76.2%,#e7dcc8 100%)}
 .fs-screen *, .fs-screen *::before, .fs-screen *::after{box-sizing:border-box}
 .fs-tag{position:absolute;top:12px;left:12px;z-index:9;background:var(--accent);color:#fff;font-weight:800;font-size:14px;border-radius:999px;padding:4px 14px}
-.fs-scene{position:absolute;inset:0;padding:0;display:block;visibility:hidden;opacity:0;pointer-events:none;overflow:hidden}
+.fs-scene{position:absolute;inset:0;padding:0;display:flex;align-items:center;justify-content:center;visibility:hidden;opacity:0;pointer-events:none;overflow:hidden}
 .fs-scene.on{visibility:visible;opacity:1}
-.fs-fit{display:flex;flex-direction:column;align-items:center;gap:12px;padding:46px 16px 20px;width:100%;transform-origin:top center}
+.fs-fit{display:flex;flex-direction:column;align-items:center;gap:12px;padding:18px 16px;width:100%;transform-origin:center center}
 .fs-fit > *{max-width:100%}
-.fs-scene.tight .fs-fit{gap:7px;padding:38px 14px 10px}
-.fs-scene.tight .fs-bub{margin-bottom:6px}
-.fs-scene.tight .fs-ctxbox{gap:6px}
-.fs-scene.tight .fs-actor{width:clamp(60px,21vw,88px)}
 .fs-row{display:flex;gap:10px;width:100%;max-width:440px;align-items:flex-start}
 .fs-title{font-weight:900;color:var(--accent-d);font-size:clamp(21px,min(6vw,5.4svh),40px);text-align:center;line-height:1.4;width:100%}
 .fs-chat{flex:1 1 auto;min-width:0;background:#fff;border:2.5px solid var(--line);border-radius:16px;box-shadow:0 6px 16px rgba(60,50,20,.13);padding:12px}
@@ -392,15 +398,14 @@
 .fs-spark{color:#e5a83c;font-weight:900;font-size:clamp(22px,6vw,38px);line-height:1}
 .fs-telop{flex:0 0 auto;background:rgba(18,38,28,.95);color:#fff;font-weight:800;font-size:clamp(16px,2.2vw,24px);line-height:1.5;padding:.7em 1em;overflow-wrap:break-word}
 @media(max-width:900px){
-  .fs-fit{padding:44px 14px 12px;gap:8px}
-  .fs-scene.tight .fs-fit{padding:36px 12px 8px;gap:6px}
+  .fs-fit{padding:16px 14px;gap:10px}
   .fs-telop{font-size:15px;line-height:1.45;padding:12px 14px 78px}
   .fs-actor{width:clamp(72px,26vw,104px)}
   .fss8 .fs-actor{width:clamp(64px,22vw,96px)}
   .fs-bub{margin-bottom:8px}
   .fs-ctxbox{gap:8px}
 }
-@media print{.fs-screen{height:auto;min-height:0}.fs-scenes{overflow:visible}.fs-scene{position:static;visibility:hidden;display:none}.fs-scene.fss8{visibility:visible;display:block}.fs-fit{transform:none!important}}
+@media print{.fsunit{height:auto;display:block}.fsunit .fsstage{display:block}.fs-screen{height:auto;min-height:0}.fs-scenes{overflow:visible}.fs-scene{position:static;visibility:hidden;display:none}.fs-scene.fss8{visibility:visible;display:flex}.fs-fit{transform:none!important}}
 
 </style>
 </head>
@@ -894,6 +899,7 @@
 
 
 
+      <div class="fsunit">
       <h3 id="ch5-1"><span class="no">5.1</span>長いチャットで起きること</h3>
 <div class="fsstage" id="fs-s51" data-fs="s51v5"><div class="fs-screen">
   <div class="fs-scenes">
@@ -999,6 +1005,7 @@
   </div>
   <div class="fs-telop">1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます。理由は、返信を作る仕組みにあります</div>
 </div></div>
+      </div>
 <h3 id="ch5-2"><span class="no">5.2</span>トークンとは</h3>
       <p>トークンは、AIが文章を処理するときの最小単位です。AIの利用量はトークン数で計算されます。</p>
       <p>1回の返信ごとに、読み直したコンテキスト全体と返信の両方が数えられます。そのため、長いチャットを続けると、利用枠が早く減ります。</p>
@@ -1630,7 +1637,7 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
 
 
 <script>
-/* ===== v5 fullscreen explainer engine (manual-motion): 5.1 — scene-group switching (v5.1 fix) ===== */
+/* ===== v6 fullscreen explainer engine (manual-motion): 5.1 — scene-group switching + unified fit ===== */
 (function(){
   if(!window.gsap) return;
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1639,30 +1646,62 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
   function QA(s){ return Array.prototype.slice.call(st.querySelectorAll(s)); }
   var tel = Q(".fs-telop");
   function setTel(t){ tel.textContent = t; scheduleFit(); }
-  /* Auto-fit (v5.3): measure each scene's .fs-fit wrapper at its final-state
-     layout size (transforms never affect offsetWidth/offsetHeight, so the
-     measurement is the settled size even while entrance animations run) and
-     scale the wrapper down to the scene area when it would overflow — e.g.
-     on devices that render fonts larger than expected. If the needed scale
-     drops below .92, the scene first gets a .tight class (smaller paddings
-     and gaps) and is re-measured, so the scale stays as large as possible. */
-  function fitScene(sc){
-    var fit = sc.querySelector(".fs-fit"); if(!fit) return 1;
-    function ratio(){
-      var aw = sc.clientWidth, ah = sc.clientHeight;
-      var cw = fit.offsetWidth, ch = fit.offsetHeight;
-      if(!aw || !ah || !cw || !ch) return 1;
-      return Math.min(1, ah / ch, aw / cw);
+  /* Unified fit (v6): ONE scale for all nine scenes, so the font size never
+     jumps when the scene changes. The telop is first pinned to the height
+     of its tallest text (TELOP_TEXTS lists every text the timeline sets),
+     which makes the scene area constant at its tightest; then every
+     scene's .fs-fit wrapper is measured at its final-state layout size
+     (transforms never affect offsetWidth/offsetHeight, so the measurement
+     is the settled size even while entrance animations run) and a single
+     scale s = min over all scenes of (area height / content height,
+     area width / widest child width) is applied to every wrapper. s may
+     grow up to SCALE_MAX when there is room, and shrinks as far as needed
+     so nothing is ever clipped — e.g. on devices that render fonts larger
+     than expected. The telop itself is never scaled. The scale is NOT
+     recomputed on scene switches (it is unified); it is recomputed on
+     resize / orientation change, when webfonts finish loading, and when a
+     telop change alters the scene area. */
+  var SCALE_MAX = 1.3;
+  var TELOP_TEXTS = [
+    "1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます。理由は、返信を作る仕組みにあります",
+    "コンテキスト＝返信で参照する情報全体。このチャットの記録とメモリーファイルが含まれ、返信のたびに最初から読み直します",
+    "トークンとは、AIが文章を処理する最小単位。利用量はトークン数で数え、1回の返信ではコンテキスト全体と返信の両方が数えられます",
+    "パソコン版では返信の下に使用量が出ます。inは読み込んだ量、outは返信の長さ。例は約22万を読み込み、765の返信です",
+    "コンテキストが長いほど、1回の返信ごとのトークン消費が増えます。長い資料を渡す・長い返信を求める場合も増えます",
+    "大事な指示がコンテキストの中で埋もれて、応答の精度が少しずつ落ちていきます",
+    "質の下がり方は、崖ではなく緩やかな坂です",
+    "何回のやりとりで下がるという目安はありません。こんなサインが見えたら、移りどきです",
+    "故障ではなく仕組みどおりの動きです。新しいチャットに移れば元に戻ります",
+    "新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）"
+  ];
+  function pinTelopHeight(){
+    var cur = tel.textContent, max = 0, i, h;
+    tel.style.minHeight = "";
+    for(i = 0; i < TELOP_TEXTS.length; i++){
+      tel.textContent = TELOP_TEXTS[i];
+      h = tel.offsetHeight; if(h > max) max = h;
     }
-    fit.style.transform = "";
-    sc.classList.remove("tight");
-    var s = ratio();
-    if(s < 0.92){ sc.classList.add("tight"); s = ratio(); }
-    fit.style.transform = s < 1 ? "scale(" + s.toFixed(4) + ")" : "";
-    sc.setAttribute("data-fitscale", s.toFixed(3));
+    tel.textContent = cur;
+    if(max) tel.style.minHeight = max + "px";
+  }
+  function fitAll(){
+    pinTelopHeight();
+    var s = SCALE_MAX;
+    QA(".fs-scene").forEach(function(sc){
+      var fit = sc.querySelector(".fs-fit"); if(!fit) return;
+      var aw = sc.clientWidth, ah = sc.clientHeight;
+      var ch = fit.offsetHeight, cw = 0, i, kid;
+      for(i = 0; i < fit.children.length; i++){
+        kid = fit.children[i].offsetWidth; if(kid > cw) cw = kid;
+      }
+      if(aw && ah && cw && ch) s = Math.min(s, ah / ch, aw / cw);
+    });
+    QA(".fs-fit").forEach(function(f){
+      f.style.transform = s !== 1 ? "scale(" + s.toFixed(4) + ")" : "";
+    });
+    st.setAttribute("data-fsscale", s.toFixed(3));
     return s;
   }
-  function fitAll(){ QA(".fs-scene").forEach(fitScene); }
   var fitQueued = false;
   function scheduleFit(){
     if(fitQueued) return; fitQueued = true;
