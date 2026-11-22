@@ -1521,64 +1521,215 @@
   <div class="fs-telop">1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます。理由は、返信を作る仕組みにあります</div>
 </div></div>
       </div>
-<h3 id="ch5-2"><span class="no">5.2</span>トークンとは</h3>
-      <p>トークンは、AIが文章を処理するときの最小単位です。AIの利用量はトークン数で計算されます。</p>
-      <p>1回の返信ごとに、読み直したコンテキスト全体と返信の両方が数えられます。そのため、長いチャットを続けると、利用枠が早く減ります。</p>
-      <p>パソコン版では、Museの返信の下に、その返信で使ったトークンの量が表示されます。</p>
-      <ul>
-        <li>in：返信を作る過程で読み込んだ量の合計</li>
-        <li>out：返信そのものの長さ</li>
-      </ul>
-      <p>例：「220.4k in / 765 out」（kは千。この例では、約22万トークンを読み込み、765トークンの返信を書いた）</p>
-
-            <h3 id="ch5-3"><span class="no">5.3</span>トークンの利用枠</h3>
-      <p>トークンの利用枠は、次の3種類に分けて考えます。</p>
-      <figure>
-        <div class="wallets" role="img" aria-label="トークンの3つの利用枠の模式図。無料プラン、追加のトークン、有料プラン。">
-          <div class="wallet">
-            <div class="wt">無料プラン</div>
-            <div class="bar"><i style="width:45%"></i></div>
-            <p>毎週、決まった量を無料で使える。1週間ごとに上限がリセットされる。</p>
-          </div>
-          <div class="wallet">
-            <div class="wt">追加のトークン</div>
-            <div class="bar"><i style="width:25%"></i></div>
-            <p>紹介コードやキャンペーンでもらえる追加分。有効期限なし。</p>
-          </div>
-          <div class="wallet">
-            <div class="wt">有料プラン</div>
-            <div class="bar"><i style="width:90%"></i></div>
-            <p>多く使いたい人向けの大きな枠。</p>
-          </div>
-        </div>
-        <figcaption><b>図7</b> トークンの3つの利用枠（模式図。バーの長さは量の大小のイメージです）</figcaption>
-      </figure>
-      <p>日々の相談や文章づくりは、無料プランの範囲でも十分にこなせます。使用量は、設定画面のいちばん上で確認できます（<a href="#ch3-2">3.2</a>）。</p>
-      <p>紹介コードを入力すると、「追加のトークン」がもらえます（本書作成時点では10億トークン）。入力は、設定の「紹介コードを利用」から行います。紹介コードを利用できるのは1回だけです。</p>
-      <p class="small">※もらえる量はキャンペーンによるもので、変わったり終了したりすることがあります。</p>
-
-            <h3 id="ch5-4"><span class="no">5.4</span>対策</h3>
-      <ol>
-        <li><strong>話題が変わったら、新しいサイドチャットで話す。</strong>最も効果の大きい対策です（<a href="#ch4-3">4.3</a>）。決定事項や好みは、メモリーで引き継がれます。</li>
-        <li><strong>チャットが長くなったら、引き継ぎ文を使って新しいチャットに移る。</strong>（<a href="#ch5-5">5.5</a>）</li>
-        <li><strong>大事な指示は、最後にもう一度書く。</strong>新しい指示ほど返信に反映されやすくなります。</li>
-        <li><strong>長い資料は、必要な部分だけを渡す。</strong>長い返信がいらないときは、「短めに答えて」と添えます。</li>
-        <li><strong>継続して使う決定事項は、メモリーに記録させる。</strong>「これを覚えておいて」と指示します。増えすぎないよう、ときどき点検します（<a href="#ch6-3">6.3</a>）。</li>
-      </ol>
-
-            <h3 id="ch5-5"><span class="no">5.5</span>引き継ぎ文の作り方</h3>
-      <p>引き継ぎ文は、前のチャットの要点を新しいチャットに渡すための文章です。自分で書く必要はなく、Museに作成させられます。</p>
-      <ol>
-        <li>長くなったチャットで、下のプロンプトを送る。</li>
-        <li>新しいサイドチャットを作る（<a href="#ch4-3">4.3</a>）。</li>
-        <li>Museが作った引き継ぎ文を、最初のメッセージとして貼って送る。</li>
-      </ol>
-      <div class="copybox" id="prompt-handoff">
-        <p class="cb-label">引き継ぎ文を作成するプロンプト</p>
-        <pre>この会話の要点を、新しい会話に貼れる「引き継ぎ文」にして。これまでの要点／決まっていること（原文）／しないこと／次にやること、の形でお願い。</pre>
-        <div class="copyrow"><button class="copy-btn" type="button" aria-label="引き継ぎ文を作成するプロンプトをコピーする">コピーする</button><span class="copy-msg" role="status"></span></div>
+      <div class="fsunit">
+      <h3 id="ch5-2"><span class="no">5.2</span>トークンとは</h3>
+<div class="fsstage" id="fs-s52" data-fs="s52"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene tk1 on"><div class="fs-pillrow"><span class="fs-tag">5.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">トークンとは</div>
+    <div class="fs-tokrow">
+      <span class="fs-chip c1">トークン</span><span class="fs-chip c2">＝ AIが文章を処理する</span><span class="fs-chip c3">最小単位</span>
+    </div>
+    <div class="fs-formula f1">AIの利用量は <b>トークン数</b> で計算されます</div>
+  </div></div></div>
+  <div class="fs-scene tk2"><div class="fs-pillrow"><span class="fs-tag">5.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-formula f1">1回の返信で数えられるのは<br><b>読み直したコンテキスト全体</b> と <b>返信</b> の両方</div>
+    <div class="fs-meterwrap">
+      <div class="fs-meterlab">トークンの利用枠</div>
+      <div class="fs-meter"><i></i></div>
+    </div>
+    <div class="fs-formula f2">長いチャットを続けると、利用枠が早く減ります</div>
+  </div></div></div>
+  <div class="fs-scene tk3"><div class="fs-pillrow"><span class="fs-tag">5.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-pc">
+      <div class="fs-bub m">パソコン版では、返信の下に使用量が出ます</div>
+      <div class="fs-usage"><span class="in">220.4k in</span> / <span class="out">765 out</span></div>
+      <div class="fs-usage-note">
+        <div class="fs-note n1"><b>in</b>＝返信を作る過程で読み込んだ量の合計<br>220.4k（kは千）＝約22万トークン</div>
+        <div class="fs-note o n2"><b>out</b>＝返信そのものの長さ<br>765トークン</div>
       </div>
-      <p>「決まっていること（原文）」は、表現そのものが重要な決定事項を、要約せずに元の文のまま残す欄です。</p>
+    </div>
+  </div></div></div>
+  <div class="fs-scene tk4 fs-final"><div class="fs-pillrow"><span class="fs-tag">5.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">トークン＝最小単位</div>
+    <div class="fs-signs">
+      <h5>5.2のまとめ</h5>
+      <div class="fs-sign g1"><b>✓</b> 利用量は、トークン数で計算される</div>
+      <div class="fs-sign g2"><b>✓</b> 数えられるのは、コンテキスト全体と返信の両方</div>
+      <div class="fs-sign g3"><b>✓</b> 使用量は、返信の下に表示される</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">トークンは、AIが文章を処理するときの最小単位です。AIの利用量はトークン数で計算されます</div>
+</div></div>
+      </div>
+
+      <div class="fsunit">
+      <h3 id="ch5-3"><span class="no">5.3</span>トークンの利用枠</h3>
+<div class="fsstage" id="fs-s53" data-fs="s53"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene wl1 on"><div class="fs-pillrow"><span class="fs-tag">5.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">トークンの利用枠は3種類</div>
+    <div class="fs-tokrow">
+      <span class="fs-chip c1">無料プラン</span><span class="fs-chip c2">追加のトークン</span><span class="fs-chip c3">有料プラン</span>
+    </div>
+    <div class="fs-formula">利用枠は、次の3種類に分けて考えます</div>
+  </div></div></div>
+  <div class="fs-scene wl2"><div class="fs-pillrow"><span class="fs-tag">5.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>無料プラン</h5>
+      <div class="fs-meter"><i style="width:45%"></i></div>
+      <div class="fs-sign g1">毎週、決まった量を無料で使える</div>
+      <div class="fs-sign g2">1週間ごとに上限がリセットされる</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene wl3"><div class="fs-pillrow"><span class="fs-tag">5.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>追加のトークン</h5>
+      <div class="fs-meter"><i style="width:25%"></i></div>
+      <div class="fs-sign g1">紹介コードやキャンペーンでもらえる追加分</div>
+      <div class="fs-sign g2">有効期限なし</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene wl4"><div class="fs-pillrow"><span class="fs-tag">5.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>有料プラン</h5>
+      <div class="fs-meter"><i style="width:90%"></i></div>
+      <div class="fs-sign g1">多く使いたい人向けの大きな枠</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene wl5"><div class="fs-pillrow"><span class="fs-tag">5.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-formula f1">バーの長さは、量の大小のイメージです（模式図）</div>
+    <div class="fs-signs">
+      <h5>無料プランでも十分</h5>
+      <div class="fs-sign g1">日々の相談や文章づくりは、無料プランの範囲でも十分にこなせます</div>
+      <div class="fs-sign g2">使用量は、設定画面のいちばん上で確認できます（3.2）</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene wl6 fs-final"><div class="fs-pillrow"><span class="fs-tag">5.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>紹介コードでもらえる</h5>
+      <div class="fs-sign g1">紹介コードを入力すると、「追加のトークン」がもらえます（本書作成時点では10億トークン）</div>
+      <div class="fs-sign g2">入力は、設定の「紹介コードを利用」から行います</div>
+      <div class="fs-sign g3">紹介コードを利用できるのは1回だけです</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene wl7 fs-final"><div class="fs-pillrow"><span class="fs-tag">5.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-memcause">※ もらえる量はキャンペーンによるもので、変わったり終了したりすることがあります</div>
+    <div class="fs-signs">
+      <h5>5.3のまとめ</h5>
+      <div class="fs-sign g1">無料プランは、1週間ごとに上限がリセットされる</div>
+      <div class="fs-sign g2">追加のトークンは、有効期限なし</div>
+      <div class="fs-sign g3">有料プランは、多く使いたい人向けの大きな枠</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">トークンの利用枠は、次の3種類に分けて考えます</div>
+</div></div>
+      </div>
+
+      <div class="fsunit">
+      <h3 id="ch5-4"><span class="no">5.4</span>対策</h3>
+<div class="fsstage" id="fs-s54" data-fs="s54"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene ts1 on"><div class="fs-pillrow"><span class="fs-tag">5.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>① 話題が変わったら、新しいサイドチャットで話す</h5>
+      <div class="fs-sign g1">最も効果の大きい対策です（4.3）</div>
+      <div class="fs-sign g2">決定事項や好みは、メモリーで引き継がれます</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene ts2"><div class="fs-pillrow"><span class="fs-tag">5.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>② チャットが長くなったら、引き継ぎ文を使って新しいチャットに移る</h5>
+      <div class="fs-sign g1">引き継ぎ文の作り方は（5.5）で紹介します</div>
+    </div>
+    <div class="fs-row">
+      <div class="fs-room2"><span>今のチャット</span></div>
+      <div class="fs-arrow">→</div>
+      <div class="fs-room2"><span>新しいチャット</span></div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene ts3"><div class="fs-pillrow"><span class="fs-tag">5.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>③ 大事な指示は、最後にもう一度書く</h5>
+      <div class="fs-sign g1">新しい指示ほど、返信に反映されやすくなります</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene ts4"><div class="fs-pillrow"><span class="fs-tag">5.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>④ 長い資料は、必要な部分だけを渡す</h5>
+      <div class="fs-sign g1">短い返信でよいときは、「短めに答えて」と添えます</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene ts5"><div class="fs-pillrow"><span class="fs-tag">5.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>⑤ 継続して使う決定事項は、メモリーに記録させる</h5>
+      <div class="fs-sign g1">「これを覚えておいて」と指示します</div>
+      <div class="fs-sign g2">増えすぎないよう、ときどき点検します（6.3）</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene ts6"><div class="fs-pillrow"><span class="fs-tag">5.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">対策は5つ</div>
+    <div class="fs-signs">
+      <h5>5.4のまとめ</h5>
+      <div class="fs-sign g1"><b>1</b> 話題が変わったら、新しいサイドチャットで話す</div>
+      <div class="fs-sign g2"><b>2</b> 長くなったら、引き継ぎ文で新しいチャットに移る</div>
+      <div class="fs-sign g3"><b>3</b> 大事な指示は、最後にもう一度書く</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene ts7 fs-final"><div class="fs-pillrow"><span class="fs-tag">5.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>5.4のまとめ（つづき）</h5>
+      <div class="fs-sign g4"><b>4</b> 資料は、必要な部分だけを渡す</div>
+      <div class="fs-sign g5"><b>5</b> 決定事項は、メモリーに記録させる</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">話題が変わったら、新しいサイドチャットで話します。最も効果の大きい対策です（4.3）</div>
+</div></div>
+      </div>
+
+      <div class="fsunit">
+      <h3 id="ch5-5"><span class="no">5.5</span>引き継ぎ文の作り方</h3>
+<div class="fsstage" id="fs-s55" data-fs="s55"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene ho1 on"><div class="fs-pillrow"><span class="fs-tag">5.5</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">引き継ぎ文とは</div>
+    <div class="fs-formula f1">前のチャットの要点を、新しいチャットに渡すための文章です</div>
+    <div class="fs-formula f2">自分で書く必要はなく、Museに作成させられます</div>
+  </div></div></div>
+  <div class="fs-scene ho2"><div class="fs-pillrow"><span class="fs-tag">5.5</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>作り方（3つの手順）</h5>
+      <div class="fs-sign g1">① 長くなったチャットで、下のプロンプトを送る</div>
+      <div class="fs-sign g2">② 新しいサイドチャットを作る（4.3）</div>
+      <div class="fs-sign g3">③ Museが作った引き継ぎ文を、最初のメッセージとして貼って送る</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene ho3"><div class="fs-pillrow"><span class="fs-tag">5.5</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs" id="prompt-handoff">
+      <h5>引き継ぎ文を作成するプロンプト</h5>
+      <div class="fs-sign g1">この会話の要点を、新しい会話に貼れる「引き継ぎ文」にして。これまでの要点／決まっていること（原文）／しないこと／次にやること、の形でお願い。</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene ho4"><div class="fs-pillrow"><span class="fs-tag">5.5</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">「決まっていること（原文）」とは</div>
+    <div class="fs-formula">表現そのものが重要な決定事項を、要約せずに元の文のまま残す欄です</div>
+  </div></div></div>
+  <div class="fs-scene ho5 fs-final"><div class="fs-pillrow"><span class="fs-tag">5.5</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">引き継ぎ文は、Museに作らせられる</div>
+    <div class="fs-signs">
+      <h5>5.5のまとめ</h5>
+      <div class="fs-sign g1"><b>✓</b> 自分で書く必要はない</div>
+      <div class="fs-sign g2"><b>✓</b> 手順は「送る → 作る → 貼る」の3つ</div>
+      <div class="fs-sign g3"><b>✓</b> 決まっていることは、原文のまま残す</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">引き継ぎ文は、前のチャットの要点を新しいチャットに渡すための文章です。自分で書く必要はなく、Museに作成させられます</div>
+</div></div>
+      </div>
     </section>
 
     <!-- ================= 第6章 ================= -->
@@ -2998,6 +3149,214 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
         .to({},{duration:6},65.5);
     }
   });
+  /* ================= 5.2 トークンとは ================= */
+  var st52 = document.querySelector('[data-fs="s52"]');
+  if(st52) createUnit(st52, {
+    telopTexts: [
+      "トークンは、AIが文章を処理するときの最小単位です。AIの利用量はトークン数で計算されます",
+      "1回の返信ごとに、読み直したコンテキスト全体と返信の両方が数えられます。そのため、長いチャットを続けると、利用枠が早く減ります",
+      "パソコン版では、返信の下に、その返信で使ったトークンの量が表示されます。inは返信を作る過程で読み込んだ量の合計、outは返信そのものの長さです",
+      "例「220.4k in / 765 out」のkは千。約22万トークンを読み込み、765トークンの返信を書いた、という意味です",
+      "トークンは、AIが文章を処理するときの最小単位。利用量はトークン数で計算されます"
+    ],
+    finalScene: "tk4",
+    finalTelop: "トークンは、AIが文章を処理するときの最小単位。利用量はトークン数で計算されます",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* T1 definition (a) */
+      tl.call(show,["tk1"],0)
+        .call(setTel,["トークンは、AIが文章を処理するときの最小単位です。AIの利用量はトークン数で計算されます"],0)
+        .fromTo(Q(".tk1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(QA(".tk1 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.7,ease:"back.out(2)"},1.1)
+        .fromTo(Q(".tk1 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},3.4)
+      /* T2 both sides counted; quota drains fast (b) */
+        .call(show,["tk2"],8.5)
+        .call(setTel,["1回の返信ごとに、読み直したコンテキスト全体と返信の両方が数えられます。そのため、長いチャットを続けると、利用枠が早く減ります"],8.5)
+        .fromTo(Q(".tk2 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},8.8)
+        .fromTo(Q(".tk2 .fs-meterwrap"),{opacity:0},{opacity:1,duration:.5},9.8)
+        .fromTo(Q(".tk2 .fs-meter i"),{width:"88%"},{width:"22%",duration:2.2,ease:"power1.inOut"},10.3)
+        .fromTo(Q(".tk2 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},12.9)
+      /* T3 PC usage display + example (c, d) */
+        .call(show,["tk3"],18)
+        .call(setTel,["パソコン版では、返信の下に、その返信で使ったトークンの量が表示されます。inは返信を作る過程で読み込んだ量の合計、outは返信そのものの長さです"],18)
+        .fromTo(Q(".tk3 .fs-pc"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},18.3)
+        .fromTo(QA(".tk3 .fs-note"),{opacity:0,y:12},{opacity:1,y:0,duration:.5,stagger:.6},19.5)
+        .call(setTel,["例「220.4k in / 765 out」のkは千。約22万トークンを読み込み、765トークンの返信を書いた、という意味です"],21)
+      /* T4 recap */
+        .call(show,["tk4"],26)
+        .call(setTel,["トークンは、AIが文章を処理するときの最小単位。利用量はトークン数で計算されます"],26)
+        .fromTo(Q(".tk4 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},26.3)
+        .fromTo(Q(".tk4 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},27.3)
+        .fromTo(QA(".tk4 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},28.1)
+        .to({},{duration:5},30.2);
+    }
+  });
+
+  /* ================= 5.3 トークンの利用枠 ================= */
+  var st53 = document.querySelector('[data-fs="s53"]');
+  if(st53) createUnit(st53, {
+    telopTexts: [
+      "トークンの利用枠は、次の3種類に分けて考えます",
+      "無料プランは、毎週、決まった量を無料で使えます。1週間ごとに上限がリセットされます",
+      "追加のトークンは、紹介コードやキャンペーンでもらえる追加分です。有効期限はありません",
+      "有料プランは、多く使いたい人向けの大きな枠です",
+      "バーの長さは、量の大小のイメージです（模式図）",
+      "日々の相談や文章づくりは、無料プランの範囲でも十分にこなせます。使用量は、設定画面のいちばん上で確認できます（3.2）",
+      "紹介コードを入力すると、「追加のトークン」がもらえます。利用できるのは1回だけです",
+      "もらえる量はキャンペーンによるもので、変わったり終了したりすることがあります"
+    ],
+    finalScene: "wl7",
+    finalTelop: "もらえる量はキャンペーンによるもので、変わったり終了したりすることがあります",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* W1 three kinds of quota (a) */
+      tl.call(show,["wl1"],0)
+        .call(setTel,["トークンの利用枠は、次の3種類に分けて考えます"],0)
+        .fromTo(Q(".wl1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(QA(".wl1 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.7,ease:"back.out(2)"},1.1)
+        .fromTo(Q(".wl1 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},3.4)
+      /* W2 free plan (b) */
+        .call(show,["wl2"],8.5)
+        .call(setTel,["無料プランは、毎週、決まった量を無料で使えます。1週間ごとに上限がリセットされます"],8.5)
+        .fromTo(Q(".wl2 .fs-signs"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},8.8)
+        .fromTo(Q(".wl2 .fs-meter i"),{width:"0%"},{width:"45%",duration:1.6,ease:"power1.inOut"},9.6)
+        .fromTo(QA(".wl2 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},11.4)
+      /* W3 extra tokens (c) */
+        .call(show,["wl3"],17)
+        .call(setTel,["追加のトークンは、紹介コードやキャンペーンでもらえる追加分です。有効期限はありません"],17)
+        .fromTo(Q(".wl3 .fs-signs"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},17.3)
+        .fromTo(Q(".wl3 .fs-meter i"),{width:"0%"},{width:"25%",duration:1.6,ease:"power1.inOut"},18.1)
+        .fromTo(QA(".wl3 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},19.9)
+      /* W4 paid plan (d) */
+        .call(show,["wl4"],25.5)
+        .call(setTel,["有料プランは、多く使いたい人向けの大きな枠です"],25.5)
+        .fromTo(Q(".wl4 .fs-signs"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},25.8)
+        .fromTo(Q(".wl4 .fs-meter i"),{width:"0%"},{width:"90%",duration:1.8,ease:"power1.inOut"},26.6)
+        .fromTo(QA(".wl4 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},28.6)
+      /* W5 bars are schematic; free plan is enough day to day (e, f) */
+        .call(show,["wl5"],34)
+        .call(setTel,["バーの長さは、量の大小のイメージです（模式図）"],34)
+        .fromTo(Q(".wl5 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},34.3)
+        .call(setTel,["日々の相談や文章づくりは、無料プランの範囲でも十分にこなせます。使用量は、設定画面のいちばん上で確認できます（3.2）"],35.3)
+        .fromTo(Q(".wl5 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},35.3)
+        .fromTo(QA(".wl5 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},36.7)
+      /* W6 referral code (g, h) */
+        .call(show,["wl6"],43.5)
+        .call(setTel,["紹介コードを入力すると、「追加のトークン」がもらえます。利用できるのは1回だけです"],43.5)
+        .fromTo(Q(".wl6 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},43.8)
+        .fromTo(QA(".wl6 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},44.6)
+      /* W7 campaign note + recap (h) */
+        .call(show,["wl7"],51.5)
+        .call(setTel,["もらえる量はキャンペーンによるもので、変わったり終了したりすることがあります"],51.5)
+        .fromTo(Q(".wl7 .fs-memcause"),{opacity:0,y:16},{opacity:1,y:0,duration:.6},51.8)
+        .fromTo(Q(".wl7 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},52.6)
+        .fromTo(QA(".wl7 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},53.4)
+        .to({},{duration:5},55.3);
+    }
+  });
+
+  /* ================= 5.4 対策 ================= */
+  var st54 = document.querySelector('[data-fs="s54"]');
+  if(st54) createUnit(st54, {
+    telopTexts: [
+      "話題が変わったら、新しいサイドチャットで話します。最も効果の大きい対策です（4.3）",
+      "チャットが長くなったら、引き継ぎ文を使って新しいチャットに移ります（5.5）",
+      "大事な指示は、最後にもう一度書きます。新しい指示ほど、返信に反映されやすくなります",
+      "長い資料は、必要な部分だけを渡します。短い返信でよいときは、「短めに答えて」と添えます",
+      "継続して使う決定事項は、メモリーに記録させます。「これを覚えておいて」と指示し、増えすぎないよう、ときどき点検します（6.3）",
+      "最も効果が大きいのは、話題が変わったら新しいサイドチャットで話すことです（4.3）",
+      "資料は必要な部分だけを渡し、決定事項はメモリーに記録させます"
+    ],
+    finalScene: "ts7",
+    finalTelop: "資料は必要な部分だけを渡し、決定事項はメモリーに記録させます",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* C1 new side chat on topic change (item 1) */
+      tl.call(show,["ts1"],0)
+        .call(setTel,["話題が変わったら、新しいサイドチャットで話します。最も効果の大きい対策です（4.3）"],0)
+        .fromTo(Q(".ts1 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},0.4)
+        .fromTo(QA(".ts1 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:1},1.6)
+      /* C2 move with a handoff note (item 2) */
+        .call(show,["ts2"],8)
+        .call(setTel,["チャットが長くなったら、引き継ぎ文を使って新しいチャットに移ります（5.5）"],8)
+        .fromTo(Q(".ts2 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},8.4)
+        .fromTo(QA(".ts2 .fs-sign"),{opacity:.25},{opacity:1,duration:.5},9.8)
+        .fromTo(Q(".ts2 .fs-row"),{opacity:0,y:16},{opacity:1,y:0,duration:.6},11)
+      /* C3 repeat the key instruction at the end (item 3) */
+        .call(show,["ts3"],16)
+        .call(setTel,["大事な指示は、最後にもう一度書きます。新しい指示ほど、返信に反映されやすくなります"],16)
+        .fromTo(Q(".ts3 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},16.4)
+        .fromTo(QA(".ts3 .fs-sign"),{opacity:.25},{opacity:1,duration:.55},18.2)
+      /* C4 pass only the needed part of long documents (item 4) */
+        .call(show,["ts4"],24)
+        .call(setTel,["長い資料は、必要な部分だけを渡します。短い返信でよいときは、「短めに答えて」と添えます"],24)
+        .fromTo(Q(".ts4 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},24.4)
+        .fromTo(QA(".ts4 .fs-sign"),{opacity:.25},{opacity:1,duration:.55},26.2)
+      /* C5 record lasting decisions in memory (item 5) */
+        .call(show,["ts5"],32)
+        .call(setTel,["継続して使う決定事項は、メモリーに記録させます。「これを覚えておいて」と指示し、増えすぎないよう、ときどき点検します（6.3）"],32)
+        .fromTo(Q(".ts5 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},32.4)
+        .fromTo(QA(".ts5 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:1},33.6)
+      /* C6 recap */
+        .call(show,["ts6"],40)
+        .call(setTel,["最も効果が大きいのは、話題が変わったら新しいサイドチャットで話すことです（4.3）"],40)
+        .fromTo(Q(".ts6 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},40.3)
+        .fromTo(Q(".ts6 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},41.3)
+        .fromTo(QA(".ts6 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.7},42.1)
+      /* C7 recap, continued: items 4-5 */
+        .call(show,["ts7"],48.5)
+        .call(setTel,["資料は必要な部分だけを渡し、決定事項はメモリーに記録させます"],48.5)
+        .fromTo(Q(".ts7 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},48.9)
+        .fromTo(QA(".ts7 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},49.7)
+        .to({},{duration:5},51);
+    }
+  });
+
+  /* ================= 5.5 引き継ぎ文の作り方 ================= */
+  var st55 = document.querySelector('[data-fs="s55"]');
+  if(st55) createUnit(st55, {
+    telopTexts: [
+      "引き継ぎ文は、前のチャットの要点を新しいチャットに渡すための文章です。自分で書く必要はなく、Museに作成させられます",
+      "長くなったチャットでプロンプトを送り、新しいサイドチャットを作って、引き継ぎ文を最初のメッセージとして貼って送ります",
+      "長くなったチャットで、このプロンプトを送ります",
+      "「決まっていること（原文）」は、表現そのものが重要な決定事項を、要約せずに元の文のまま残す欄です",
+      "引き継ぎ文は自分で書く必要はなく、Museに作成させられます"
+    ],
+    finalScene: "ho5",
+    finalTelop: "引き継ぎ文は自分で書く必要はなく、Museに作成させられます",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* H1 what a handoff note is (a) */
+      tl.call(show,["ho1"],0)
+        .call(setTel,["引き継ぎ文は、前のチャットの要点を新しいチャットに渡すための文章です。自分で書く必要はなく、Museに作成させられます"],0)
+        .fromTo(Q(".ho1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(Q(".ho1 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},1.2)
+        .fromTo(Q(".ho1 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},2.4)
+      /* H2 three steps, in order (b) */
+        .call(show,["ho2"],8)
+        .call(setTel,["長くなったチャットでプロンプトを送り、新しいサイドチャットを作って、引き継ぎ文を最初のメッセージとして貼って送ります"],8)
+        .fromTo(Q(".ho2 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},8.4)
+        .fromTo(QA(".ho2 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.9},9.8)
+      /* H3 the prompt itself, in full (c) */
+        .call(show,["ho3"],16.5)
+        .call(setTel,["長くなったチャットで、このプロンプトを送ります"],16.5)
+        .fromTo(Q(".ho3 .fs-signs"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},16.9)
+        .fromTo(QA(".ho3 .fs-sign"),{opacity:.25},{opacity:1,duration:.5},18.3)
+      /* H4 what the verbatim column means (d) */
+        .call(show,["ho4"],24)
+        .call(setTel,["「決まっていること（原文）」は、表現そのものが重要な決定事項を、要約せずに元の文のまま残す欄です"],24)
+        .fromTo(Q(".ho4 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},24.3)
+        .fromTo(Q(".ho4 .fs-formula"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},25.7)
+      /* H5 recap */
+        .call(show,["ho5"],31.5)
+        .call(setTel,["引き継ぎ文は自分で書く必要はなく、Museに作成させられます"],31.5)
+        .fromTo(Q(".ho5 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},31.8)
+        .fromTo(Q(".ho5 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},33.2)
+        .fromTo(QA(".ho5 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},34)
+        .to({},{duration:5},36.1);
+    }
+  });
+
 })();
 </script>
 
