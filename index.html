@@ -312,33 +312,56 @@
 @media print{.ms-screen *{visibility:visible!important}}
 
 
-/* ===== v4 explainer unit (manual-motion): 5.1 ===== */
-.xstage{max-width:680px;margin:16px auto 4px}
-.xs-screen{position:relative;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;aspect-ratio:16/10.2;background:linear-gradient(180deg,#eafaf1 0%,#fdfdf8 74%,#e7dcc8 74.2%,#e7dcc8 100%);box-shadow:0 4px 12px rgba(60,50,20,.08)}
-.xs-tag{position:absolute;top:8px;left:8px;z-index:8;background:var(--accent);color:#fff;font-weight:800;font-size:11px;border-radius:999px;padding:2px 10px}
-.xactor{position:absolute;width:15%;aspect-ratio:260/450;background-size:cover;background-position:center;border-radius:10px;box-shadow:0 4px 10px rgba(60,50,20,.22);z-index:5}
-.xchat{position:absolute;left:4%;top:11%;width:33%;height:58%;background:#fff;border:2px solid var(--line);border-radius:12px;box-shadow:0 5px 12px rgba(60,50,20,.12);padding:3%}
-.xbub{border-radius:9px;padding:.32em .65em;font-size:clamp(8.5px,1.7vw,11.5px);font-weight:600;margin-bottom:4.5%;max-width:88%}
-.xbub.u{background:var(--accent);color:#fff;margin-left:auto}
-.xbub.m{background:#eef3f0;color:var(--ink)}
-.xstack{position:absolute;left:44%;bottom:19%;width:21%;height:44%}
-.xpaper{position:absolute;left:0;width:100%;height:26%;background:#fff;border:2px solid #b9cdc0;border-radius:6px;box-shadow:0 2px 5px rgba(60,50,20,.12)}
-.xinst{position:absolute;left:-4%;width:108%;height:26%;background:#fdf6e0;border:2.5px solid #c8a24a;border-radius:6px;font-weight:800;color:#7a5c14;font-size:clamp(8.5px,1.7vw,11.5px);display:flex;align-items:center;justify-content:center;z-index:3}
-.xlab{position:absolute;font-weight:800;color:var(--accent-d);font-size:clamp(9.5px,1.9vw,13px);white-space:nowrap}
-.xmem{position:absolute;background:#f4faf7;border:2px solid var(--accent);border-radius:8px;padding:.2em .6em;font-weight:700;color:var(--ink);font-size:clamp(8.5px,1.7vw,11.5px)}
-.xmeter{position:absolute;right:5%;top:9%;width:27%;height:5.5%;background:#fff;border:2px solid var(--line);border-radius:999px;overflow:hidden}
-.xmeter i{display:block;height:100%;width:12%;background:linear-gradient(90deg,#e0a83c,#d05545)}
-.xdoc{position:absolute;background:#fff;border:2.5px solid #8aa79a;border-radius:8px;font-weight:800;color:var(--ink);font-size:clamp(8.5px,1.7vw,11.5px);padding:.35em .7em;box-shadow:0 4px 9px rgba(60,50,20,.15)}
-.xslope{position:absolute;right:4%;top:24%;width:29%}
-.xsigns{position:absolute;right:4%;top:22%;width:31%;background:#fff;border:2.5px solid var(--accent);border-radius:12px;box-shadow:0 5px 12px rgba(60,50,20,.13);padding:3%;z-index:6}
-.xsigns h5{margin:0 0 .4em;font-size:clamp(9.5px,1.9vw,13px);color:var(--accent-d)}
-.xsign{font-size:clamp(8.5px,1.7vw,11.5px);font-weight:600;color:var(--ink);padding:.28em 0;border-top:1px solid var(--line)}
-.xsign b{color:#d05545}
-.xroom2{position:absolute;right:4%;bottom:17%;width:24%;height:44%;background:#fff;border:2.5px solid var(--accent);border-radius:12px;box-shadow:0 5px 12px rgba(60,50,20,.12)}
-.xroom2 span{position:absolute;top:-1.1em;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:clamp(9px,1.8vw,12.5px);font-weight:800;color:var(--accent-d);background:#eafaf1;padding:0 .5em}
-.xspark{position:absolute;color:#e5a83c;font-weight:900;font-size:clamp(13px,2.6vw,20px);z-index:6}
-.xtelop{position:absolute;left:0;right:0;bottom:0;z-index:9;background:rgba(18,38,28,.9);color:#fff;font-weight:700;font-size:clamp(11.5px,2.3vw,15.5px);line-height:1.5;padding:.55em 1em;min-height:2.9em;display:flex;align-items:center}
-@media print{.xs-screen *{visibility:visible!important}}
+/* ===== v5 fullscreen explainer unit (manual-motion): 5.1 ===== */
+.fsstage{margin:18px 0 6px}
+@media(min-width:861px){.fsstage{width:calc(100% + 5rem);margin-left:-2.5rem}}
+@media(max-width:860px){.fsstage{width:calc(100% + 2.2rem);margin-left:-1.1rem}}
+.fs-screen{position:relative;height:100svh;min-height:560px;overflow:hidden;background:linear-gradient(180deg,#eafaf1 0%,#fdfdf8 76%,#e7dcc8 76.2%,#e7dcc8 100%);border-top:2.5px solid var(--line);border-bottom:2.5px solid var(--line);box-shadow:0 6px 18px rgba(60,50,20,.10)}
+.fs-tag{position:absolute;top:14px;left:14px;z-index:9;background:var(--accent);color:#fff;font-weight:800;font-size:14px;border-radius:999px;padding:4px 14px}
+.fs-title{position:absolute;top:6%;left:0;right:0;text-align:center;font-weight:900;color:var(--accent-d);font-size:clamp(22px,6vw,44px);z-index:4;padding:0 4%}
+.fs-chat{position:absolute;left:5%;top:20%;width:40%;height:56%;background:#fff;border:2.5px solid var(--line);border-radius:16px;box-shadow:0 6px 16px rgba(60,50,20,.13);padding:3%;z-index:3}
+.fs-bub{border-radius:12px;padding:.45em .8em;font-size:clamp(13px,3.4vw,20px);font-weight:700;margin-bottom:6%;max-width:90%;line-height:1.45}
+.fs-bub.u{background:var(--accent);color:#fff;margin-left:auto}
+.fs-bub.m{background:#eef3f0;color:var(--ink)}
+.fs-actor{position:absolute;width:24%;max-width:190px;z-index:5}
+.fs-ctxbox{position:absolute;right:4%;top:19%;width:48%;height:58%;border:3px dashed var(--accent);border-radius:16px;background:rgba(255,255,255,.55);z-index:2}
+.fs-ctxlab{position:absolute;top:-1em;left:50%;transform:translateX(-50%);background:#eafaf1;padding:0 .6em;font-weight:900;color:var(--accent-d);font-size:clamp(15px,4vw,24px);white-space:nowrap}
+.fs-stack{position:absolute;left:8%;bottom:16%;width:38%;height:52%}
+.fs-paper{position:absolute;left:0;width:100%;height:24%;background:#fff;border:2px solid #b9cdc0;border-radius:8px;box-shadow:0 2px 6px rgba(60,50,20,.12);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:clamp(11px,3vw,17px);color:var(--ink)}
+.fs-inst{position:absolute;left:-4%;width:108%;height:24%;background:#fdf6e0;border:3px solid #c8a24a;border-radius:8px;font-weight:900;color:#7a5c14;font-size:clamp(12px,3.2vw,19px);display:flex;align-items:center;justify-content:center;z-index:3}
+.fs-mem{position:absolute;right:6%;bottom:10%;background:#f4faf7;border:2.5px solid var(--accent);border-radius:10px;padding:.35em .8em;font-weight:800;color:var(--ink);font-size:clamp(12px,3.2vw,19px);z-index:3}
+.fs-mem small{display:block;font-weight:700;color:var(--muted);font-size:.78em}
+.fs-reread{position:absolute;left:6%;top:8%;font-weight:900;color:var(--accent-d);font-size:clamp(14px,3.8vw,23px);z-index:3}
+.fs-tok{position:absolute;left:5%;right:5%;top:22%;z-index:3;text-align:center}
+.fs-tokrow{display:flex;flex-wrap:wrap;gap:2.5%;justify-content:center;margin-bottom:5%}
+.fs-chip{background:#fff;border:3px solid var(--accent);border-radius:12px;padding:.5em .7em;font-weight:900;color:var(--accent-d);font-size:clamp(15px,4.4vw,27px);box-shadow:0 4px 10px rgba(60,50,20,.12)}
+.fs-formula{background:#fff;border:2.5px solid var(--line);border-radius:14px;padding:.7em .9em;font-weight:800;color:var(--ink);font-size:clamp(13px,3.6vw,22px);line-height:1.6;box-shadow:0 5px 12px rgba(60,50,20,.12);margin:0 auto 4%;max-width:92%}
+.fs-formula b{color:#b3541e}
+.fs-pc{position:absolute;left:6%;right:6%;top:20%;background:#fff;border:3px solid var(--line-strong);border-radius:16px;box-shadow:0 8px 20px rgba(60,50,20,.16);padding:4%;z-index:3}
+.fs-pc .fs-bub{margin-bottom:3%}
+.fs-usage{font-family:ui-monospace,monospace;font-weight:800;font-size:clamp(17px,5vw,32px);color:var(--ink);border-top:2px solid var(--line);padding-top:.5em;text-align:center}
+.fs-usage .in{color:#146856}.fs-usage .out{color:#b3541e}
+.fs-usage-note{display:flex;gap:3%;margin-top:4%}
+.fs-note{flex:1;background:#f4faf7;border:2px solid var(--accent);border-radius:10px;padding:.5em;font-size:clamp(11px,3vw,17px);font-weight:700;line-height:1.5;text-align:center}
+.fs-note.o{background:#fdf3e7;border-color:#c8a24a}
+.fs-meterwrap{position:absolute;left:6%;right:6%;top:34%;z-index:3}
+.fs-meterlab{font-weight:900;color:var(--accent-d);font-size:clamp(15px,4.2vw,25px);margin-bottom:2%}
+.fs-meter{height:34px;background:#fff;border:3px solid var(--line);border-radius:999px;overflow:hidden}
+.fs-meter i{display:block;height:100%;width:10%;background:linear-gradient(90deg,#e0a83c,#d05545)}
+.fs-meterrow{display:flex;gap:3%;margin-top:5%}
+.fs-doc{flex:1;background:#fff;border:3px solid #8aa79a;border-radius:12px;font-weight:900;color:var(--ink);font-size:clamp(13px,3.6vw,21px);padding:.8em .5em;text-align:center;box-shadow:0 5px 12px rgba(60,50,20,.14)}
+.fs-slope{position:absolute;left:5%;right:5%;top:23%;width:90%;z-index:2}
+.fs-bigq{position:absolute;top:20%;left:0;right:0;text-align:center;font-weight:900;color:var(--accent-d);font-size:clamp(20px,5.6vw,38px);z-index:3;padding:0 5%;line-height:1.5}
+.fs-signs{position:absolute;left:6%;right:6%;top:36%;background:#fff;border:3px solid var(--accent);border-radius:16px;box-shadow:0 7px 16px rgba(60,50,20,.14);padding:4%;z-index:4}
+.fs-signs h5{margin:0 0 .4em;font-size:clamp(16px,4.4vw,26px);color:var(--accent-d)}
+.fs-sign{font-size:clamp(14px,3.8vw,22px);font-weight:700;color:var(--ink);padding:.45em 0;border-top:1.5px solid var(--line);line-height:1.5}
+.fs-sign b{color:#d05545}
+.fs-room2{position:absolute;right:5%;bottom:18%;width:42%;height:46%;background:#fff;border:3px solid var(--accent);border-radius:16px;box-shadow:0 7px 16px rgba(60,50,20,.13);z-index:2}
+.fs-room2 span{position:absolute;top:-1.15em;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:clamp(14px,3.8vw,22px);font-weight:900;color:var(--accent-d);background:#eafaf1;padding:0 .5em}
+.fs-memcause{position:absolute;left:5%;bottom:19%;width:42%;background:#fdf6e0;border:3px solid #c8a24a;border-radius:14px;padding:.8em;font-weight:800;color:#7a5c14;font-size:clamp(13px,3.5vw,20px);line-height:1.55;z-index:4;box-shadow:0 6px 14px rgba(60,50,20,.14)}
+.fs-spark{position:absolute;color:#e5a83c;font-weight:900;font-size:clamp(22px,6vw,40px);z-index:6}
+.fs-telop{position:absolute;left:0;right:0;bottom:0;z-index:9;background:rgba(18,38,28,.92);color:#fff;font-weight:800;font-size:clamp(16px,4.4vw,26px);line-height:1.55;padding:.7em 1em;min-height:3.4em;display:flex;align-items:center}
+@media print{.fs-screen *{visibility:visible!important}.fs-screen{height:auto;min-height:0}}
 
 </style>
 </head>
@@ -833,51 +856,76 @@
 
 
       <h3 id="ch5-1"><span class="no">5.1</span>長いチャットで起きること</h3>
-<div class="xstage" id="xs-s51" data-xs="s51x"><div class="xs-screen">
-  <span class="xs-tag">5.1</span>
-  <div class="xchat">
-    <div class="xbub u b1">旅行の計画を立てて</div>
-    <div class="xbub m b2">いいですね、考えます</div>
-    <div class="xbub u b3">日程も決めて</div>
-    <div class="xbub m b4">分かりました</div>
-    <div class="xbub u b5">予算も入れて</div>
-    <div class="xbub m b6">…</div>
+<div class="fsstage" id="fs-s51" data-fs="s51v5"><div class="fs-screen">
+  <span class="fs-tag">5.1</span>
+  <div class="fs-title t1">1つのチャットが長くなると…</div>
+  <div class="fs-chat">
+    <div class="fs-bub u b1">旅行の計画を立てて</div>
+    <div class="fs-bub m b2">いいですね、考えます</div>
+    <div class="fs-bub u b3">日程も決めて</div>
+    <div class="fs-bub m b4">分かりました</div>
+    <div class="fs-bub u b5">予算も入れて</div>
+    <div class="fs-bub m b6">…（あれ、前と似た返事に）</div>
   </div>
-  <span class="xlab xctx" style="left:43%;top:24%">コンテキスト</span>
-  <div class="xstack">
-      <div class="xpaper pp1" style="bottom:8%"></div>
-      <div class="xpaper pp2" style="bottom:16%"></div>
-      <div class="xpaper pp3" style="bottom:24%"></div>
-      <div class="xinst" style="bottom:24%">大事な指示</div>
-      <div class="xpaper pp4" style="bottom:32%"></div>
-      <div class="xpaper pp5" style="bottom:40%"></div>
-      <div class="xpaper pp6" style="bottom:48%"></div>
-      <div class="xpaper pp7" style="bottom:56%"></div>
-      <div class="xpaper pp8" style="bottom:64%"></div>
+  <div class="fs-ctxbox">
+    <span class="fs-ctxlab">コンテキスト＝参照する情報全体</span>
+    <span class="fs-reread">↻ 返信のたびに最初から読み直す</span>
+    <div class="fs-stack">
+      <div class="fs-paper pp1" style="bottom:6%">このチャットの記録 ①</div>
+      <div class="fs-paper pp2" style="bottom:20%">このチャットの記録 ②</div>
+      <div class="fs-paper pp3" style="bottom:34%">このチャットの記録 ③</div>
+      <div class="fs-inst" style="bottom:34%">★ 大事な指示</div>
+      <div class="fs-paper pp4" style="bottom:48%">記録 ④</div>
+      <div class="fs-paper pp5" style="bottom:62%">記録 ⑤</div>
+      <div class="fs-paper pp6" style="bottom:76%">記録 ⑥</div>
+    </div>
+    <span class="fs-mem">＋ メモリーファイル<small>MEMORY.md など（6.1）</small></span>
   </div>
-  <span class="xmem" style="left:42%;bottom:12%">メモリーファイル</span>
-  <span class="xlab" style="right:23%;top:3.5%">トークン</span>
-  <div class="xmeter"><i></i></div>
-  <div class="xdoc" style="right:9%;top:19%">長い資料</div>
-  <svg class="xslope" viewBox="0 0 200 90" aria-hidden="true">
-    <line x1="8" y1="6" x2="8" y2="80" stroke="#b9cdc0" stroke-width="2"/>
-    <line x1="8" y1="80" x2="194" y2="80" stroke="#b9cdc0" stroke-width="2"/>
-    <path class="xline" d="M10,14 C 70,22 130,48 192,72" fill="none" stroke="#d05545" stroke-width="4" stroke-linecap="round" pathLength="100" style="stroke-dasharray:100;stroke-dashoffset:100"/>
-    <text x="12" y="12" font-size="12" font-weight="800" fill="#14532d">応答の質</text>
+  <div class="fs-tok">
+    <div class="fs-tokrow">
+      <span class="fs-chip c1">トークン</span><span class="fs-chip c2">＝ AIが文章を処理する</span><span class="fs-chip c3">最小単位</span>
+    </div>
+    <div class="fs-formula f1">AIの利用量は <b>トークン数</b> で計算されます</div>
+    <div class="fs-formula f2">1回の返信で数えられるのは<br><b>読み直したコンテキスト全体</b> ＋ <b>返信そのもの</b> の両方</div>
+  </div>
+  <div class="fs-pc">
+    <div class="fs-bub m">パソコン版では、返信の下に使用量が出ます</div>
+    <div class="fs-usage"><span class="in">220.4k in</span> / <span class="out">765 out</span></div>
+    <div class="fs-usage-note">
+      <div class="fs-note n1"><b>in</b>＝読み込んだ量の合計<br>220.4k（kは千）＝約22万トークン</div>
+      <div class="fs-note o n2"><b>out</b>＝返信そのものの長さ<br>765トークン</div>
+    </div>
+  </div>
+  <div class="fs-meterwrap">
+    <div class="fs-meterlab">トークン消費（1回の返信ごと）</div>
+    <div class="fs-meter"><i></i></div>
+    <div class="fs-meterrow">
+      <div class="fs-doc d1">📄 長い資料を渡す → 増える</div>
+      <div class="fs-doc d2">✍ 長い返信を求める → 増える</div>
+    </div>
+  </div>
+  <svg class="fs-slope" viewBox="0 0 400 190" aria-hidden="true">
+    <line x1="16" y1="10" x2="16" y2="168" stroke="#b9cdc0" stroke-width="3"/>
+    <line x1="16" y1="168" x2="392" y2="168" stroke="#b9cdc0" stroke-width="3"/>
+    <path class="fs-line" d="M18,30 C 150,48 260,105 390,150" fill="none" stroke="#d05545" stroke-width="6" stroke-linecap="round" pathLength="100" style="stroke-dasharray:100;stroke-dashoffset:100"/>
+    <text x="22" y="26" font-size="19" font-weight="900" fill="#14532d">応答の質</text>
+    <text x="150" y="188" font-size="16" font-weight="800" fill="#7a5c14">崖ではなく、緩やかな坂</text>
+    <text x="238" y="40" font-size="15" font-weight="800" fill="#55606e">短いチャット → 長いチャット</text>
   </svg>
-  <div class="xsigns">
+  <div class="fs-bigq">何回のやりとりで下がる？<br>→ 目安はありません</div>
+  <div class="fs-signs">
     <h5>移りどきのサイン</h5>
-    <div class="xsign g1"><b>✓</b> 前と同じ返事が返ってくる</div>
-    <div class="xsign g2"><b>✓</b> 間違いが増えてきた</div>
-    <div class="xsign g3"><b>✓</b> 指示や条件が守られない</div>
+    <div class="fs-sign g1"><b>✓</b> 前と同じことを返信してくる</div>
+    <div class="fs-sign g2"><b>✓</b> 間違いが多くなってきた</div>
+    <div class="fs-sign g3"><b>✓</b> 前に伝えた指示や条件が守られない</div>
   </div>
-  <div class="xroom2"><span>新しい会話</span></div>
-  <div class="mactor xactor" style="left:5%;bottom:15%"></div>
-  <div class="xspark sp1" style="right:20%;top:34%">✦</div>
-  <div class="xspark sp2" style="right:8%;top:52%">✦</div>
-  <div class="xtelop">1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます</div>
+  <div class="fs-room2"><span>新しい会話</span></div>
+  <div class="fs-memcause">新しいチャットでも同じことが起きるときは、<br>メモリーが原因かもしれません（6.3）</div>
+  <div class="mactor fs-actor" style="left:5%;bottom:16%"></div>
+  <div class="fs-spark sp1" style="right:24%;top:30%">✦</div>
+  <div class="fs-spark sp2" style="right:9%;top:48%">✦</div>
+  <div class="fs-telop">1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます。理由は、返信を作る仕組みにあります</div>
 </div></div>
-
 <h3 id="ch5-2"><span class="no">5.2</span>トークンとは</h3>
       <p>トークンは、AIが文章を処理するときの最小単位です。AIの利用量はトークン数で計算されます。</p>
       <p>1回の返信ごとに、読み直したコンテキスト全体と返信の両方が数えられます。そのため、長いチャットを続けると、利用枠が早く減ります。</p>
@@ -1509,58 +1557,86 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
 
 
 <script>
-/* ===== v4 explainer engine (manual-motion): 5.1 ===== */
+/* ===== v5 fullscreen explainer engine (manual-motion): 5.1 ===== */
 (function(){
   if(!window.gsap) return;
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var st = document.querySelector('[data-xs="s51x"]'); if(!st) return;
+  var st = document.querySelector('[data-fs="s51v5"]'); if(!st) return;
   function Q(s){ return st.querySelector(s); }
   function QA(s){ return Array.prototype.slice.call(st.querySelectorAll(s)); }
-  var tel = Q(".xtelop");
+  var tel = Q(".fs-telop");
   function setTel(t){ tel.textContent = t; }
+  gsap.set(QA(".fs-chat,.fs-ctxbox,.fs-tok,.fs-pc,.fs-meterwrap,.fs-slope,.fs-bigq,.fs-signs,.fs-room2,.fs-memcause,.fs-spark,.fs-title"),{opacity:0});
+  gsap.set(QA(".fs-bub,.fs-paper,.fs-inst,.fs-chip,.fs-formula,.fs-note,.fs-doc,.fs-sign"),{opacity:0});
+  gsap.set(Q(".fs-mem"),{opacity:0}); gsap.set(Q(".fs-reread"),{opacity:0});
   var tl = gsap.timeline({repeat: reduced ? 0 : -1, repeatDelay: 3});
-  /* S1 intro */
-  tl.call(setTel,["1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます"],0)
-    .fromTo(QA(".xchat .b1, .xchat .b2"),{opacity:0,y:8},{opacity:1,y:0,duration:.45,stagger:.7},0.4)
-    .fromTo(Q(".xactor"),{opacity:0,x:-24},{opacity:1,x:0,duration:.5},0.4)
-  /* S2 context */
-    .call(setTel,["返信に使う情報全体が『コンテキスト』。Museは返信のたびに、これを最初から読み直します"],6)
-    .fromTo(Q(".xctx"),{opacity:0},{opacity:1,duration:.4},6.2)
-    .fromTo(QA(".xstack .pp1, .xstack .pp2, .xstack .pp3"),{opacity:0,y:12},{opacity:1,y:0,duration:.4,stagger:.35},6.4)
-    .fromTo(Q(".xmem"),{opacity:0,scale:.7},{opacity:1,scale:1,duration:.4,ease:"back.out(2)"},7.6)
-    .to(Q(".xstack"),{y:-4,duration:.3,yoyo:true,repeat:3,ease:"sine.inOut"},8.4)
-    .to(Q(".xmeter i"),{width:"34%",duration:1.2,ease:"power1.inOut"},8.4)
-  /* S3 tokens */
-    .call(setTel,["コンテキストが長くなるほど、1回の返信ごとのトークン消費が増えます。長い資料を渡したときも同じです"],14)
-    .fromTo(QA(".xchat .b3, .xchat .b4, .xchat .b5, .xchat .b6"),{opacity:0,y:8},{opacity:1,y:0,duration:.4,stagger:.55},14.3)
-    .to(Q(".xmeter i"),{width:"72%",duration:2.2,ease:"power1.inOut"},14.5)
-    .fromTo(Q(".xdoc"),{opacity:0,y:-16},{opacity:1,y:0,duration:.5,ease:"back.out(1.8)"},18.6)
-    .to(Q(".xmeter i"),{width:"92%",duration:.7,ease:"power2.out"},19.2)
-  /* S4 quality */
-    .call(setTel,["大事な指示が記録に埋もれて、応答の質は少しずつ下がります。崖ではなく、緩やかな坂です"],22)
-    .fromTo(Q(".xinst"),{opacity:0,scale:.7},{opacity:1,scale:1,duration:.4,ease:"back.out(2)"},22.3)
-    .fromTo(QA(".xstack .pp4, .xstack .pp5, .xstack .pp6, .xstack .pp7, .xstack .pp8"),{opacity:0,y:12},{opacity:1,y:0,duration:.4,stagger:.5},23.2)
-    .to(Q(".xline"),{strokeDashoffset:0,duration:2.6,ease:"power1.inOut"},23.4)
-  /* S5 signs */
-    .call(setTel,["回数の目安はありません。こんな様子が見えたら、新しいチャットへ移る時期です"],30)
-    .fromTo(Q(".xsigns"),{opacity:0,x:26},{opacity:1,x:0,duration:.5},30.3)
-    .fromTo(QA(".xsign"),{opacity:.25},{opacity:1,duration:.4,stagger:.9},31.0)
-    .to(Q(".xactor"),{rotate:5,duration:.18,yoyo:true,repeat:5,ease:"sine.inOut"},31.4)
-  /* S6 move */
-    .call(setTel,["故障ではなく仕組みどおりの動きです。新しいチャットでは元に戻ります"],38)
-    .to(Q(".xsigns"),{opacity:0,x:26,duration:.45},38.2)
-    .fromTo(Q(".xroom2"),{opacity:0},{opacity:1,duration:.5},38.6)
-    .to(Q(".xactor"),{left:"72%",duration:1.6,ease:"power1.inOut"},39.2)
-    .to(QA(".xstack .pp4, .xstack .pp5, .xstack .pp6, .xstack .pp7, .xstack .pp8"),{opacity:0,duration:.5},40.2)
-    .to(Q(".xmeter i"),{width:"14%",duration:.9,ease:"power2.out"},40.4)
-    .to(Q(".xline"),{strokeDashoffset:100,duration:.9,ease:"power2.out"},40.4)
-    .fromTo(QA(".xspark"),{scale:0,opacity:0},{scale:1,opacity:1,duration:.4,stagger:.25,ease:"back.out(2.4)"},41.2)
-    .call(setTel,["新しいチャットでも起きるときは、メモリーが原因かもしれません（6.3）"],44)
-    .to({},{duration:3.2});
+  /* S1 intro (a) */
+  tl.call(setTel,["1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます。理由は、返信を作る仕組みにあります"],0)
+    .fromTo(Q(".fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+    .fromTo(Q(".fs-chat"),{opacity:0},{opacity:1,duration:.5},0.5)
+    .fromTo(QA(".fs-chat .b1, .fs-chat .b2"),{opacity:0,y:10},{opacity:1,y:0,duration:.5,stagger:.8},0.8)
+    .fromTo(Q(".fs-actor"),{opacity:0,x:-30},{opacity:1,x:0,duration:.6},0.5)
+  /* S2 context (b) */
+    .call(setTel,["コンテキスト＝返信で参照する情報全体。このチャットの記録とメモリーファイルが含まれ、返信のたびに最初から読み直します"],7)
+    .to(Q(".fs-title"),{opacity:0,duration:.4},7)
+    .fromTo(Q(".fs-ctxbox"),{opacity:0,scale:.94},{opacity:1,scale:1,duration:.6},7.3)
+    .fromTo(QA(".fs-stack .pp1, .fs-stack .pp2, .fs-stack .pp3"),{opacity:0,y:16},{opacity:1,y:0,duration:.45,stagger:.5},7.8)
+    .fromTo(Q(".fs-mem"),{opacity:0,scale:.7},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},9.6)
+    .fromTo(Q(".fs-reread"),{opacity:0},{opacity:1,duration:.4},10.4)
+    .to(Q(".fs-stack"),{y:-6,duration:.35,yoyo:true,repeat:5,ease:"sine.inOut"},11)
+  /* S3 token definition (c) */
+    .call(setTel,["トークンとは、AIが文章を処理する最小単位。利用量はトークン数で数え、1回の返信ではコンテキスト全体と返信の両方が数えられます"],16)
+    .to(QA(".fs-chat,.fs-ctxbox"),{opacity:0,duration:.5},16)
+    .fromTo(Q(".fs-tok"),{opacity:0},{opacity:1,duration:.4},16.6)
+    .fromTo(QA(".fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.7,ease:"back.out(2)"},16.8)
+    .fromTo(Q(".fs-tok .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},19.4)
+    .fromTo(Q(".fs-tok .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},21.4)
+  /* S4 PC usage display (d) */
+    .call(setTel,["パソコン版では返信の下に使用量が出ます。inは読み込んだ量、outは返信の長さ。例は約22万を読み込み、765の返信です"],26)
+    .to(Q(".fs-tok"),{opacity:0,duration:.5},26)
+    .fromTo(Q(".fs-pc"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},26.6)
+    .fromTo(Q(".fs-pc .fs-bub"),{opacity:0},{opacity:1,duration:.4},27)
+    .fromTo(QA(".fs-note"),{opacity:0,y:12},{opacity:1,y:0,duration:.5,stagger:.9},28.4)
+  /* S5 consumption grows (e) */
+    .call(setTel,["コンテキストが長いほど、1回の返信ごとのトークン消費が増えます。長い資料を渡す・長い返信を求める場合も増えます"],34)
+    .to(Q(".fs-pc"),{opacity:0,duration:.5},34)
+    .fromTo(Q(".fs-meterwrap"),{opacity:0},{opacity:1,duration:.5},34.6)
+    .to(Q(".fs-meter i"),{width:"72%",duration:2.4,ease:"power1.inOut"},35)
+    .fromTo(QA(".fs-doc"),{opacity:0,y:-18},{opacity:1,y:0,duration:.5,stagger:.8,ease:"back.out(1.8)"},38)
+    .to(Q(".fs-meter i"),{width:"94%",duration:.8,ease:"power2.out"},39.6)
+  /* S6a buried instruction (f, first half) */
+    .call(setTel,["大事な指示がコンテキストの中で埋もれて、応答の精度が少しずつ落ちていきます"],42)
+    .to(Q(".fs-meterwrap"),{opacity:0,duration:.5},42)
+    .fromTo(Q(".fs-ctxbox"),{opacity:0},{opacity:1,duration:.5},42.6)
+    .fromTo(Q(".fs-inst"),{opacity:0,scale:.7},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},43)
+    .fromTo(QA(".fs-stack .pp4, .fs-stack .pp5, .fs-stack .pp6"),{opacity:0,y:16},{opacity:1,y:0,duration:.45,stagger:.6},44)
+  /* S6b gentle slope (f, second half) */
+    .call(setTel,["質の下がり方は、崖ではなく緩やかな坂です"],48)
+    .to(Q(".fs-ctxbox"),{opacity:0,duration:.5},48)
+    .fromTo(Q(".fs-slope"),{opacity:0},{opacity:1,duration:.5},48.6)
+    .to(Q(".fs-line"),{strokeDashoffset:0,duration:3,ease:"power1.inOut"},49)
+  /* S7 no benchmark + signs (g, h) */
+    .call(setTel,["何回のやりとりで下がるという目安はありません。こんなサインが見えたら、移りどきです"],54)
+    .to(Q(".fs-slope"),{opacity:0,duration:.5},54)
+    .fromTo(Q(".fs-bigq"),{opacity:0,scale:.85},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},54.4)
+    .fromTo(Q(".fs-signs"),{opacity:0,x:30},{opacity:1,x:0,duration:.6},57)
+    .fromTo(QA(".fs-sign"),{opacity:.2},{opacity:1,duration:.45,stagger:1},57.8)
+    .to(Q(".fs-actor"),{rotate:5,duration:.18,yoyo:true,repeat:5,ease:"sine.inOut"},58.4)
+  /* S8 move to a new chat (i) */
+    .call(setTel,["故障ではなく仕組みどおりの動きです。新しいチャットに移れば元に戻ります"],63)
+    .to(QA(".fs-signs,.fs-bigq"),{opacity:0,duration:.5},63)
+    .fromTo(Q(".fs-room2"),{opacity:0},{opacity:1,duration:.6},63.6)
+    .fromTo(Q(".fs-meterwrap"),{opacity:0},{opacity:1,duration:.4},63.8)
+    .to(Q(".fs-meter i"),{width:"12%",duration:1,ease:"power2.out"},64.2)
+    .to(Q(".fs-actor"),{left:"62%",duration:1.8,ease:"power1.inOut"},64.4)
+    .fromTo(QA(".fs-spark"),{scale:0,opacity:0},{scale:1,opacity:1,duration:.45,stagger:.3,ease:"back.out(2.4)"},66.4)
+    .call(setTel,["新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）"],68)
+    .fromTo(Q(".fs-memcause"),{opacity:0,y:16},{opacity:1,y:0,duration:.6},68.2)
+    .to({},{duration:3.4});
   tl.pause(0); st._tl = tl;
-  if(reduced){ tl.progress(1); setTel("故障ではなく仕組みどおりの動きです。新しいチャットでは元に戻ります"); return; }
+  if(reduced){ tl.progress(1); setTel("新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）"); return; }
   if("IntersectionObserver" in window){
-    new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) tl.play(); else tl.pause(); }); },{threshold:.3}).observe(st);
+    new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) tl.play(); else tl.pause(); }); },{threshold:.25}).observe(st);
   } else tl.play();
 })();
 </script>
