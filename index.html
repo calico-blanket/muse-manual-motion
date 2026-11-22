@@ -482,6 +482,11 @@
 .fs-ph-row.hl{background:#fdf6e0;box-shadow:inset 0 0 0 2.5px #c8a24a;border-radius:9px;font-weight:900;padding-left:.5em;padding-right:.5em}
 .fs-ph-btn.hl{box-shadow:0 0 0 3px #c8a24a;border-color:#c8a24a}
 .fs-dw-grp.hl{box-shadow:0 0 0 3px #c8a24a;border-radius:10px;padding:2px 6px}
+/* v12 (6.2/6.4): verbatim prompt and report cards for the fs stage.
+   The inspection prompt of 6.4 is long, so its text is shown
+   unabridged in a pre-wrap card, split across scenes at its own
+   paragraph breaks; type stays at or above the 14px floor. */
+.fs-pre{width:100%;max-width:min(94%,600px);background:#fff;border:3px solid var(--accent);border-radius:16px;box-shadow:0 7px 16px rgba(60,50,20,.14);padding:12px 14px;margin:0;font-family:inherit;font-size:clamp(14px,4.3vw,19px);line-height:1.65;font-weight:700;color:var(--ink);text-align:left;white-space:pre-wrap;overflow-wrap:break-word}
 @media print{.fsunit{height:auto;display:block}.fsunit .fsstage{display:block}.fs-screen{height:auto;min-height:0}.fs-scenes{overflow:visible}.fs-scene{position:static;visibility:hidden;display:none}.fs-scene.fs-final{visibility:visible;display:flex}.fs-fit{transform:none!important}}
 
 </style>
@@ -1738,153 +1743,331 @@
 
 
 
+      <div class="fsunit">
       <h3 id="ch6-1"><span class="no">6.1</span>メモリーファイル</h3>
-<div class="mstage" id="ms-s61" data-ms="s61"><div class="ms-screen">
-  <span class="ms-tag">6.1</span>
-  <div class="mlayer l61a">会話の記録<span>会話ごとに別々</span></div>
-  <div class="mlayer l61b">常駐ファイル<span>どの会話でも共通</span><br><span class="mfile f1">MEMORY.md</span><span class="mfile f2">USER.md</span><span class="mfile f3">SOUL.md</span></div>
-  <div class="mactor a61"></div>
+<div class="fsstage" id="fs-s61" data-fs="s61"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene mf1 on"><div class="fs-pillrow"><span class="fs-tag">6.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">メモリーは、ファイルに記録されている</div>
+    <div class="fs-formula f1">Museのメモリーや振る舞いのルールは、いくつかのテキストファイルに記録されています</div>
+  </div></div></div>
+  <div class="fs-scene mf2"><div class="fs-pillrow"><span class="fs-tag">6.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">チャットが変わっても、引き継がれます</div>
+    <div class="fs-formula f1">返信のたびに主なファイルを読み込むため、チャットが変わっても決定事項や好みが引き継がれます</div>
+  </div></div></div>
+  <div class="fs-scene mf3"><div class="fs-pillrow"><span class="fs-tag">6.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-tokrow"><span class="fs-chip">MEMORY.md</span><span class="fs-chip gold">.md ＝ Markdown形式</span></div>
+    <div class="fs-formula f1">ファイル名の末尾の「.md」は、Markdown形式のファイルであることを示します</div>
+  </div></div></div>
+  <div class="fs-scene mf4"><div class="fs-pillrow"><span class="fs-tag">6.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-formula f1">Markdownは、見出しや箇条書きを記号で表すテキストの書き方です</div>
+    <div class="fs-note nt">※「メモリーファイル」は本書での呼び名です</div>
+  </div></div></div>
+  <div class="fs-scene mf5"><div class="fs-pillrow"><span class="fs-tag">6.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">保存先は、クラウド</div>
+    <div class="fs-formula f1">スマートフォンやパソコンには、保存されません</div>
+    <div class="fs-formula f2">アプリの画面にも表示されませんが、Museに指示すれば内容を表示できます（6.2）</div>
+  </div></div></div>
+  <div class="fs-scene mf6"><div class="fs-pillrow"><span class="fs-tag">6.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>常に読み込まれる主なメモリーファイル</h5>
+      <div class="fs-sign g1">MEMORY.md（長期記憶）<br>出来事、決定事項、好みなど、長期的に保持する情報</div>
+      <div class="fs-sign g2">AGENTS.md（行動ルール）<br>作業の進め方、守るべき手順やルール</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene mf7"><div class="fs-pillrow"><span class="fs-tag">6.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>常に読み込まれる主なメモリーファイル（つづき）</h5>
+      <div class="fs-sign g1">SOUL.md（人格・ふるまい）<br>Museの性格、口調、振る舞い方</div>
+      <div class="fs-sign g2">USER.md（ユーザー情報）<br>あなたの名前、呼び方、基本情報</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene mf8"><div class="fs-pillrow"><span class="fs-tag">6.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>常に読み込まれる主なメモリーファイル（つづき）</h5>
+      <div class="fs-sign g1">IDENTITY.md（Muse自身の設定）<br>Muse自身の名前や姿など</div>
+      <div class="fs-sign g2">TOOLS.md（ツール情報）<br>使うツールや機器の情報</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene mf9"><div class="fs-pillrow"><span class="fs-tag">6.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-ctxbox">
+      <div class="fs-ctxlab">このほかに、設定ファイルもあります</div>
+      <div class="fs-mem">HEARTBEAT.md<small>定期的な見回りの設定ファイル</small></div>
+      <div class="fs-mem">PROACTIVE_PREFERENCES.md<small>先回りの動きの設定ファイル</small></div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene mf10"><div class="fs-pillrow"><span class="fs-tag">6.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">メモリーには、2種類あります</div>
+    <div class="fs-ctxbox b1">
+      <div class="fs-ctxlab">常に読み込まれるファイル</div>
+      <div class="fs-mem">返信のたびに読み込まれ、そのたびにトークンを消費します</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene mf11"><div class="fs-pillrow"><span class="fs-tag">6.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-ctxbox b2">
+      <div class="fs-ctxlab">必要なときに検索されるもの</div>
+      <div class="fs-mem">日ごとのメモ、話題ごとのメモ、過去のチャット<small>必要と判断したときだけ検索して参照するため、毎回の返信ではトークンを消費しません</small></div>
+    </div>
+    <div class="fs-tokrow"><span class="fs-chip gold">MEMORY.mdは、その両方にあたります</span></div>
+  </div></div></div>
+  <div class="fs-scene mf12"><div class="fs-pillrow"><span class="fs-tag">6.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">使い続けるほど、大きくなります</div>
+    <div class="fs-signs">
+      <h5>6.1のまとめ</h5>
+      <div class="fs-sign g1"><b>✓</b> 常に読み込まれるファイルは、使い続けるほど大きくなります</div>
+      <div class="fs-sign g2"><b>✓</b> チャットを新しくしても、小さくなりません</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene mf13 fs-final"><div class="fs-pillrow"><span class="fs-tag">6.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>6.1のまとめ（つづき）</h5>
+      <div class="fs-sign g1"><b>✓</b> 定期的な点検が必要です（6.3）</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">Museのメモリーや振る舞いのルールは、いくつかのテキストファイルに記録されています</div>
 </div></div>
-
-      <p>Museのメモリーや振る舞いのルールは、いくつかのテキストファイルに記録されています。Museは返信のたびに主なファイルを読み込むため、チャットが変わっても決定事項や好みが引き継がれます。</p>
-      <p>ファイル名の末尾の <code>.md</code> は、Markdown形式のファイルであることを示します。Markdownは、見出しや箇条書きを記号で表すテキストの書き方です。</p>
-      <p class="small">※「メモリーファイル」は本書での呼び名です。</p>
-      <p>メモリーファイルはクラウド上に保存され、スマートフォンやパソコンには保存されません。アプリの画面にも表示されませんが、Museに指示すれば内容を表示できます（<a href="#ch6-2">6.2</a>）。</p>
-      <div class="tblwrap">
-        <table>
-          <caption>常に読み込まれる主なメモリーファイル</caption>
-          <thead><tr><th scope="col" class="fn">ファイル名</th><th scope="col">役割</th><th scope="col">書かれている内容</th></tr></thead>
-          <tbody>
-            <tr><th scope="row" class="fn">MEMORY.md</th><td>長期記憶</td><td>出来事、決定事項、好みなど、長期的に保持する情報</td></tr>
-            <tr><th scope="row" class="fn">AGENTS.md</th><td>行動ルール</td><td>作業の進め方、守るべき手順やルール</td></tr>
-            <tr><th scope="row" class="fn">SOUL.md</th><td>人格・ふるまい</td><td>Museの性格、口調、振る舞い方</td></tr>
-            <tr><th scope="row" class="fn">USER.md</th><td>ユーザー情報</td><td>あなたの名前、呼び方、基本情報</td></tr>
-            <tr><th scope="row" class="fn">IDENTITY.md</th><td>Muse自身の設定</td><td>Muse自身の名前や姿など</td></tr>
-            <tr><th scope="row" class="fn">TOOLS.md</th><td>ツール情報</td><td>使うツールや機器の情報</td></tr>
-          </tbody>
-        </table>
       </div>
-      <p>このほかに、定期的な見回り（<code>HEARTBEAT.md</code>）や先回りの動き（<code>PROACTIVE_PREFERENCES.md</code>）の設定ファイルもあります。</p>
-      <h4>常に読み込まれるものと、必要なときに検索されるもの</h4>
-      <p>Museのメモリーには、次の2種類があります。</p>
-      <ul>
-        <li><strong>常に読み込まれるファイル</strong>：表のファイル。Museが返信するたびに読み込まれ、そのたびにトークンを消費します。</li>
-        <li><strong>必要なときに検索されるもの</strong>：日ごとのメモ、話題ごとのメモ、過去のチャットなど。Museが必要と判断したときだけ検索して参照するため、毎回の返信ではトークンを消費しません。</li>
-      </ul>
-      <p>MEMORY.mdは、その両方にあたります。</p>
-      <figure>
-        <div class="diagram" role="img" aria-label="メモリーの2種類の模式図。常に読み込まれるファイルと、必要なときに検索されるもの">
-          <svg viewBox="0 0 520 140">
-            <rect x="10" y="8" width="500" height="52" rx="10" style="fill:var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
-            <text x="28" y="36" font-size="14" font-weight="700" style="fill:var(--ink)">常に読み込まれるファイル</text>
-            <rect x="10" y="78" width="500" height="52" rx="10" style="fill:var(--bg)" stroke="var(--line-strong)" stroke-width="1.5"/>
-            <text x="28" y="110" font-size="14" font-weight="700" style="fill:var(--ink)">必要なときに検索されるもの</text>
-          </svg>
-        </div>
-        <figcaption><b>図8</b> メモリーの2種類（模式図）。上の層は毎回、下の層は必要なときだけ読みます。</figcaption>
-      </figure>
-      <p>常に読み込まれるファイルは使い続けるほど大きくなり、チャットを新しくしても小さくならないため、定期的な点検が必要です（<a href="#ch6-3">6.3</a>）。</p>
-
+      <div class="fsunit">
       <h3 id="ch6-2"><span class="no">6.2</span>内容の確認と修正</h3>
-      <p>メモリーファイルの内容は、Museに指示すれば表示できます。古くなった内容の修正や削除も指示できます。</p>
-      <div class="copybox" id="prompt-show">
-        <p class="cb-label">メモリーを表示するプロンプト</p>
-        <pre>MEMORY.mdの内容を見せてください。私についてどのように記録されているか確認したいです。</pre>
-        <div class="copyrow"><button class="copy-btn" type="button" aria-label="メモリーを表示するプロンプトをコピーする">コピーする</button><span class="copy-msg" role="status"></span></div>
+<div class="fsstage" id="fs-s62" data-fs="s62"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene fx1 on"><div class="fs-pillrow"><span class="fs-tag">6.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">内容は、指示すれば表示できます</div>
+    <div class="fs-formula f1">古くなった内容の修正や削除も、指示できます</div>
+  </div></div></div>
+  <div class="fs-scene fx2"><div class="fs-pillrow"><span class="fs-tag">6.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs" id="prompt-show">
+      <h5>メモリーを表示するプロンプト</h5>
+      <div class="fs-sign g1">MEMORY.mdの内容を見せてください。私についてどのように記録されているか確認したいです。</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene fx3"><div class="fs-pillrow"><span class="fs-tag">6.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-formula f1">Museは、全文をファイルとして添付します</div>
+    <div class="fs-formula f2">あなたに関する記録の要点を抜き出して答えます</div>
+  </div></div></div>
+  <div class="fs-scene fx4"><div class="fs-pillrow"><span class="fs-tag">6.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs" id="prompt-fix">
+      <h5>メモリーを修正するプロンプト</h5>
+      <div class="fs-sign g1">以前記録した「〇〇」の件は、現在は△△に変わりました。メモリーを修正してください。</div>
+    </div>
+    <div class="fs-note nt">〇〇と△△を書き換えて使います</div>
+  </div></div></div>
+  <div class="fs-scene fx5 fs-final"><div class="fs-pillrow"><span class="fs-tag">6.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">見たいときも、直したいときも、指示するだけ</div>
+    <div class="fs-signs">
+      <h5>6.2のまとめ</h5>
+      <div class="fs-sign g1"><b>✓</b> 内容の表示も、修正・削除も指示できます</div>
+      <div class="fs-sign g2"><b>✓</b> 修正は「何が、どう変わったか」を伝えます</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">メモリーファイルの内容は、Museに指示すれば表示できます。古くなった内容の修正や削除も指示できます</div>
+</div></div>
       </div>
-      <p>Museは全文をファイルとして添付し、あなたに関する記録の要点を抜き出して答えます。</p>
-      <div class="copybox" id="prompt-fix">
-        <p class="cb-label">メモリーを修正するプロンプト（〇〇と△△を書き換えて使います）</p>
-        <pre>以前記録した「〇〇」の件は、現在は△△に変わりました。メモリーを修正してください。</pre>
-        <div class="copyrow"><button class="copy-btn" type="button" aria-label="メモリーを修正するプロンプトをコピーする">コピーする</button><span class="copy-msg" role="status"></span></div>
-      </div>
-
+      <div class="fsunit">
       <h3 id="ch6-3"><span class="no">6.3</span>メモリーの定期点検</h3>
-      <p>メモリーには、古くなった情報や、矛盾・重複した記述がたまっていき、応答の質が下がる原因になります。そのため、定期的にMuseにメモリーファイルを点検させます。</p>
-      <p class="small">※「メモリーの定期点検」は本書での呼び名で、Museの機能の名称ではありません。</p>
-      <p>点検は、次の3段階で進めます。意図しない変更を防ぐため、<strong>書き換えはあなたが承認した項目に限ります</strong>。</p>
-      <ol>
-        <li><strong>点検</strong>：Museがメモリーファイルを読み、問題点を洗い出します。この段階では書き換えません。</li>
-        <li><strong>報告の確認</strong>：Museが、ファイルのサイズと、見つかった問題点を報告します。</li>
-        <li><strong>承認した項目の修正</strong>：あなたが承認した項目だけが書き換えられます。書き換えの前に、Museがバックアップを作成します。</li>
-      </ol>
-      <p><strong>点検する時期</strong>：月に1回が目安です。また、新しいチャットにしても次のようなことが起きるときは、点検します。</p>
-      <ul>
-        <li>前に決めたことを、また聞いてくる</li>
-        <li>やめたはずの方針を、まだ続けようとする</li>
-        <li>同じ質問への答えが、日によってぶれる</li>
-      </ul>
-
+<div class="fsstage" id="fs-s63" data-fs="s63"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene ck1 on"><div class="fs-pillrow"><span class="fs-tag">6.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">メモリーには、古い情報がたまります</div>
+    <div class="fs-formula f1">古くなった情報や、矛盾・重複した記述がたまっていき、応答の質が下がる原因になります</div>
+    <div class="fs-formula f2">定期的に、Museにメモリーファイルを点検させます</div>
+    <div class="fs-note nt">※「メモリーの定期点検」は本書での呼び名で、Museの機能の名称ではありません</div>
+  </div></div></div>
+  <div class="fs-scene ck2"><div class="fs-pillrow"><span class="fs-tag">6.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>点検の3段階</h5>
+      <div class="fs-sign g1">① 点検：Museがメモリーファイルを読み、問題点を洗い出します（この段階では書き換えません）</div>
+      <div class="fs-sign g2">② 報告の確認：Museが、ファイルのサイズと、見つかった問題点を報告します</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene ck3"><div class="fs-pillrow"><span class="fs-tag">6.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-formula f1">書き換えは、あなたが承認した項目に限ります</div>
+    <div class="fs-signs">
+      <h5>点検の3段階（つづき）</h5>
+      <div class="fs-sign g1">③ 承認した項目の修正：承認した項目だけが書き換えられます（書き換えの前に、バックアップを作成します）</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene ck4"><div class="fs-pillrow"><span class="fs-tag">6.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">点検する時期は、月に1回が目安</div>
+    <div class="fs-signs">
+      <h5>新しいチャットにしても、こんなときは点検</h5>
+      <div class="fs-sign g1">前に決めたことを、また聞いてくる</div>
+      <div class="fs-sign g2">やめたはずの方針を、まだ続けようとする</div>
+      <div class="fs-sign g3">同じ質問への答えが、日によってぶれる</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene ck5 fs-final"><div class="fs-pillrow"><span class="fs-tag">6.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">書き換えは、承認した項目だけ</div>
+    <div class="fs-signs">
+      <h5>6.3のまとめ</h5>
+      <div class="fs-sign g1"><b>✓</b> 点検の段階では、書き換えません</div>
+      <div class="fs-sign g2"><b>✓</b> 報告を確認し、直す項目は自分で決めます</div>
+      <div class="fs-sign g3"><b>✓</b> 修正の前には、バックアップを作成します</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">メモリーには、古くなった情報や、矛盾・重複した記述がたまっていき、応答の質が下がる原因になります</div>
+</div></div>
+      </div>
+      <div class="fsunit">
       <h3 id="ch6-4"><span class="no">6.4</span>点検のプロンプト</h3>
-      <p>次のプロンプトをコピーして、点検のたびにMuseに送ります。</p>
-      <div class="copybox" id="prompt-check">
-        <p class="cb-label">メモリーの定期点検のプロンプト</p>
-        <pre class="long" tabindex="0" aria-label="メモリーの定期点検のプロンプト（スクロールして全文を読めます）">あなた（Muse）の振る舞いを決めている記憶・指示ファイルの「点検」をしてください。対象は MEMORY.md、AGENTS.md、SOUL.md、USER.md、IDENTITY.md、TOOLS.md のうち、実際に存在するファイルです。
-
-## 手順1：読み取り専用の点検（この段階では絶対に書き換えない）
+<div class="fsstage" id="fs-s64" data-fs="s64"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene pr1 on"><div class="fs-pillrow"><span class="fs-tag">6.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">点検のたびに送る、プロンプト</div>
+    <div class="fs-formula f1">次のプロンプトをコピーして、点検のたびにMuseに送ります</div>
+  </div></div></div>
+  <div class="fs-scene pr2"><div class="fs-pillrow"><span class="fs-tag">6.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-meterlab">メモリーの定期点検のプロンプト</div>
+    <pre class="fs-pre" id="prompt-check">あなた（Muse）の振る舞いを決めている記憶・指示ファイルの「点検」をしてください。対象は MEMORY.md、AGENTS.md、SOUL.md、USER.md、IDENTITY.md、TOOLS.md のうち、実際に存在するファイルです。</pre>
+  </div></div></div>
+  <div class="fs-scene pr3"><div class="fs-pillrow"><span class="fs-tag">6.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-meterlab">手順1：読み取り専用の点検（1/2）</div>
+    <pre class="fs-pre">## 手順1：読み取り専用の点検（この段階では絶対に書き換えない）
 各ファイルを読み、次の観点でチェックしてください。
 - 矛盾：ファイル同士、または同じファイルの中で食い違っている記述
-- 陳腐化：すでに解決・完了したのに「未対応」「保留中」のまま残っている項目、過ぎた日付の予定
-- 肥大化：ファイルサイズと行数、1項目だけ異常に長い記述、重複している内容
-- 人格・記憶への影響：あなたの個性・口調・ユーザーとの思い出を定義している記述が、矛盾や陳腐化に巻き込まれていないか
-
-## 手順2：レポート（書き換え前に必ず見せる）
+- 陳腐化：すでに解決・完了したのに「未対応」「保留中」のまま残っている項目、過ぎた日付の予定</pre>
+  </div></div></div>
+  <div class="fs-scene pr4"><div class="fs-pillrow"><span class="fs-tag">6.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-meterlab">手順1：読み取り専用の点検（2/2）</div>
+    <pre class="fs-pre">- 肥大化：ファイルサイズと行数、1項目だけ異常に長い記述、重複している内容
+- 人格・記憶への影響：あなたの個性・口調・ユーザーとの思い出を定義している記述が、矛盾や陳腐化に巻き込まれていないか</pre>
+  </div></div></div>
+  <div class="fs-scene pr5"><div class="fs-pillrow"><span class="fs-tag">6.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-meterlab">手順2：レポート（1/2）</div>
+    <pre class="fs-pre">## 手順2：レポート（書き換え前に必ず見せる）
 - まず各ファイルのサイズ（バイト数・行数）を報告してください
-- 問題は重要度順に最大5件まで。各件について「どのファイルの、どの記述が、なぜ問題か」を引用つきで示し、修正案がある場合は変更前／変更後が一目で分かる差分で提示してください
-- 指摘は「事実として確認できたもの」と「確認できていないもの」を分けて報告してください。確認できていない指摘には修正案を出さず、何を確認すれば確定できるかだけを書いてください（読み違いの指摘で正しい記憶を直してしまわないため）
+- 問題は重要度順に最大5件まで。各件について「どのファイルの、どの記述が、なぜ問題か」を引用つきで示し、修正案がある場合は変更前／変更後が一目で分かる差分で提示してください</pre>
+  </div></div></div>
+  <div class="fs-scene pr6"><div class="fs-pillrow"><span class="fs-tag">6.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-meterlab">手順2：レポート（2/2）</div>
+    <pre class="fs-pre">- 指摘は「事実として確認できたもの」と「確認できていないもの」を分けて報告してください。確認できていない指摘には修正案を出さず、何を確認すれば確定できるかだけを書いてください（読み違いの指摘で正しい記憶を直してしまわないため）
 - 問題がなければ、無理に指摘を作らず「問題なし」と一行で報告してください
-- 過去に同じ点検で報告済みで、ユーザーが「そのままにする」と決めた項目は再報告しないでください
-
-## 手順3：書き換えは承認制・最小差分のみ
+- 過去に同じ点検で報告済みで、ユーザーが「そのままにする」と決めた項目は再報告しないでください</pre>
+  </div></div></div>
+  <div class="fs-scene pr7"><div class="fs-pillrow"><span class="fs-tag">6.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-meterlab">手順3：書き換えは承認制（1/3）</div>
+    <pre class="fs-pre">## 手順3：書き換えは承認制・最小差分のみ
 - ユーザーが項目ごとに明示的に承認するまで、ファイルは一切編集しないでください。曖昧な返事や沈黙を承認とみなさないでください
-- 承認された項目だけ、問題を直すのに必要な最小の範囲だけを変更してください。ついでに他の場所を整えたり、要約し直したりしないでください
-- 記憶を丸ごと削除する提案はしないでください。古い記述は、まず「新しい事実で上書き」か「日付つきの訂正」を検討してください
-- あなたの個性・口調・ユーザーとの思い出に関わる記述を変更する場合は、その旨を明示し「何が失われる可能性があるか」を説明してから、改めて確認してください
-- 編集の前に、対象ファイルのバックアップ（日時つきコピー）を保存してください
+- 承認された項目だけ、問題を直すのに必要な最小の範囲だけを変更してください。ついでに他の場所を整えたり、要約し直したりしないでください</pre>
+  </div></div></div>
+  <div class="fs-scene pr8"><div class="fs-pillrow"><span class="fs-tag">6.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-meterlab">手順3：書き換えは承認制（2/3）</div>
+    <pre class="fs-pre">- 記憶を丸ごと削除する提案はしないでください。古い記述は、まず「新しい事実で上書き」か「日付つきの訂正」を検討してください
+- あなたの個性・口調・ユーザーとの思い出に関わる記述を変更する場合は、その旨を明示し「何が失われる可能性があるか」を説明してから、改めて確認してください</pre>
+  </div></div></div>
+  <div class="fs-scene pr9"><div class="fs-pillrow"><span class="fs-tag">6.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-meterlab">手順3：書き換えは承認制（3/3）</div>
+    <pre class="fs-pre">- 編集の前に、対象ファイルのバックアップ（日時つきコピー）を保存してください
 - 編集後はファイルを読み直し、承認された変更だけが入っているか検証して、結果を報告してください
 
 ## オプション
 ユーザーが希望した場合のみ、この点検を週1回などの定期実行にしてください。希望がないうちは今回限りの実行にしてください。</pre>
-        <div class="copyrow"><button class="copy-btn" type="button" aria-label="メモリーの定期点検のプロンプトをコピーする">コピーする</button><span class="copy-msg" role="status"></span></div>
-      </div>
-      <h4>報告の例</h4>
-      <p>プロンプトを送ると、Museから次のような形で報告が届きます（内容は架空の例です）。</p>
-      <div class="copybox">
-        <p class="cb-label">報告の例</p>
-        <pre>各ファイルの大きさ
+  </div></div></div>
+  <div class="fs-scene pr10"><div class="fs-pillrow"><span class="fs-tag">6.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-meterlab">報告の例（1/2）</div>
+    <pre class="fs-pre">各ファイルの大きさ
 MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行……
 
 確認できた問題（重要度順）
 1. IDENTITY.md の性格の欄が空欄です。（変更案：……）
-2. MEMORY.md に、USER.md と重複する記述が1つあります。（変更案：……）
-
-確認できていないこと（修正案なし）
+2. MEMORY.md に、USER.md と重複する記述が1つあります。（変更案：……）</pre>
+  </div></div></div>
+  <div class="fs-scene pr11"><div class="fs-pillrow"><span class="fs-tag">6.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-meterlab">報告の例（2/2）</div>
+    <pre class="fs-pre">確認できていないこと（修正案なし）
 3. ……
 
 直す場合は、番号で教えてください。</pre>
+  </div></div></div>
+  <div class="fs-scene pr12"><div class="fs-pillrow"><span class="fs-tag">6.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-formula f1">報告を読んだら、修正してよい項目を番号で指定し、それ以外は変更しないことも明記します</div>
+    <div class="fs-signs" id="prompt-approve">
+      <h5>修正を承認するプロンプト</h5>
+      <div class="fs-sign g1">1番と2番だけ修正してください。それ以外のファイルや項目は変更しないでください。</div>
+    </div>
+    <div class="fs-note nt">番号を書き換えて使います</div>
+  </div></div></div>
+  <div class="fs-scene pr13"><div class="fs-pillrow"><span class="fs-tag">6.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>承認のときの注意（1）</h5>
+      <div class="fs-sign g1">「うん」「いいよ」「すべて」のような返事は避けます。提案がすべて適用されることがあります</div>
+      <div class="fs-sign g2">報告にない訂正（例：呼び方の訂正）は、承認の返事とは分けて伝えます。一緒に伝えると、関係する別の項目まで変更されることがあります</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene pr14"><div class="fs-pillrow"><span class="fs-tag">6.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>承認のときの注意（2）</h5>
+      <div class="fs-sign g1">修正後の報告で、承認していない変更が入っていないか確認します。入っていれば「今の変更を元に戻してください」と指示します（バックアップから戻せます）</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene pr15"><div class="fs-pillrow"><span class="fs-tag">6.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>承認のときの注意（3）</h5>
+      <div class="fs-sign g1">報告に出てくる文字数などの数値は、目安です</div>
+      <div class="fs-sign g2">初回は報告の確認だけで終えてもかまいません</div>
+      <div class="fs-sign g3">お金、家族、健康に関わる項目は、残すかどうかを自分で判断します</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene pr16 fs-final"><div class="fs-pillrow"><span class="fs-tag">6.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">直すのは、番号で指定した項目だけ</div>
+    <div class="fs-signs">
+      <h5>6.4のまとめ</h5>
+      <div class="fs-sign g1"><b>✓</b> プロンプトは、点検のたびに送ります</div>
+      <div class="fs-sign g2"><b>✓</b> 報告を確認し、直す項目を番号で指定します</div>
+      <div class="fs-sign g3"><b>✓</b> 承認していない変更が入っていないか、最後に確認します</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">次のプロンプトをコピーして、点検のたびにMuseに送ります</div>
+</div></div>
       </div>
-      <h4>承認のしかた</h4>
-      <p>報告を読んだら、修正してよい項目を番号で指定し、それ以外は変更しないことも明記します。</p>
-      <div class="copybox" id="prompt-approve">
-        <p class="cb-label">修正を承認するプロンプト（番号を書き換えて使います）</p>
-        <pre>1番と2番だけ修正してください。それ以外のファイルや項目は変更しないでください。</pre>
-        <div class="copyrow"><button class="copy-btn" type="button" aria-label="修正を承認するプロンプトをコピーする">コピーする</button><span class="copy-msg" role="status"></span></div>
-      </div>
-      <ul>
-        <li>「うん」「いいよ」「すべて」のような返事は避けます。提案がすべて適用されることがあります。</li>
-        <li>報告にない訂正（例：呼び方の訂正）は、承認の返事とは分けて伝えます。一緒に伝えると、関係する別の項目まで変更されることがあります。</li>
-        <li>修正後の報告で、<strong>承認していない変更が入っていないか確認します</strong>。入っていれば「今の変更を元に戻してください」と指示します（バックアップから戻せます）。</li>
-        <li>報告に出てくる文字数などの数値は、目安です。</li>
-        <li>初回は報告の確認だけで終えてもかまいません。</li>
-        <li>お金、家族、健康に関わる項目は、残すかどうかを自分で判断します。</li>
-      </ul>
-
+      <div class="fsunit">
       <h3 id="ch6-5"><span class="no">6.5</span>整理の例</h3>
-      <p>点検でファイルが大きすぎると分かったら、手順3で整理させます。整理は情報を捨てることではありません。Museが、MEMORY.mdの各項目に書かれた経緯や細かい説明（詳細）を、必要なときに検索されるファイルに移し、MEMORY.mdには「要点」と「詳細の保存場所」だけを残します。詳細は毎回は読み込まれなくなるため、トークンの消費が減ります。</p>
-      <div class="stat">
-        <p class="small">筆者のMuseで整理した例（個人情報は除いています）</p>
-        <p>MEMORY.md　<span class="num">15,447字</span>・41項目 → <span class="num">3,446字</span>・25項目（約78%減）</p>
-        <p style="margin:0">ただし、使い続けるうちに再び増えます。この例では、3日後には8,030字まで増えていました。</p>
+<div class="fsstage" id="fs-s65" data-fs="s65"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene ex1 on"><div class="fs-pillrow"><span class="fs-tag">6.5</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">大きすぎたら、整理させます</div>
+    <div class="fs-formula f1">点検でファイルが大きすぎると分かったら、手順3で整理させます</div>
+    <div class="fs-formula f2">整理は、情報を捨てることではありません</div>
+  </div></div></div>
+  <div class="fs-scene ex2"><div class="fs-pillrow"><span class="fs-tag">6.5</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-cards">
+      <div class="fs-doc d1">MEMORY.mdの項目<br>＝ 要点 ＋ 詳細（経緯や細かい説明）</div>
+      <div class="fs-arrow">→</div>
+      <div class="fs-doc d2">MEMORY.mdに残すのは<br>「要点」と「詳細の保存場所」だけ</div>
+    </div>
+    <div class="fs-formula f1">詳細は、必要なときに検索されるファイルへ移します</div>
+  </div></div></div>
+  <div class="fs-scene ex3"><div class="fs-pillrow"><span class="fs-tag">6.5</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-formula f1">詳細は毎回は読み込まれなくなるため、トークンの消費が減ります</div>
+    <div class="fs-meterwrap">
+      <div class="fs-meterlab">整理した例：MEMORY.mdの大きさ</div>
+      <div class="fs-meter"><i></i></div>
+      <div class="fs-usage-note">
+        <div class="fs-note">整理前<br>15,447字・41項目</div>
+        <div class="fs-note o">整理後<br>3,446字・25項目（約78%減）</div>
+      </div>
+    </div>
+    <div class="fs-note nt">筆者のMuseで整理した例（個人情報は除いています）</div>
+  </div></div></div>
+  <div class="fs-scene ex4"><div class="fs-pillrow"><span class="fs-tag">6.5</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">ただし、使い続けると再び増えます</div>
+    <div class="fs-formula f1">この例では、3日後には8,030字まで増えていました</div>
+  </div></div></div>
+  <div class="fs-scene ex5 fs-final"><div class="fs-pillrow"><span class="fs-tag">6.5</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>6.5のまとめ</h5>
+      <div class="fs-sign g1"><b>✓</b> 整理は、情報を捨てることではありません</div>
+      <div class="fs-sign g2"><b>✓</b> 詳細は移し、MEMORY.mdには要点と保存場所だけを残します</div>
+      <div class="fs-sign g3"><b>✓</b> 使い続けると増えるので、点検は定期的に</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">点検でファイルが大きすぎると分かったら、手順3で整理させます。整理は、情報を捨てることではありません</div>
+</div></div>
       </div>
     </section>
 
@@ -1894,58 +2077,180 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
 
 
 
+      <div class="fsunit">
       <h3 id="ch7-1"><span class="no">7.1</span>スペースと共有リンク</h3>
-      <p>Museに動画やWebページを作成させると、返信にリンク（URL）が貼られます。作ったものは「スペース」欄（図2の③）にも保存されます。</p>
-      <div class="warn">
-        <p class="t">注意：共有リンクは、リンクを知っている人なら誰でも開けます。</p>
-        <p>Museのアカウントがない人でも開けて、相手を選ぶことはできません。個人情報を含むもののリンクは、人に渡さないでください。</p>
-      </div>
-      <p>日記のように記録を保存するアプリには共有リンクがなく、あなただけが使えます。</p>
-      <p>リンクに期限はありません。内容を直しても、前に受け取ったリンク先は自動では更新されないので、直した内容を見せたいときは、Museに共有し直すよう指示します。</p>
-      <h4>リンクを止めたいとき</h4>
-      <p>Museに「〇〇の共有を取り消して」と指示します。</p>
-      <ul>
-        <li>そのURLは、取り消した時点で誰も開けなくなります。</li>
-        <li>スペースは残るので、あなたは今までどおり使えます。あとで共有し直すこともできます。</li>
-        <li>スペースごと削除すると、リンクも一緒に消えます。削除は取り消しと違い、スペースと中身そのものが消えて、元に戻せません。</li>
-      </ul>
-      <div class="warn">
-        <p class="t">注意：取り消す前に誰かが見たり保存したりした内容は、取り戻せません。</p>
+<div class="fsstage" id="fs-s71" data-fs="s71"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene sp1 on"><div class="fs-pillrow"><span class="fs-tag">7.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">作ったものには、リンクが付きます</div>
+    <div class="fs-formula f1">Museに動画やWebページを作成させると、返信にリンク（URL）が貼られます</div>
+    <div class="fs-formula f2">作ったものは「スペース」欄（図2の③）にも保存されます</div>
+  </div></div></div>
+  <div class="fs-scene sp2"><div class="fs-pillrow"><span class="fs-tag">7.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">注意：共有リンクは、誰でも開けます</div>
+    <div class="fs-formula f1">Museのアカウントがない人でも開けて、相手を選ぶことはできません</div>
+    <div class="fs-memcause f2">個人情報を含むもののリンクは、人に渡さないでください</div>
+  </div></div></div>
+  <div class="fs-scene sp3"><div class="fs-pillrow"><span class="fs-tag">7.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">共有リンクがないアプリもあります</div>
+    <div class="fs-formula f1">日記のように記録を保存するアプリには共有リンクがなく、あなただけが使えます</div>
+  </div></div></div>
+  <div class="fs-scene sp4"><div class="fs-pillrow"><span class="fs-tag">7.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-tokrow"><span class="fs-chip">リンクに期限はありません</span></div>
+    <div class="fs-formula f1">内容を直しても、前に受け取ったリンク先は自動では更新されません</div>
+    <div class="fs-formula f2">直した内容を見せたいときは、Museに共有し直すよう指示します</div>
+  </div></div></div>
+  <div class="fs-scene sp5"><div class="fs-pillrow"><span class="fs-tag">7.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">リンクを止めたいとき</div>
+    <div class="fs-formula f1">Museに「〇〇の共有を取り消して」と指示します</div>
+  </div></div></div>
+  <div class="fs-scene sp6"><div class="fs-pillrow"><span class="fs-tag">7.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>取り消すと</h5>
+      <div class="fs-sign g1"><b>✓</b> そのURLは、取り消した時点で誰も開けなくなります</div>
+      <div class="fs-sign g2"><b>✓</b> スペースは残るので、あなたは今までどおり使えます。あとで共有し直すこともできます</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene sp7 fs-final"><div class="fs-pillrow"><span class="fs-tag">7.1</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>取り消しと削除の違い</h5>
+      <div class="fs-sign g1"><b>✓</b> 取り消し：そのURLが開けなくなり、スペースは残ります</div>
+      <div class="fs-sign g2"><b>✓</b> 削除：取り消しと違い、スペースと中身そのものが消えて、元に戻せません。リンクも一緒に消えます</div>
+      <div class="fs-sign g3"><b>✓</b> 注意：取り消す前に誰かが見たり保存したりした内容は、取り戻せません</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">Museに動画やWebページを作成させると、返信にリンク（URL）が貼られます。作ったものは「スペース」欄にも保存されます</div>
+</div></div>
       </div>
 
+      <div class="fsunit">
       <h3 id="ch7-2"><span class="no">7.2</span>リンクが開けなくなる場合</h3>
-      <p>スペースはMuseの側に置かれているため、次の場合はリンクが開けなくなります。</p>
-      <ul>
-        <li>Museで大きな障害が起きている間</li>
-        <li>アカウントを削除したとき</li>
-      </ul>
-      <p>重要なものは、Museの外にもバックアップを置くことを勧めます。保存先はMuseに相談できます。</p>
+<div class="fsstage" id="fs-s72" data-fs="s72"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene lk1 on"><div class="fs-pillrow"><span class="fs-tag">7.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">リンクが開けなくなる場合</div>
+    <div class="fs-formula f1">スペースは、Museの側に置かれているためです</div>
+  </div></div></div>
+  <div class="fs-scene lk2"><div class="fs-pillrow"><span class="fs-tag">7.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>開けなくなるのは、こんなとき</h5>
+      <div class="fs-sign g1"><b>✓</b> Museで大きな障害が起きている間</div>
+      <div class="fs-sign g2"><b>✓</b> アカウントを削除したとき</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene lk3"><div class="fs-pillrow"><span class="fs-tag">7.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">大事なものは、Museの外にも置いておく</div>
+    <div class="fs-formula f1">重要なものは、Museの外にもバックアップを置くことを勧めます</div>
+    <div class="fs-formula f2">保存先は、Museに相談できます</div>
+  </div></div></div>
+  <div class="fs-scene lk4 fs-final"><div class="fs-pillrow"><span class="fs-tag">7.2</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>7.2のまとめ</h5>
+      <div class="fs-sign g1"><b>✓</b> スペースは、Museの側に置かれています</div>
+      <div class="fs-sign g2"><b>✓</b> 障害の間と、アカウントを削除したときは開けなくなります</div>
+      <div class="fs-sign g3"><b>✓</b> 大事なものは、Museの外にもバックアップを</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">スペースはMuseの側に置かれているため、リンクが開けなくなる場合があります</div>
+</div></div>
+      </div>
 
+      <div class="fsunit">
       <h3 id="ch7-3"><span class="no">7.3</span>作ったものの名前は英字で付ける</h3>
-      <p>作ったもの（Webページやアプリなど）の名前は、指定しなければMuseが会話から推測して付けます。このとき漢字を中国語と読み違え、日本語の部分をピンイン（中国語の読みをアルファベットで書いたもの）に置き換えることがあります。例：「Muse入門」が「Muse rumen」になる。</p>
-      <p>リンク（URL）の一部にも、最初の名前から自動で決まる文字列（スラッグ）が入るため、URLもピンイン混じりになります。例：「Museダッシュボード」のURLが <code>musedatusiyubodo</code> になる。</p>
-      <p>作ったものの名前には、次の2つがあります。</p>
-      <ul>
-        <li>表示名：一覧などに表示される名前。あとからMuseに頼んで変えられる。変えてもURLはそのまま。</li>
-        <li>スラッグ：URLの一部になる文字列。あとから変えられない。</li>
-      </ul>
-      <p>そのため、動画やページを作成させるときは、<strong>最初から名前を英字（アルファベット）で付けるよう指示します。</strong>英語でなくても、ローマ字で構いません。例：「名前は『Muse Manual』にして」「名前はローマ字で『nyumon』にして」</p>
-      <h4>すでにずれてしまった場合</h4>
-      <ul>
-        <li>表示名だけを直したいとき：Museに「〇〇の表示名を『△△』に変えて」と指示する。作り直しは不要。</li>
-        <li>URLも直したいとき：英字の名前で作り直させ、古いリンクの共有を取り消させる。</li>
-      </ul>
-      <p class="small">※ページの中に見出しとして書かれているタイトルは、表示名とは別です。変えたいときは、ページの内容の修正として指示します。</p>
+<div class="fsstage" id="fs-s73" data-fs="s73"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene nm1 on"><div class="fs-pillrow"><span class="fs-tag">7.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">名前は、Claudeが推測して付けます</div>
+    <div class="fs-formula f1">作ったもの（Webページやアプリなど）の名前は、指定しなければClaudeが会話から推測して付けます</div>
+  </div></div></div>
+  <div class="fs-scene nm2"><div class="fs-pillrow"><span class="fs-tag">7.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">漢字が、ピンインに置き換わることがあります</div>
+    <div class="fs-formula f1">このとき漢字を中国語と読み違え、日本語の部分をピンインに置き換えることがあります</div>
+    <div class="fs-note nt">ピンイン＝中国語の読みをアルファベットで書いたもの</div>
+  </div></div></div>
+  <div class="fs-scene nm3"><div class="fs-pillrow"><span class="fs-tag">7.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-cards">
+      <div class="fs-doc d1">Muse入門</div>
+      <div class="fs-arrow">→</div>
+      <div class="fs-doc d2">Muse rumen</div>
+    </div>
+    <div class="fs-formula f1">例：名前の日本語の部分が、ピンインに置き換わります</div>
+  </div></div></div>
+  <div class="fs-scene nm4"><div class="fs-pillrow"><span class="fs-tag">7.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-formula f1">リンク（URL）の一部にも、最初の名前から自動で決まる文字列（スラッグ）が入るため、URLもピンイン混じりになります</div>
+    <pre class="fs-pre">「Museダッシュボード」のURL
+musedatusiyubodo</pre>
+  </div></div></div>
+  <div class="fs-scene nm5"><div class="fs-pillrow"><span class="fs-tag">7.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>名前には、次の2つがあります</h5>
+      <div class="fs-sign g1"><b>✓</b> 表示名：一覧などに表示される名前。あとからClaudeに頼んで変えられます。変えてもURLはそのままです</div>
+      <div class="fs-sign g2"><b>✓</b> スラッグ：URLの一部になる文字列。あとから変えられません</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene nm6"><div class="fs-pillrow"><span class="fs-tag">7.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">最初から、英字で名前を付ける</div>
+    <div class="fs-formula f1">動画やページを作成させるときは、最初から名前を英字（アルファベット）で付けるよう指示します。英語でなくても、ローマ字で構いません</div>
+  </div></div></div>
+  <div class="fs-scene nm7"><div class="fs-pillrow"><span class="fs-tag">7.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-title">指示の例</div>
+    <div class="fs-formula f1">「名前は『Muse Manual』にして」</div>
+    <div class="fs-formula f2">「名前はローマ字で『nyumon』にして」</div>
+  </div></div></div>
+  <div class="fs-scene nm8"><div class="fs-pillrow"><span class="fs-tag">7.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>すでにずれてしまった場合は</h5>
+      <div class="fs-sign g1"><b>✓</b> 表示名だけ直したいとき：「〇〇の表示名を『△△』に変えて」と指示します。作り直しは不要です</div>
+      <div class="fs-sign g2"><b>✓</b> URLも直したいとき：英字の名前で作り直させ、古いリンクの共有を取り消させます</div>
+    </div>
+  </div></div></div>
+  <div class="fs-scene nm9 fs-final"><div class="fs-pillrow"><span class="fs-tag">7.3</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>7.3のまとめ</h5>
+      <div class="fs-sign g1"><b>✓</b> 名前は、最初から英字で付けます</div>
+      <div class="fs-sign g2"><b>✓</b> 表示名は変えられます。スラッグは変えられません</div>
+    </div>
+    <div class="fs-note nt">※ページの中に見出しとして書かれているタイトルは、表示名とは別です。変えたいときは、ページの内容の修正として指示します</div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">名前は、指定しなければClaudeが会話から推測して付けます</div>
+</div></div>
+      </div>
 
+      <div class="fsunit">
       <h3 id="ch7-4"><span class="no">7.4</span>リンクのコピーのしかた</h3>
-      <ol>
-        <li>Museが返信に貼ったリンクをタップして、作ったものを開く。</li>
-        <li>ブラウザのアドレスバーに表示されたURLをコピーする。</li>
-        <li>コピーしたURLを相手に送る。</li>
-      </ol>
-      <div class="warn">
-        <p class="t">注意：メッセージを長押ししても、リンクはコピーできません。</p>
-        <p>長押しは、絵文字でリアクションを付ける操作です（<a href="#ch3-1">3.1</a>）。</p>
+<div class="fsstage" id="fs-s74" data-fs="s74"><div class="fs-screen">
+  <div class="fs-scenes">
+  <div class="fs-scene cp1 on"><div class="fs-pillrow"><span class="fs-tag">7.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-tokrow"><span class="fs-chip gold">手順 1</span></div>
+    <div class="fs-formula f1">Museが返信に貼ったリンクをタップして、作ったものを開く</div>
+  </div></div></div>
+  <div class="fs-scene cp2"><div class="fs-pillrow"><span class="fs-tag">7.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-tokrow"><span class="fs-chip gold">手順 2</span></div>
+    <div class="fs-formula f1">ブラウザのアドレスバーに表示されたURLをコピーする</div>
+  </div></div></div>
+  <div class="fs-scene cp3"><div class="fs-pillrow"><span class="fs-tag">7.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-tokrow"><span class="fs-chip gold">手順 3</span></div>
+    <div class="fs-formula f1">コピーしたURLを相手に送る</div>
+  </div></div></div>
+  <div class="fs-scene cp4"><div class="fs-pillrow"><span class="fs-tag">7.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-bigq">注意：長押しではコピーできません</div>
+    <div class="fs-formula f1">メッセージを長押ししても、リンクはコピーできません</div>
+    <div class="fs-formula f2">長押しは、絵文字でリアクションを付ける操作です（3.1）</div>
+  </div></div></div>
+  <div class="fs-scene cp5 fs-final"><div class="fs-pillrow"><span class="fs-tag">7.4</span></div><div class="fs-center"><div class="fs-fit">
+    <div class="fs-signs">
+      <h5>リンクのコピーのしかた</h5>
+      <div class="fs-sign g1"><b>1．</b> リンクをタップして、作ったものを開く</div>
+      <div class="fs-sign g2"><b>2．</b> アドレスバーに表示されたURLをコピーする</div>
+      <div class="fs-sign g3"><b>3．</b> コピーしたURLを相手に送る</div>
+    </div>
+  </div></div></div>
+  </div>
+  <div class="fs-telop">Museが返信に貼ったリンクをタップして、作ったものを開く</div>
+</div></div>
       </div>
     </section>
 
@@ -3354,6 +3659,563 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
         .fromTo(Q(".ho5 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},33.2)
         .fromTo(QA(".ho5 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},34)
         .to({},{duration:5},36.1);
+    }
+  });
+
+  /* ================= 6.1 メモリーファイル ================= */
+  var st61 = document.querySelector('[data-fs="s61"]');
+  if(st61) createUnit(st61, {
+    telopTexts: [
+      "Museのメモリーや振る舞いのルールは、いくつかのテキストファイルに記録されています",
+      "返信のたびに主なファイルを読み込むため、チャットが変わっても決定事項や好みが引き継がれます",
+      "ファイル名の末尾の「.md」は、Markdown形式のファイルであることを示します",
+      "Markdownは、見出しや箇条書きを記号で表すテキストの書き方です",
+      "メモリーファイルはクラウド上に保存されます。アプリの画面には表示されませんが、Museに指示すれば内容を表示できます（6.2）",
+      "常に読み込まれる主なメモリーファイル（1）: MEMORY.mdとAGENTS.md",
+      "常に読み込まれる主なメモリーファイル（2）: SOUL.mdとUSER.md",
+      "常に読み込まれる主なメモリーファイル（3）: IDENTITY.mdとTOOLS.md",
+      "このほかに、定期的な見回りと先回りの動きの設定ファイルもあります",
+      "常に読み込まれるファイルは、返信のたびに読み込まれ、そのたびにトークンを消費します",
+      "必要なときに検索されるものは、必要と判断したときだけ検索して参照するため、毎回の返信ではトークンを消費しません",
+      "常に読み込まれるファイルは、使い続けるほど大きくなります",
+      "常に読み込まれるファイルは使い続けるほど大きくなり、チャットを新しくしても小さくならないため、定期的な点検が必要です（6.3）"
+    ],
+    finalScene: "mf13",
+    finalTelop: "常に読み込まれるファイルは使い続けるほど大きくなり、チャットを新しくしても小さくならないため、定期的な点検が必要です（6.3）",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* M1 memory lives in text files (a) */
+      tl.call(show,["mf1"],0)
+        .call(setTel,["Museのメモリーや振る舞いのルールは、いくつかのテキストファイルに記録されています"],0)
+        .fromTo(Q(".mf1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(Q(".mf1 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},1.2)
+      /* M2 re-read every reply, so decisions carry over (a) */
+        .call(show,["mf2"],7.5)
+        .call(setTel,["返信のたびに主なファイルを読み込むため、チャットが変わっても決定事項や好みが引き継がれます"],7.5)
+        .fromTo(Q(".mf2 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},7.8)
+        .fromTo(Q(".mf2 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},8.7)
+      /* M3 .md means Markdown (b) */
+        .call(show,["mf3"],15)
+        .call(setTel,["ファイル名の末尾の「.md」は、Markdown形式のファイルであることを示します"],15)
+        .fromTo(QA(".mf3 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,stagger:.6,ease:"back.out(2)"},15.3)
+        .fromTo(Q(".mf3 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},16.8)
+      /* M4 what Markdown is; the book's own term (b, c) */
+        .call(show,["mf4"],22.5)
+        .call(setTel,["Markdownは、見出しや箇条書きを記号で表すテキストの書き方です"],22.5)
+        .fromTo(Q(".mf4 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},22.8)
+        .fromTo(Q(".mf4 .nt"),{opacity:0},{opacity:1,duration:.5},24)
+      /* M5 stored in the cloud (d) */
+        .call(show,["mf5"],30)
+        .call(setTel,["メモリーファイルはクラウド上に保存されます。アプリの画面には表示されませんが、Museに指示すれば内容を表示できます（6.2）"],30)
+        .fromTo(Q(".mf5 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},30.3)
+        .fromTo(Q(".mf5 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},31.2)
+        .fromTo(Q(".mf5 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},32.4)
+      /* M6 the file table 1/3 (e) */
+        .call(show,["mf6"],37.5)
+        .call(setTel,["常に読み込まれる主なメモリーファイル（1）: MEMORY.mdとAGENTS.md"],37.5)
+        .fromTo(Q(".mf6 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},37.9)
+        .fromTo(QA(".mf6 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},38.7)
+      /* M7 the file table 2/3 (e) */
+        .call(show,["mf7"],45)
+        .call(setTel,["常に読み込まれる主なメモリーファイル（2）: SOUL.mdとUSER.md"],45)
+        .fromTo(Q(".mf7 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},45.4)
+        .fromTo(QA(".mf7 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},46.2)
+      /* M8 the file table 3/3 (e) */
+        .call(show,["mf8"],52.5)
+        .call(setTel,["常に読み込まれる主なメモリーファイル（3）: IDENTITY.mdとTOOLS.md"],52.5)
+        .fromTo(Q(".mf8 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},52.9)
+        .fromTo(QA(".mf8 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},53.7)
+      /* M9 two more setting files (f) */
+        .call(show,["mf9"],60)
+        .call(setTel,["このほかに、定期的な見回りと先回りの動きの設定ファイルもあります"],60)
+        .fromTo(Q(".mf9 .fs-ctxbox"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},60.3)
+        .fromTo(QA(".mf9 .fs-mem"),{opacity:0,y:12},{opacity:1,y:0,duration:.5,stagger:.7},61.2)
+      /* M10 two kinds of memory 1/2 (g; fig.8 upper layer) */
+        .call(show,["mf10"],67.5)
+        .call(setTel,["常に読み込まれるファイルは、返信のたびに読み込まれ、そのたびにトークンを消費します"],67.5)
+        .fromTo(Q(".mf10 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},67.8)
+        .fromTo(Q(".mf10 .fs-ctxbox"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},68.7)
+      /* M11 two kinds of memory 2/2; MEMORY.md is both (g, h; fig.8 lower layer) */
+        .call(show,["mf11"],74.5)
+        .call(setTel,["必要なときに検索されるものは、必要と判断したときだけ検索して参照するため、毎回の返信ではトークンを消費しません"],74.5)
+        .fromTo(Q(".mf11 .fs-ctxbox"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},74.8)
+        .fromTo(Q(".mf11 .fs-chip"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},76)
+      /* M12 recap 1/2: files grow (i) */
+        .call(show,["mf12"],81.5)
+        .call(setTel,["常に読み込まれるファイルは、使い続けるほど大きくなります"],81.5)
+        .fromTo(Q(".mf12 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},81.8)
+        .fromTo(Q(".mf12 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},82.9)
+        .fromTo(QA(".mf12 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},83.7)
+      /* M13 recap 2/2: inspection needed (i) */
+        .call(show,["mf13"],89)
+        .call(setTel,["常に読み込まれるファイルは使い続けるほど大きくなり、チャットを新しくしても小さくならないため、定期的な点検が必要です（6.3）"],89)
+        .fromTo(Q(".mf13 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},89.4)
+        .fromTo(QA(".mf13 .fs-sign"),{opacity:.25},{opacity:1,duration:.5},90.2)
+        .to({},{duration:5},93);
+    }
+  });
+
+  /* ================= 6.2 内容の確認と修正 ================= */
+  var st62 = document.querySelector('[data-fs="s62"]');
+  if(st62) createUnit(st62, {
+    telopTexts: [
+      "メモリーファイルの内容は、Museに指示すれば表示できます。古くなった内容の修正や削除も指示できます",
+      "内容を確認したいときは、このプロンプトを送ります",
+      "Museは全文をファイルとして添付し、あなたに関する記録の要点を抜き出して答えます",
+      "直したいときは、何がどう変わったかを伝えます",
+      "メモリーファイルの内容は、指示すれば表示でき、古くなった内容の修正や削除も指示できます"
+    ],
+    finalScene: "fx5",
+    finalTelop: "メモリーファイルの内容は、指示すれば表示でき、古くなった内容の修正や削除も指示できます",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* F1 show / fix / delete by instruction (a) */
+      tl.call(show,["fx1"],0)
+        .call(setTel,["メモリーファイルの内容は、Museに指示すれば表示できます。古くなった内容の修正や削除も指示できます"],0)
+        .fromTo(Q(".fx1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(Q(".fx1 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},1.4)
+      /* F2 the show-it prompt, in full (b) */
+        .call(show,["fx2"],7.5)
+        .call(setTel,["内容を確認したいときは、このプロンプトを送ります"],7.5)
+        .fromTo(Q(".fx2 .fs-signs"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},7.9)
+        .fromTo(QA(".fx2 .fs-sign"),{opacity:.25},{opacity:1,duration:.5},8.9)
+      /* F3 how Muse answers (c) */
+        .call(show,["fx3"],15)
+        .call(setTel,["Museは全文をファイルとして添付し、あなたに関する記録の要点を抜き出して答えます"],15)
+        .fromTo(Q(".fx3 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},15.3)
+        .fromTo(Q(".fx3 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},16.5)
+      /* F4 the fix-it prompt, in full (d) */
+        .call(show,["fx4"],22.5)
+        .call(setTel,["直したいときは、何がどう変わったかを伝えます"],22.5)
+        .fromTo(Q(".fx4 .fs-signs"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},22.9)
+        .fromTo(Q(".fx4 .nt"),{opacity:0},{opacity:1,duration:.5},23.7)
+        .fromTo(QA(".fx4 .fs-sign"),{opacity:.25},{opacity:1,duration:.5},24.4)
+      /* F5 recap */
+        .call(show,["fx5"],30)
+        .call(setTel,["メモリーファイルの内容は、指示すれば表示でき、古くなった内容の修正や削除も指示できます"],30)
+        .fromTo(Q(".fx5 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},30.3)
+        .fromTo(Q(".fx5 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},31.4)
+        .fromTo(QA(".fx5 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},32.2)
+        .to({},{duration:5},34);
+    }
+  });
+
+  /* ================= 6.3 メモリーの定期点検 ================= */
+  var st63 = document.querySelector('[data-fs="s63"]');
+  if(st63) createUnit(st63, {
+    telopTexts: [
+      "メモリーには、古くなった情報や、矛盾・重複した記述がたまっていき、応答の質が下がる原因になります",
+      "点検は3段階で進めます。意図しない変更を防ぐため、書き換えはあなたが承認した項目に限ります",
+      "3段階目は、承認した項目だけを書き換えます。書き換えの前に、バックアップを作成します",
+      "点検は月に1回が目安です。新しいチャットにしても同じことが起きるときは、点検します",
+      "点検は3段階で進め、書き換えはあなたが承認した項目に限ります。時期は月に1回が目安です"
+    ],
+    finalScene: "ck5",
+    finalTelop: "点検は3段階で進め、書き換えはあなたが承認した項目に限ります。時期は月に1回が目安です",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* C1 stale and conflicting entries pile up (a, b) */
+      tl.call(show,["ck1"],0)
+        .call(setTel,["メモリーには、古くなった情報や、矛盾・重複した記述がたまっていき、応答の質が下がる原因になります"],0)
+        .fromTo(Q(".ck1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(Q(".ck1 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},1.2)
+        .fromTo(Q(".ck1 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},2.4)
+        .fromTo(Q(".ck1 .nt"),{opacity:0},{opacity:1,duration:.5},3.6)
+      /* C2 the three stages 1/2: inspect, then check the report (c) */
+        .call(show,["ck2"],9)
+        .call(setTel,["点検は3段階で進めます。意図しない変更を防ぐため、書き換えはあなたが承認した項目に限ります"],9)
+        .fromTo(Q(".ck2 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},9.4)
+        .fromTo(QA(".ck2 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.9},10.2)
+      /* C3 the three stages 2/2: approved edits only, backup first (c) */
+        .call(show,["ck3"],17.5)
+        .call(setTel,["3段階目は、承認した項目だけを書き換えます。書き換えの前に、バックアップを作成します"],17.5)
+        .fromTo(Q(".ck3 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},17.8)
+        .fromTo(Q(".ck3 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},18.9)
+        .fromTo(QA(".ck3 .fs-sign"),{opacity:.25},{opacity:1,duration:.5},19.7)
+      /* C4 when to inspect (d) */
+        .call(show,["ck4"],25.5)
+        .call(setTel,["点検は月に1回が目安です。新しいチャットにしても同じことが起きるときは、点検します"],25.5)
+        .fromTo(Q(".ck4 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},25.8)
+        .fromTo(Q(".ck4 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},26.9)
+        .fromTo(QA(".ck4 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},27.7)
+      /* C5 recap */
+        .call(show,["ck5"],35)
+        .call(setTel,["点検は3段階で進め、書き換えはあなたが承認した項目に限ります。時期は月に1回が目安です"],35)
+        .fromTo(Q(".ck5 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},35.3)
+        .fromTo(Q(".ck5 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},36.4)
+        .fromTo(QA(".ck5 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},37.2)
+        .to({},{duration:5},40.5);
+    }
+  });
+
+  /* ================= 6.4 点検のプロンプト ================= */
+  var st64 = document.querySelector('[data-fs="s64"]');
+  if(st64) createUnit(st64, {
+    telopTexts: [
+      "次のプロンプトをコピーして、点検のたびにMuseに送ります",
+      "点検のプロンプト（1）: 対象は、実際に存在する6つのファイルです",
+      "点検のプロンプト（2）: 手順1では、まず矛盾と陳腐化をチェックします",
+      "点検のプロンプト（3）: 手順1では、肥大化と、人格や記憶への影響もチェックします",
+      "点検のプロンプト（4）: 手順2では、各ファイルのサイズと、問題を重要度順に最大5件まで報告します",
+      "点検のプロンプト（5）: 確認できていない指摘には、修正案を出しません",
+      "点検のプロンプト（6）: 手順3は承認制です。承認するまで、ファイルは一切編集しません",
+      "点検のプロンプト（7）: 記憶を丸ごと削除する提案はしません",
+      "点検のプロンプト（8）: 定期実行は、ユーザーが希望した場合のみです",
+      "報告の例（1）: 各ファイルの大きさと、確認できた問題が届きます",
+      "報告の例（2）: 確認できていないことは、修正案なしで届きます",
+      "報告を読んだら、修正してよい項目を番号で指定し、それ以外は変更しないことも明記します",
+      "承認のしかたの注意（1）: 曖昧な返事は避け、訂正は分けて伝えます",
+      "承認のしかたの注意（2）: 承認していない変更が入っていないか確認します",
+      "承認のしかたの注意（3）: 数値は目安です。初回は、報告の確認だけで終えてもかまいません",
+      "報告を読んだら、修正してよい項目を番号で指定します。承認していない変更が入っていないか確認します"
+    ],
+    finalScene: "pr16",
+    finalTelop: "報告を読んだら、修正してよい項目を番号で指定します。承認していない変更が入っていないか確認します",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* P1 send this prompt at every inspection (a) */
+      tl.call(show,["pr1"],0)
+        .call(setTel,["次のプロンプトをコピーして、点検のたびにMuseに送ります"],0)
+        .fromTo(Q(".pr1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(Q(".pr1 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},1.3)
+      /* P2 prompt 1/8: the opening (b) */
+        .call(show,["pr2"],6.5)
+        .call(setTel,["点検のプロンプト（1）: 対象は、実際に存在する6つのファイルです"],6.5)
+        .fromTo(Q(".pr2 .fs-meterlab"),{opacity:0,y:-10},{opacity:1,y:0,duration:.5},6.8)
+        .fromTo(Q(".pr2 .fs-pre"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},7.4)
+      /* P3 prompt 2/8: step 1 heading, contradiction and staleness (b) */
+        .call(show,["pr3"],13)
+        .call(setTel,["点検のプロンプト（2）: 手順1では、まず矛盾と陳腐化をチェックします"],13)
+        .fromTo(Q(".pr3 .fs-meterlab"),{opacity:0,y:-10},{opacity:1,y:0,duration:.5},13.3)
+        .fromTo(Q(".pr3 .fs-pre"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},13.9)
+      /* P4 prompt 3/8: step 1, bloat and impact on persona and memory (b) */
+        .call(show,["pr4"],19.5)
+        .call(setTel,["点検のプロンプト（3）: 手順1では、肥大化と、人格や記憶への影響もチェックします"],19.5)
+        .fromTo(Q(".pr4 .fs-meterlab"),{opacity:0,y:-10},{opacity:1,y:0,duration:.5},19.8)
+        .fromTo(Q(".pr4 .fs-pre"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},20.4)
+      /* P5 prompt 4/8: step 2, sizes and top-5 problems (b) */
+        .call(show,["pr5"],26)
+        .call(setTel,["点検のプロンプト（4）: 手順2では、各ファイルのサイズと、問題を重要度順に最大5件まで報告します"],26)
+        .fromTo(Q(".pr5 .fs-meterlab"),{opacity:0,y:-10},{opacity:1,y:0,duration:.5},26.3)
+        .fromTo(Q(".pr5 .fs-pre"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},26.9)
+      /* P6 prompt 5/8: step 2, confirmed vs unconfirmed (b) */
+        .call(show,["pr6"],32.5)
+        .call(setTel,["点検のプロンプト（5）: 確認できていない指摘には、修正案を出しません"],32.5)
+        .fromTo(Q(".pr6 .fs-meterlab"),{opacity:0,y:-10},{opacity:1,y:0,duration:.5},32.8)
+        .fromTo(Q(".pr6 .fs-pre"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},33.4)
+      /* P7 prompt 6/8: step 3, no edits before approval (b) */
+        .call(show,["pr7"],39)
+        .call(setTel,["点検のプロンプト（6）: 手順3は承認制です。承認するまで、ファイルは一切編集しません"],39)
+        .fromTo(Q(".pr7 .fs-meterlab"),{opacity:0,y:-10},{opacity:1,y:0,duration:.5},39.3)
+        .fromTo(Q(".pr7 .fs-pre"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},39.9)
+      /* P8 prompt 7/8: step 3, no wholesale deletion (b) */
+        .call(show,["pr8"],45.5)
+        .call(setTel,["点検のプロンプト（7）: 記憶を丸ごと削除する提案はしません"],45.5)
+        .fromTo(Q(".pr8 .fs-meterlab"),{opacity:0,y:-10},{opacity:1,y:0,duration:.5},45.8)
+        .fromTo(Q(".pr8 .fs-pre"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},46.4)
+      /* P9 prompt 8/8: step 3 rest + option (b) */
+        .call(show,["pr9"],52)
+        .call(setTel,["点検のプロンプト（8）: 定期実行は、ユーザーが希望した場合のみです"],52)
+        .fromTo(Q(".pr9 .fs-meterlab"),{opacity:0,y:-10},{opacity:1,y:0,duration:.5},52.3)
+        .fromTo(Q(".pr9 .fs-pre"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},52.9)
+      /* P10 sample report 1/2 (c) */
+        .call(show,["pr10"],58.5)
+        .call(setTel,["報告の例（1）: 各ファイルの大きさと、確認できた問題が届きます"],58.5)
+        .fromTo(Q(".pr10 .fs-meterlab"),{opacity:0,y:-10},{opacity:1,y:0,duration:.5},58.8)
+        .fromTo(Q(".pr10 .fs-pre"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},59.4)
+      /* P11 sample report 2/2 (c) */
+        .call(show,["pr11"],65)
+        .call(setTel,["報告の例（2）: 確認できていないことは、修正案なしで届きます"],65)
+        .fromTo(Q(".pr11 .fs-meterlab"),{opacity:0,y:-10},{opacity:1,y:0,duration:.5},65.3)
+        .fromTo(Q(".pr11 .fs-pre"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},65.9)
+      /* P12 how to approve + the approval prompt, in full (d, e) */
+        .call(show,["pr12"],72.5)
+        .call(setTel,["報告を読んだら、修正してよい項目を番号で指定し、それ以外は変更しないことも明記します"],72.5)
+        .fromTo(Q(".pr12 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},72.8)
+        .fromTo(Q(".pr12 .fs-signs"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},73.9)
+        .fromTo(QA(".pr12 .fs-sign"),{opacity:.25},{opacity:1,duration:.5},74.7)
+        .fromTo(Q(".pr12 .nt"),{opacity:0},{opacity:1,duration:.5},75.5)
+      /* P13 approval cautions 1/3 (f) */
+        .call(show,["pr13"],80)
+        .call(setTel,["承認のしかたの注意（1）: 曖昧な返事は避け、訂正は分けて伝えます"],80)
+        .fromTo(Q(".pr13 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},80.4)
+        .fromTo(QA(".pr13 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.9},81.4)
+      /* P14 approval cautions 2/3 (f) */
+        .call(show,["pr14"],87.5)
+        .call(setTel,["承認のしかたの注意（2）: 承認していない変更が入っていないか確認します"],87.5)
+        .fromTo(Q(".pr14 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},87.9)
+        .fromTo(QA(".pr14 .fs-sign"),{opacity:.25},{opacity:1,duration:.5},88.7)
+      /* P15 approval cautions 3/3 (f) */
+        .call(show,["pr15"],95)
+        .call(setTel,["承認のしかたの注意（3）: 数値は目安です。初回は、報告の確認だけで終えてもかまいません"],95)
+        .fromTo(Q(".pr15 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},95.4)
+        .fromTo(QA(".pr15 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.9},96.4)
+      /* P16 recap */
+        .call(show,["pr16"],103.5)
+        .call(setTel,["報告を読んだら、修正してよい項目を番号で指定します。承認していない変更が入っていないか確認します"],103.5)
+        .fromTo(Q(".pr16 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},103.8)
+        .fromTo(Q(".pr16 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},104.9)
+        .fromTo(QA(".pr16 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},105.7)
+        .to({},{duration:5},108.5);
+    }
+  });
+
+  /* ================= 6.5 整理の例 ================= */
+  var st65 = document.querySelector('[data-fs="s65"]');
+  if(st65) createUnit(st65, {
+    telopTexts: [
+      "点検でファイルが大きすぎると分かったら、手順3で整理させます。整理は、情報を捨てることではありません",
+      "詳細を検索されるファイルに移し、MEMORY.mdには「要点」と「詳細の保存場所」だけを残します",
+      "例では、MEMORY.mdが15,447字・41項目から、3,446字・25項目へ約78%減りました",
+      "整理しても、使い続けるうちに再び増えます。この例では、3日後には8,030字まで増えていました",
+      "整理は情報を捨てることではありません。詳細を移し、MEMORY.mdには要点と保存場所だけを残します"
+    ],
+    finalScene: "ex5",
+    finalTelop: "整理は情報を捨てることではありません。詳細を移し、MEMORY.mdには要点と保存場所だけを残します",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* E1 tidy up when a file is too big; nothing is thrown away (a, b) */
+      tl.call(show,["ex1"],0)
+        .call(setTel,["点検でファイルが大きすぎると分かったら、手順3で整理させます。整理は、情報を捨てることではありません"],0)
+        .fromTo(Q(".ex1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(Q(".ex1 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},1.3)
+        .fromTo(Q(".ex1 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},2.5)
+      /* E2 how it works: details move out, gist + pointer stay (b) */
+        .call(show,["ex2"],8)
+        .call(setTel,["詳細を検索されるファイルに移し、MEMORY.mdには「要点」と「詳細の保存場所」だけを残します"],8)
+        .fromTo(QA(".ex2 .fs-doc"),{opacity:0,y:14},{opacity:1,y:0,duration:.5,stagger:.7},8.3)
+        .fromTo(Q(".ex2 .fs-arrow"),{opacity:0},{opacity:1,duration:.4},9)
+        .fromTo(Q(".ex2 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},10.1)
+      /* E3 effect + the worked example (c, d) */
+        .call(show,["ex3"],15.5)
+        .call(setTel,["例では、MEMORY.mdが15,447字・41項目から、3,446字・25項目へ約78%減りました"],15.5)
+        .fromTo(Q(".ex3 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},15.8)
+        .fromTo(Q(".ex3 .fs-meterwrap"),{opacity:0},{opacity:1,duration:.5},16.8)
+        .fromTo(Q(".ex3 .fs-meter i"),{width:"100%"},{width:"22%",duration:2.2,ease:"power1.inOut"},17.3)
+        .fromTo(QA(".ex3 .fs-usage-note .fs-note"),{opacity:0,y:12},{opacity:1,y:0,duration:.5,stagger:.6},19.8)
+        .fromTo(Q(".ex3 .nt"),{opacity:0},{opacity:1,duration:.5},21)
+      /* E4 it grows back (e) */
+        .call(show,["ex4"],26.5)
+        .call(setTel,["整理しても、使い続けるうちに再び増えます。この例では、3日後には8,030字まで増えていました"],26.5)
+        .fromTo(Q(".ex4 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},26.8)
+        .fromTo(Q(".ex4 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},27.9)
+      /* E5 recap */
+        .call(show,["ex5"],33.5)
+        .call(setTel,["整理は情報を捨てることではありません。詳細を移し、MEMORY.mdには要点と保存場所だけを残します"],33.5)
+        .fromTo(Q(".ex5 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},33.9)
+        .fromTo(QA(".ex5 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},34.7)
+        .to({},{duration:5},37.5);
+    }
+  });
+
+  /* ================= 7.1 スペースと共有リンク ================= */
+  var st71 = document.querySelector('[data-fs="s71"]');
+  if(st71) createUnit(st71, {
+    telopTexts: [
+      "Museに動画やWebページを作成させると、返信にリンク（URL）が貼られます。作ったものは「スペース」欄にも保存されます",
+      "注意：共有リンクは、リンクを知っている人なら誰でも開けます。個人情報を含むもののリンクは、人に渡さないでください",
+      "日記のように記録を保存するアプリには共有リンクがなく、あなただけが使えます",
+      "リンクに期限はありません。内容を直してもリンク先は自動では更新されないので、直した内容を見せたいときは、Museに共有し直すよう指示します",
+      "リンクを止めたいときは、Museに「〇〇の共有を取り消して」と指示します",
+      "取り消した時点で、そのURLは誰も開けなくなります。スペースは残るので、あなたは今までどおり使えます",
+      "注意：取り消す前に誰かが見たり保存したりした内容は、取り戻せません"
+    ],
+    finalScene: "sp7",
+    finalTelop: "注意：取り消す前に誰かが見たり保存したりした内容は、取り戻せません",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* S1 a created thing gets a link in the reply; also saved in Spaces (a, b) */
+      tl.call(show,["sp1"],0)
+        .call(setTel,["Museに動画やWebページを作成させると、返信にリンク（URL）が貼られます。作ったものは「スペース」欄にも保存されます"],0)
+        .fromTo(Q(".sp1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(Q(".sp1 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},1.4)
+        .fromTo(Q(".sp1 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},2.6)
+      /* S2 warning: anyone who knows the link can open it (c, d, e) */
+        .call(show,["sp2"],8)
+        .call(setTel,["注意：共有リンクは、リンクを知っている人なら誰でも開けます。個人情報を含むもののリンクは、人に渡さないでください"],8)
+        .fromTo(Q(".sp2 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},8.3)
+        .fromTo(Q(".sp2 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},9.4)
+        .fromTo(Q(".sp2 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},10.6)
+      /* S3 record-keeping apps have no share link (f) */
+        .call(show,["sp3"],16)
+        .call(setTel,["日記のように記録を保存するアプリには共有リンクがなく、あなただけが使えます"],16)
+        .fromTo(Q(".sp3 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},16.3)
+        .fromTo(Q(".sp3 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},17.4)
+      /* S4 links never expire, but edits do not propagate (g, h) */
+        .call(show,["sp4"],24)
+        .call(setTel,["リンクに期限はありません。内容を直してもリンク先は自動では更新されないので、直した内容を見せたいときは、Museに共有し直すよう指示します"],24)
+        .fromTo(Q(".sp4 .fs-chip"),{opacity:0,y:-12},{opacity:1,y:0,duration:.5},24.3)
+        .fromTo(Q(".sp4 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},25.4)
+        .fromTo(Q(".sp4 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},26.6)
+      /* S5 how to stop a link (i) */
+        .call(show,["sp5"],32)
+        .call(setTel,["リンクを止めたいときは、Museに「〇〇の共有を取り消して」と指示します"],32)
+        .fromTo(Q(".sp5 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},32.3)
+        .fromTo(Q(".sp5 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},33.4)
+      /* S6 what revoking does (j, k) */
+        .call(show,["sp6"],40)
+        .call(setTel,["取り消した時点で、そのURLは誰も開けなくなります。スペースは残るので、あなたは今までどおり使えます"],40)
+        .fromTo(Q(".sp6 .fs-signs"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},40.4)
+        .fromTo(QA(".sp6 .fs-sign"),{opacity:.25},{opacity:1,duration:.5,stagger:.7},41.4)
+      /* S7 recap: revoke vs delete, and the cannot-take-back warning (l, m) */
+        .call(show,["sp7"],48)
+        .call(setTel,["注意：取り消す前に誰かが見たり保存したりした内容は、取り戻せません"],48)
+        .fromTo(Q(".sp7 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},48.4)
+        .fromTo(QA(".sp7 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},49.4)
+        .to({},{duration:5},52.5);
+    }
+  });
+
+  /* ================= 7.2 リンクが開けなくなる場合 ================= */
+  var st72 = document.querySelector('[data-fs="s72"]');
+  if(st72) createUnit(st72, {
+    telopTexts: [
+      "スペースはMuseの側に置かれているため、リンクが開けなくなる場合があります",
+      "Museで大きな障害が起きている間と、アカウントを削除したときは、リンクが開けなくなります",
+      "重要なものは、Museの外にもバックアップを置くことを勧めます。保存先はMuseに相談できます",
+      "重要なものは、Museの外にもバックアップを置くことを勧めます"
+    ],
+    finalScene: "lk4",
+    finalTelop: "重要なものは、Museの外にもバックアップを置くことを勧めます",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* L1 spaces live on Muse's side, so links can stop opening (a) */
+      tl.call(show,["lk1"],0)
+        .call(setTel,["スペースはMuseの側に置かれているため、リンクが開けなくなる場合があります"],0)
+        .fromTo(Q(".lk1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(Q(".lk1 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},1.4)
+      /* L2 the two cases (b, c) */
+        .call(show,["lk2"],8)
+        .call(setTel,["Museで大きな障害が起きている間と、アカウントを削除したときは、リンクが開けなくなります"],8)
+        .fromTo(Q(".lk2 .fs-signs"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},8.4)
+        .fromTo(QA(".lk2 .fs-sign"),{opacity:.25},{opacity:1,duration:.5,stagger:.7},9.4)
+      /* L3 keep a backup outside Muse (d, e) */
+        .call(show,["lk3"],16)
+        .call(setTel,["重要なものは、Museの外にもバックアップを置くことを勧めます。保存先はMuseに相談できます"],16)
+        .fromTo(Q(".lk3 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},16.3)
+        .fromTo(Q(".lk3 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},17.4)
+        .fromTo(Q(".lk3 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},18.6)
+      /* L4 recap */
+        .call(show,["lk4"],24)
+        .call(setTel,["重要なものは、Museの外にもバックアップを置くことを勧めます"],24)
+        .fromTo(Q(".lk4 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},24.4)
+        .fromTo(QA(".lk4 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},25.4)
+        .to({},{duration:5},28.5);
+    }
+  });
+
+  /* ================= 7.3 作ったものの名前は英字で付ける ================= */
+  var st73 = document.querySelector('[data-fs="s73"]');
+  if(st73) createUnit(st73, {
+    telopTexts: [
+      "名前は、指定しなければClaudeが会話から推測して付けます",
+      "このとき漢字を中国語と読み違え、日本語の部分をピンイン（中国語の読みをアルファベットで書いたもの）に置き換えることがあります",
+      "例：「Muse入門」が「Muse rumen」になります",
+      "URLの一部にも、最初の名前から自動で決まる文字列（スラッグ）が入ります。例：「Museダッシュボード」のURLが musedatusiyubodo になります",
+      "表示名はあとからClaudeに頼んで変えられます。変えてもURLはそのままです。スラッグはあとから変えられません",
+      "動画やページを作成させるときは、最初から名前を英字（アルファベット）で付けるよう指示します。英語でなくても、ローマ字で構いません",
+      "指示の例：「名前は『Muse Manual』にして」「名前はローマ字で『nyumon』にして」",
+      "すでにずれてしまった場合、表示名だけなら作り直しは不要です。URLも直したいときは、英字の名前で作り直し、古いリンクの共有を取り消します",
+      "名前は、最初から英字で付けます。※ページの中の見出しタイトルは、表示名とは別です"
+    ],
+    finalScene: "nm9",
+    finalTelop: "名前は、最初から英字で付けます。※ページの中の見出しタイトルは、表示名とは別です",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* N1 names are guessed from the conversation when unspecified (a) */
+      tl.call(show,["nm1"],0)
+        .call(setTel,["名前は、指定しなければClaudeが会話から推測して付けます"],0)
+        .fromTo(Q(".nm1 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},0.3)
+        .fromTo(Q(".nm1 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},1.4)
+      /* N2 kanji can be misread as Chinese and turned into pinyin (b) */
+        .call(show,["nm2"],8)
+        .call(setTel,["このとき漢字を中国語と読み違え、日本語の部分をピンイン（中国語の読みをアルファベットで書いたもの）に置き換えることがあります"],8)
+        .fromTo(Q(".nm2 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},8.3)
+        .fromTo(Q(".nm2 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},9.4)
+        .fromTo(Q(".nm2 .nt"),{opacity:0},{opacity:1,duration:.5},10.6)
+      /* N3 the worked example (c) */
+        .call(show,["nm3"],16)
+        .call(setTel,["例：「Muse入門」が「Muse rumen」になります"],16)
+        .fromTo(QA(".nm3 .fs-doc"),{opacity:0,y:14},{opacity:1,y:0,duration:.5,stagger:.7},16.3)
+        .fromTo(Q(".nm3 .fs-arrow"),{opacity:0},{opacity:1,duration:.4},17)
+        .fromTo(Q(".nm3 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},18.1)
+      /* N4 the slug carries the pinyin into the URL (d, e) */
+        .call(show,["nm4"],24)
+        .call(setTel,["URLの一部にも、最初の名前から自動で決まる文字列（スラッグ）が入ります。例：「Museダッシュボード」のURLが musedatusiyubodo になります"],24)
+        .fromTo(Q(".nm4 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},24.3)
+        .fromTo(Q(".nm4 .fs-pre"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},25.5)
+      /* N5 the two kinds of name (f, g) */
+        .call(show,["nm5"],32)
+        .call(setTel,["表示名はあとからClaudeに頼んで変えられます。変えてもURLはそのままです。スラッグはあとから変えられません"],32)
+        .fromTo(Q(".nm5 .fs-signs"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},32.4)
+        .fromTo(QA(".nm5 .fs-sign"),{opacity:.25},{opacity:1,duration:.5,stagger:.7},33.4)
+      /* N6 so: give the name in alphabet letters from the start (h) */
+        .call(show,["nm6"],40)
+        .call(setTel,["動画やページを作成させるときは、最初から名前を英字（アルファベット）で付けるよう指示します。英語でなくても、ローマ字で構いません"],40)
+        .fromTo(Q(".nm6 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},40.3)
+        .fromTo(Q(".nm6 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},41.4)
+      /* N7 how to phrase the instruction (i) */
+        .call(show,["nm7"],48)
+        .call(setTel,["指示の例：「名前は『Muse Manual』にして」「名前はローマ字で『nyumon』にして」"],48)
+        .fromTo(Q(".nm7 .fs-title"),{opacity:0,y:-14},{opacity:1,y:0,duration:.6},48.3)
+        .fromTo(Q(".nm7 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},49.4)
+        .fromTo(Q(".nm7 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},50.6)
+      /* N8 if the name already slipped (j, k) */
+        .call(show,["nm8"],56)
+        .call(setTel,["すでにずれてしまった場合、表示名だけなら作り直しは不要です。URLも直したいときは、英字の名前で作り直し、古いリンクの共有を取り消します"],56)
+        .fromTo(Q(".nm8 .fs-signs"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},56.4)
+        .fromTo(QA(".nm8 .fs-sign"),{opacity:.25},{opacity:1,duration:.5,stagger:.7},57.4)
+      /* N9 recap, with the in-page title note (l) */
+        .call(show,["nm9"],64)
+        .call(setTel,["名前は、最初から英字で付けます。※ページの中の見出しタイトルは、表示名とは別です"],64)
+        .fromTo(Q(".nm9 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},64.4)
+        .fromTo(QA(".nm9 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},65.4)
+        .fromTo(Q(".nm9 .nt"),{opacity:0},{opacity:1,duration:.5},66.6)
+        .to({},{duration:5},68.5);
+    }
+  });
+
+  /* ================= 7.4 リンクのコピーのしかた ================= */
+  var st74 = document.querySelector('[data-fs="s74"]');
+  if(st74) createUnit(st74, {
+    telopTexts: [
+      "Museが返信に貼ったリンクをタップして、作ったものを開く",
+      "ブラウザのアドレスバーに表示されたURLをコピーする",
+      "コピーしたURLを相手に送る",
+      "注意：メッセージを長押ししても、リンクはコピーできません。長押しは、絵文字でリアクションを付ける操作です",
+      "リンクをタップして開き、アドレスバーのURLをコピーして、相手に送ります"
+    ],
+    finalScene: "cp5",
+    finalTelop: "リンクをタップして開き、アドレスバーのURLをコピーして、相手に送ります",
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      /* C1 step 1: open the thing from the link in the reply */
+      tl.call(show,["cp1"],0)
+        .call(setTel,["Museが返信に貼ったリンクをタップして、作ったものを開く"],0)
+        .fromTo(Q(".cp1 .fs-chip"),{opacity:0,y:-12},{opacity:1,y:0,duration:.5},0.3)
+        .fromTo(Q(".cp1 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},1.4)
+      /* C2 step 2: copy the URL from the address bar */
+        .call(show,["cp2"],8)
+        .call(setTel,["ブラウザのアドレスバーに表示されたURLをコピーする"],8)
+        .fromTo(Q(".cp2 .fs-chip"),{opacity:0,y:-12},{opacity:1,y:0,duration:.5},8.3)
+        .fromTo(Q(".cp2 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},9.4)
+      /* C3 step 3: send the copied URL */
+        .call(show,["cp3"],16)
+        .call(setTel,["コピーしたURLを相手に送る"],16)
+        .fromTo(Q(".cp3 .fs-chip"),{opacity:0,y:-12},{opacity:1,y:0,duration:.5},16.3)
+        .fromTo(Q(".cp3 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},17.4)
+      /* C4 warning: long-press does not copy */
+        .call(show,["cp4"],24)
+        .call(setTel,["注意：メッセージを長押ししても、リンクはコピーできません。長押しは、絵文字でリアクションを付ける操作です"],24)
+        .fromTo(Q(".cp4 .fs-bigq"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.6,ease:"back.out(1.8)"},24.3)
+        .fromTo(Q(".cp4 .f1"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},25.4)
+        .fromTo(Q(".cp4 .f2"),{opacity:0,y:14},{opacity:1,y:0,duration:.5},26.6)
+      /* C5 recap: the three steps in order */
+        .call(show,["cp5"],32)
+        .call(setTel,["リンクをタップして開き、アドレスバーのURLをコピーして、相手に送ります"],32)
+        .fromTo(Q(".cp5 .fs-signs"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},32.4)
+        .fromTo(QA(".cp5 .fs-sign"),{opacity:.25},{opacity:1,duration:.45,stagger:.8},33.4)
+        .to({},{duration:5},36.5);
     }
   });
 
