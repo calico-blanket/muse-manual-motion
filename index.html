@@ -354,8 +354,8 @@
 /* v6.2 playback pace: CSS-side entrance durations are multiplied by
    --fs-durfactor. Keep in sync with FS_DURATION_SCALE in the JS engine
    below (the same number, defined there as the single source for the
-   timeline; 1.25 = every duration 1.25x longer, loop about 94s). */
-#fs-s51{--fs-durfactor:1.25}
+   timeline; 1.5 = every duration 1.5x longer, loop about 113s). */
+#fs-s51{--fs-durfactor:1.5}
 .fsstage{margin:2px 0 6px}
 @media(min-width:861px){.fsstage{width:calc(100% + 5rem);margin-left:-2.5rem}}
 @media(max-width:860px){.fsstage{width:calc(100% + 2.2rem);margin-left:-1.1rem}}
@@ -1762,12 +1762,12 @@ MEMORY.md 3,988字・39行／AGENTS.md 1,568字・25行／SOUL.md 795字・13行
   /* v6.2 playback pace: FS_DURATION_SCALE stretches every duration in
      the timeline — scene holds, entrance intervals, fades, the closing
      hold and the repeat delay — by this one factor, applied through
-     timeScale so the whole loop scales uniformly. 1.25 makes one loop
-     75.2s x 1.25 = about 94s (was about 75s). To slow it further, e.g.
+     timeScale so the whole loop scales uniformly. 1.5 makes one loop
+     75.2s x 1.5 = about 113s (was about 75s). To slow it further, e.g.
      1.5 for about 112s, change this number to 1.5 and set the matching
      --fs-durfactor in the stylesheet (used by the CSS bubble entrance)
      to the same value. Reduced-motion static display is unaffected. */
-  var FS_DURATION_SCALE = 1.25;
+  var FS_DURATION_SCALE = 1.5;
   var tl = gsap.timeline({repeat: reduced ? 0 : -1, repeatDelay: 3});
   tl.timeScale(1 / FS_DURATION_SCALE);
   /* S1 intro (a) */
