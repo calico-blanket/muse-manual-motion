@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.1 長いチャットで起きること（新しい形の試作）</title>
+<style>
+:root{
+  --ink:#1c2430; --muted:#55606e;
+  --line:#d5dce4; --line-strong:#8e9bab;
+  --accent:#146856; --accent-d:#14532d;
+  --gold:#c8a24a; --gold-d:#7a5c14; --red:#d05545;
+  --fur:#b08954; --fur-d:#96703f; --fur-l:#dec39c;
+  --mint:#79cfa9; --mint-d:#4faf86;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",system-ui,-apple-system,sans-serif;color:var(--ink);background:#fff}
+.wrap{max-width:920px;margin:0 auto;padding:0 10px}
+
+/* ===== stage base (same layout rules as the v13 fullscreen engine) ===== */
+.fsstage{--fs-durfactor:2}
+.fsunit{display:flex;flex-direction:column;height:100vh;height:100svh;height:100dvh}
+.fsunit > h3{flex:0 0 auto;margin:.8rem 0 .55rem;font-size:clamp(20px,5.6vw,28px);font-weight:900;line-height:1.35}
+.fsunit > h3 .no{color:var(--accent);margin-right:.35em}
+.fsunit .fsstage{flex:1 1 auto;min-height:0;display:flex}
+.fs-screen{position:relative;flex:1 1 auto;min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column;background:#fdfdf8;border-top:2.5px solid var(--line);border-bottom:2.5px solid var(--line);box-shadow:0 6px 18px rgba(60,50,20,.10)}
+.fs-scenes{position:relative;flex:1 1 auto;min-height:0;overflow:hidden;background:linear-gradient(180deg,#eafaf1 0%,#fdfdf8 76%,#e7dcc8 76.2%,#e7dcc8 100%)}
+.fs-tag{display:inline-block;background:var(--accent);color:#fff;font-weight:800;font-size:15px;border-radius:999px;padding:4px 14px}
+.fs-pillrow{flex:0 0 auto;width:100%;padding:10px 12px 2px;text-align:left}
+.fs-center{position:relative;flex:1 1 auto;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.fs-scene{position:absolute;inset:0;padding:0;display:flex;flex-direction:column;visibility:hidden;opacity:0;pointer-events:none;overflow:hidden}
+.fs-scene.on{visibility:visible;opacity:1}
+.fs-fit{display:flex;flex-direction:column;align-items:center;gap:14px;padding:18px 0;width:100%;transform-origin:center center}
+.fs-fit > *{max-width:100%}
+.fs-telop{flex:0 0 auto;background:rgba(18,38,28,.95);color:#fff;font-weight:800;font-size:clamp(16px,2.2vw,24px);line-height:1.5;padding:.7em 1em;overflow-wrap:break-word}
+@media(max-width:900px){ .fs-fit{padding:12px 0;gap:10px} .fs-telop{font-size:15px;line-height:1.45;padding:12px 14px} }
+
+/* ===== Kappie: flat illustration (round young capybara + mint sweater) ===== */
+.kap{width:clamp(104px,32vw,168px);height:auto;flex:0 0 auto}
+.kap .kap-ear{fill:var(--fur-d)} .kap .kap-earin{fill:var(--fur-l)}
+.kap .kap-body{fill:var(--fur)} .kap .kap-muzzle{fill:var(--fur-l)}
+.kap .kap-nose{fill:#8a6a42}
+.kap .kap-sweater{fill:var(--mint)} .kap .kap-collar{fill:none;stroke:var(--mint-d);stroke-width:9;stroke-linecap:round}
+.kap .kap-cheek{fill:#f2a7a7;opacity:.55} .kap .kap-foot{fill:var(--fur-d)}
+.kap .kap-sweat{fill:#7db8e8}
+.kap .ke circle{fill:#2e2118} .kap .ke .khl{fill:#fff}
+.kap .ke path{fill:none;stroke:#2e2118;stroke-width:5.5;stroke-linecap:round}
+.kap .km{fill:none;stroke:#5d4028;stroke-width:5;stroke-linecap:round}
+.kap .km-happy{fill:#8a5632;stroke:none}
+.kap .ke,.kap .km,.kap .kap-sweat{display:none}
+.kap.mood-normal .ke-open,.kap.mood-normal .km-normal{display:block}
+.kap.mood-tired  .ke-tired,.kap.mood-tired  .km-tired,.kap.mood-tired .kap-sweat{display:block}
+.kap.mood-happy  .ke-happy,.kap.mood-happy  .km-happy{display:block}
+.kap.mood-puz    .ke-puz,   .kap.mood-puz    .km-puz{display:block}
+.kap.tilt{transform:rotate(-6deg)}
+
+/* ===== shared proto props ===== */
+.p-row{display:flex;gap:10px;width:100%;max-width:min(94%,600px);align-items:center;justify-content:center}
+.p-card{background:#fff;border:2.5px solid var(--line);border-radius:16px;box-shadow:0 6px 16px rgba(60,50,20,.13)}
+.p-meter{width:100%;max-width:min(94%,600px);height:30px;background:#fff;border:3px solid var(--line);border-radius:999px;overflow:hidden}
+.p-meter i{display:block;height:100%;width:88%;background:linear-gradient(90deg,#e0a83c,#d05545)}
+.p-file{display:inline-flex;align-items:center;gap:8px;background:#f4faf7;border:2.5px solid var(--accent);border-radius:10px;padding:.45em .8em;font-weight:800;font-size:clamp(15px,4.9vw,22px);color:var(--ink)}
+.p-file .tab{width:26px;height:12px;border-radius:4px 8px 0 0;background:var(--gold);flex:0 0 auto}
+@keyframes pspin{to{transform:rotate(360deg)}}
+.p-spin{animation:pspin 5s linear infinite;transform-origin:center}
+@keyframes ppulse{0%,100%{box-shadow:0 0 0 0 rgba(200,162,74,.0)}50%{box-shadow:0 0 0 10px rgba(200,162,74,.28)}}
+.p-pulse{animation:ppulse 2.6s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){ .p-spin,.p-pulse{animation:none} }
+
+/* S1 chat mock: empty bubbles only (shapes, no text) */
+.p-chat{flex:1 1 auto;min-width:0;padding:10px}
+.p-bub{height:25px;border-radius:12px;margin-bottom:7px}
+.p-bub:last-child{margin-bottom:0}
+.p-bub.u{background:var(--accent);margin-left:16%}
+.p-bub.m{background:#eef3f0;margin-right:16%}
+.fsstage.fs-live .bubseq .p-bub{display:none}
+.fsstage.fs-live .bubseq .p-bub.shown{display:block;animation:pBubIn calc(.5s * var(--fs-durfactor,1)) ease both}
+@keyframes pBubIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.fsstage.fs-measuring .bubseq .p-bub{display:block!important;animation:none!important}
+
+/* S2 shelf */
+.p-shelf{width:100%;max-width:min(94%,600px);border:3px dashed var(--accent);border-radius:16px;background:rgba(255,255,255,.55);padding:16px 12px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.p-shelf-items{display:flex;gap:14px;align-items:flex-end;justify-content:center;flex-wrap:wrap}
+
+/* S3 token blocks */
+.p-tokbar{display:flex;gap:3px;width:100%;max-width:min(94%,560px);justify-content:center}
+.p-tok{flex:1 1 0;max-width:52px;height:44px;background:#fff;border:3px solid var(--accent);border-radius:10px;position:relative;box-shadow:0 3px 8px rgba(60,50,20,.12)}
+.p-tok::before,.p-tok::after{content:"";position:absolute;left:8px;right:8px;height:5px;border-radius:3px;background:#c9d8cf}
+.p-tok::before{top:11px}.p-tok::after{top:24px}
+.p-plus{font-weight:900;color:var(--accent-d);font-size:clamp(22px,6vw,34px);line-height:1}
+
+/* S4 pc mock */
+.p-pc{width:100%;max-width:min(94%,600px);padding:12px 14px 14px}
+.p-pc-top{display:flex;gap:6px;margin-bottom:10px}
+.p-pc-top i{width:11px;height:11px;border-radius:50%;background:#d8dee6}
+.p-pc-top i:first-child{background:#e8a09a}.p-pc-top i:nth-child(2){background:#ecd28a}.p-pc-top i:nth-child(3){background:#a8d5ba}
+.p-line{height:13px;border-radius:6px;background:#e3e9e4;margin-bottom:8px}
+.p-flow{display:flex;justify-content:space-between;align-items:flex-end;margin:12px 2px 4px}
+.p-flow .grp{display:flex;flex-direction:column;align-items:center;gap:4px}
+.p-flow .lab{font-family:ui-monospace,monospace;font-weight:800;font-size:clamp(15px,4.6vw,21px)}
+.p-flow .lab.in{color:#146856}.p-flow .lab.out{color:#b3541e}
+.p-mini{width:30px;height:38px;background:#fff;border:2px solid #b9cdc0;border-radius:5px;box-shadow:0 2px 5px rgba(60,50,20,.15)}
+.p-usage{font-family:ui-monospace,monospace;font-weight:800;font-size:clamp(21px,7.2vw,36px);color:var(--ink);border-top:2px solid var(--line);padding-top:.45em;text-align:center;overflow-wrap:break-word}
+.p-usage .in{color:#146856}.p-usage .out{color:#b3541e}
+
+/* S5 scroll + jar */
+.p-scrollwrap{width:100%;max-width:min(94%,600px);display:flex;align-items:center;gap:10px}
+.p-scroll{height:56px;width:110px;background:#fff;border:2.5px solid #b9cdc0;border-radius:10px;box-shadow:0 4px 10px rgba(60,50,20,.13);position:relative;flex:0 0 auto}
+.p-scroll::after{content:"";position:absolute;right:-9px;top:-4px;width:16px;height:62px;border-radius:8px;background:#e7dcc8;border:2px solid #cbbfa5}
+.p-jar{position:relative;width:104px;height:128px;flex:0 0 auto;border:3.5px solid var(--line-strong);border-top-width:8px;border-radius:12px 12px 20px 20px;background:rgba(255,255,255,.65);overflow:hidden}
+.p-jar .fill{position:absolute;left:0;right:0;bottom:0;height:6%;background:linear-gradient(180deg,#f0cd72,#e0a83c)}
+.p-coin{position:absolute;width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 32%,#ffe9a8,#e9b949 62%,#c9932c);border:2px solid #c9932c;opacity:0}
+.p-docfall{display:flex;gap:16px;align-items:center;justify-content:center}
+.p-docbig{width:52px;height:66px;background:#fff;border:3px solid #8aa79a;border-radius:8px;box-shadow:0 5px 12px rgba(60,50,20,.14);position:relative}
+.p-docbig::before{content:"";position:absolute;left:8px;right:8px;top:14px;height:6px;border-radius:3px;background:#c9d8cf;box-shadow:0 13px 0 #c9d8cf,0 26px 0 #c9d8cf}
+.p-sheetlong{height:34px;width:0;background:#fff;border:2.5px solid #b9cdc0;border-radius:8px;box-shadow:0 3px 8px rgba(60,50,20,.12)}
+
+/* S6 buried star sheet */
+.p-stackzone{position:relative;width:min(76%,330px);height:238px;flex:0 0 auto}
+.p-sheet{position:absolute;left:0;width:100%;height:42px;background:#fff;border:2px solid #b9cdc0;border-radius:8px;box-shadow:0 2px 6px rgba(60,50,20,.12)}
+.p-sheet.star{background:#fdf6e0;border:3px solid var(--gold);display:flex;align-items:center;justify-content:center}
+.p-sheet.star b{color:var(--gold);font-size:26px;line-height:1}
+.p-mag{position:absolute;width:54px;height:54px;right:-8px;top:6px}
+
+/* S8 props: ruler / calendar / signs */
+.p-prop{position:relative;display:flex;align-items:center;justify-content:center;background:#fff;border:2.5px solid var(--line);border-radius:14px;box-shadow:0 5px 12px rgba(60,50,20,.12);padding:10px}
+.p-ruler{width:170px;height:40px;background:repeating-linear-gradient(90deg,#fdf6e0 0 16px,#f3e9c8 16px 17px);border:2.5px solid var(--gold);border-radius:8px}
+.p-cal{width:86px;height:76px;border:2.5px solid var(--line-strong);border-radius:10px;background:linear-gradient(180deg,#e88f84 0 20px,#fff 20px);position:relative}
+.p-cal::after{content:"";position:absolute;left:10px;right:10px;top:32px;height:6px;border-radius:3px;background:#d8dee6;box-shadow:0 14px 0 #d8dee6,0 28px 0 #d8dee6}
+.p-q{position:absolute;right:-12px;top:-14px;width:34px;height:34px;border-radius:50%;background:var(--red);color:#fff;font-weight:900;font-size:21px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(60,50,20,.25)}
+.p-signs{display:flex;gap:10px;width:100%;max-width:min(94%,600px)}
+.p-sign{flex:1 1 0;min-width:0;height:104px;display:flex;align-items:center;justify-content:center;background:#fff;border:3px solid var(--line);border-radius:14px;box-shadow:0 5px 12px rgba(60,50,20,.12)}
+.p-sign.lit{border-color:var(--accent)}
+.p-sign .bub2{width:34px;height:24px;border-radius:10px;background:#eef3f0;border:2px solid #b9cdc0;position:relative}
+.p-sign .bub2 + .bub2{margin-left:-8px;margin-top:22px;background:var(--accent);border-color:var(--accent)}
+.p-sign .doc{width:44px;height:56px;background:#fff;border:2.5px solid #b9cdc0;border-radius:6px;position:relative}
+.p-sign .doc::before{content:"";position:absolute;left:7px;right:7px;top:10px;height:5px;border-radius:3px;background:#c9d8cf;box-shadow:0 11px 0 #c9d8cf}
+.p-sign .x{position:absolute;right:-9px;bottom:-9px;width:26px;height:26px;border-radius:50%;background:var(--red);color:#fff;font-weight:900;font-size:16px;display:flex;align-items:center;justify-content:center}
+.p-sign .stardoc{width:44px;height:56px;background:#fdf6e0;border:2.5px solid var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;position:relative}
+.p-sign .stardoc b{color:var(--gold);font-size:22px}
+.p-sign .no{position:absolute;right:-11px;bottom:-11px;width:28px;height:28px}
+
+/* S9 / S10 */
+.p-stackmini{position:relative;width:104px;height:118px;flex:0 0 auto}
+.p-stackmini .p-sheet{height:30px}
+.p-win{position:relative;width:150px;height:118px;flex:0 0 auto;background:#fff;border:3px solid var(--accent);border-radius:16px;box-shadow:0 7px 16px rgba(60,50,20,.13);padding:12px}
+.p-win .obub{height:26px;border-radius:10px;border:2.5px dashed #b9cdc0;margin-right:26%}
+.p-arrow{font-weight:900;color:var(--accent-d);font-size:clamp(24px,7vw,38px);line-height:1;flex:0 0 auto}
+.p-spark{color:#e5a83c;font-weight:900;font-size:clamp(22px,6vw,36px);line-height:1}
+@media print{.fsunit{height:auto}.fs-scene{position:static;visibility:hidden;display:none}.fs-scene.fs-final{visibility:visible;display:flex}.fs-fit{transform:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="fsunit">
+<h3><span class="no">5.1</span>長いチャットで起きること</h3>
+<div class="fsstage" data-fs="proto51"><div class="fs-screen">
+<div class="fs-scenes">
+
+<!-- S1 (a): bubbles pile up, Kappie tires, meter drains -->
+<div class="fs-scene p1 on"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
+  <div class="p-row">
+    <div class="p-card p-chat bubseq">
+      <div class="p-bub u" style="width:84%"></div>
+      <div class="p-bub m" style="width:76%"></div>
+      <div class="p-bub u" style="width:62%"></div>
+      <div class="p-bub m" style="width:80%"></div>
+      <div class="p-bub u" style="width:70%"></div>
+      <div class="p-bub m" style="width:58%"></div>
+      <div class="p-bub u" style="width:78%"></div>
+      <div class="p-bub m" style="width:66%"></div>
+    </div>
+    <svg class="kap mood-normal" viewBox="0 0 220 190" aria-hidden="true">
+      <ellipse class="kap-foot" cx="76" cy="182" rx="16" ry="7"/><ellipse class="kap-foot" cx="144" cy="182" rx="16" ry="7"/>
+      <rect class="kap-ear" x="46" y="16" width="30" height="30" rx="12"/><rect class="kap-ear" x="144" y="16" width="30" height="30" rx="12"/>
+      <rect class="kap-earin" x="54" y="24" width="14" height="14" rx="6"/><rect class="kap-earin" x="152" y="24" width="14" height="14" rx="6"/>
+      <ellipse class="kap-body" cx="110" cy="106" rx="90" ry="74"/>
+      <ellipse class="kap-sweater" cx="23" cy="126" rx="12" ry="21"/><ellipse class="kap-sweater" cx="197" cy="126" rx="12" ry="21"/>
+      <path class="kap-sweater" d="M22 116 Q110 144 198 116 L192 158 Q110 182 28 158 Z"/>
+      <ellipse class="kap-muzzle" cx="110" cy="128" rx="44" ry="29"/>
+      <path class="kap-collar" d="M58 100 Q110 120 162 100"/>
+      <ellipse class="kap-nose" cx="110" cy="116" rx="13" ry="8"/>
+      <ellipse class="kap-cheek" cx="46" cy="110" rx="11" ry="7"/><ellipse class="kap-cheek" cx="174" cy="110" rx="11" ry="7"/>
+      <g class="ke ke-open"><circle cx="70" cy="86" r="8"/><circle cx="150" cy="86" r="8"/><circle class="khl" cx="73" cy="83" r="2.6"/><circle class="khl" cx="153" cy="83" r="2.6"/></g>
+      <g class="ke ke-tired"><path d="M60 88 Q70 94 80 88"/><path d="M140 88 Q150 94 160 88"/><path d="M60 79 h20"/><path d="M140 79 h20"/></g>
+      <g class="ke ke-happy"><path d="M60 90 Q70 78 80 90"/><path d="M140 90 Q150 78 160 90"/></g>
+      <g class="ke ke-puz"><circle cx="70" cy="86" r="8"/><circle class="khl" cx="73" cy="83" r="2.6"/><path d="M140 90 Q150 80 160 90"/><path d="M57 70 Q70 63 83 70"/></g>
+      <path class="km km-normal" d="M100 139 Q110 146 120 139"/>
+      <path class="km km-tired" d="M100 142 Q105 139 110 142 Q115 145 120 142"/>
+      <path class="km km-happy" d="M97 136 Q110 153 123 136 Q110 145 97 136 Z"/>
+      <circle class="km km-puz" cx="117" cy="141" r="4.5"/>
+      <path class="kap-sweat" d="M190 50 q9 13 9 19 a9 9 0 1 1 -18 0 q0 -6 9 -19"/>
+    </svg>
+  </div>
+  <div class="p-meter"><i></i></div>
+</div></div></div>
+
+<!-- S2 (b): context = chat record + memory file, re-read every time -->
+<div class="fs-scene p2"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
+  <svg class="p-spin" width="52" height="52" viewBox="0 0 54 54" aria-hidden="true"><path d="M27 6 a21 21 0 1 1 -15 6.4" fill="none" stroke="#146856" stroke-width="5" stroke-linecap="round"/><path d="M4 15 l13 -3 -4 12 z" fill="#146856"/></svg>
+  <div class="p-shelf"><div class="p-shelf-items">
+    <svg width="96" height="88" viewBox="0 0 92 86" aria-hidden="true"><rect x="14" y="18" width="60" height="46" rx="6" fill="#fff" stroke="#b9cdc0" stroke-width="2.5" transform="rotate(-5 44 41)"/><rect x="18" y="12" width="60" height="46" rx="6" fill="#fff" stroke="#b9cdc0" stroke-width="2.5" transform="rotate(3 48 35)"/><rect x="16" y="22" width="60" height="46" rx="6" fill="#fff" stroke="#8aa79a" stroke-width="2.5"/><path d="M30 38 h32 M30 49 h22" stroke="#c9d8cf" stroke-width="5" stroke-linecap="round"/></svg>
+    <span class="p-file"><span class="tab"></span>MEMORY.md</span>
+  </div></div>
+</div></div></div>
+
+<!-- S3 (c-1): a sentence splits into token blocks; context + reply both counted -->
+<div class="fs-scene p3"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
+  <div class="p-tokbar">
+    <div class="p-tok"></div><div class="p-tok"></div><div class="p-tok"></div><div class="p-tok"></div><div class="p-tok"></div><div class="p-tok"></div><div class="p-tok"></div><div class="p-tok"></div><div class="p-tok"></div>
+  </div>
+  <div class="p-row p3b">
+    <svg width="72" height="66" viewBox="0 0 92 86" aria-hidden="true"><rect x="14" y="18" width="60" height="46" rx="6" fill="#fff" stroke="#b9cdc0" stroke-width="2.5" transform="rotate(-5 44 41)"/><rect x="18" y="12" width="60" height="46" rx="6" fill="#fff" stroke="#b9cdc0" stroke-width="2.5" transform="rotate(3 48 35)"/><rect x="16" y="22" width="60" height="46" rx="6" fill="#fff" stroke="#8aa79a" stroke-width="2.5"/><path d="M30 38 h32 M30 49 h22" stroke="#c9d8cf" stroke-width="5" stroke-linecap="round"/></svg>
+    <span class="p-plus">+</span>
+    <svg width="42" height="54" viewBox="0 0 40 52" aria-hidden="true"><rect x="3" y="3" width="34" height="46" rx="5" fill="#fff" stroke="#8aa79a" stroke-width="2.5"/><path d="M11 18 h18 M11 28 h12" stroke="#c9d8cf" stroke-width="4.5" stroke-linecap="round"/></svg>
+  </div>
+</div></div></div>
+
+<!-- S4 (c-2): PC usage display -->
+<div class="fs-scene p4"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
+  <div class="p-card p-pc">
+    <div class="p-pc-top"><i></i><i></i><i></i></div>
+    <div class="p-line" style="width:88%"></div>
+    <div class="p-line" style="width:72%"></div>
+    <div class="p-flow">
+      <div class="grp in-grp"><div style="display:flex;gap:4px"><div class="p-mini"></div><div class="p-mini"></div><div class="p-mini"></div><div class="p-mini"></div></div><span class="lab in">in</span></div>
+      <div class="grp out-grp"><div class="p-mini"></div><span class="lab out">out</span></div>
+    </div>
+    <div class="p-usage"><span class="in">220.4k in</span> / <span class="out">765 out</span></div>
+  </div>
+</div></div></div>
+
+<!-- S5 (d): scroll grows; each re-read costs more coins -->
+<div class="fs-scene p5"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
+  <div class="p-scrollwrap">
+    <div class="p-scroll"></div>
+    <svg class="p-spin" width="40" height="40" viewBox="0 0 54 54" aria-hidden="true"><path d="M27 6 a21 21 0 1 1 -15 6.4" fill="none" stroke="#146856" stroke-width="5" stroke-linecap="round"/><path d="M4 15 l13 -3 -4 12 z" fill="#146856"/></svg>
+    <div class="p-jar"><div class="fill"></div>
+      <span class="p-coin g1" style="left:10px;bottom:4px"></span><span class="p-coin g1" style="left:38px;bottom:4px"></span>
+      <span class="p-coin g2" style="left:64px;bottom:4px"></span><span class="p-coin g2" style="left:22px;bottom:28px"></span><span class="p-coin g2" style="left:50px;bottom:28px"></span>
+      <span class="p-coin g3" style="left:8px;bottom:28px"></span><span class="p-coin g3" style="left:72px;bottom:28px"></span><span class="p-coin g3" style="left:34px;bottom:52px"></span><span class="p-coin g3" style="left:58px;bottom:52px"></span>
+      <span class="p-coin g4" style="left:12px;bottom:52px"></span><span class="p-coin g4" style="left:46px;bottom:76px"></span>
+      <span class="p-coin g5" style="left:68px;bottom:52px"></span><span class="p-coin g5" style="left:26px;bottom:76px"></span>
+    </div>
+  </div>
+  <div class="p-docfall">
+    <div class="p-docbig"></div>
+    <div class="p-sheetlong"></div>
+  </div>
+</div></div></div>
+
+<!-- S6 (f): the important instruction gets buried -->
+<div class="fs-scene p6"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
+  <div class="p-row">
+    <div class="p-stackzone">
+      <div class="p-sheet star" style="bottom:0"><b>★</b></div>
+      <div class="p-sheet sh" style="bottom:46px;left:10px"></div>
+      <div class="p-sheet sh" style="bottom:92px;left:-8px"></div>
+      <div class="p-sheet sh" style="bottom:138px;left:12px"></div>
+      <div class="p-sheet sh" style="bottom:184px;left:-6px"></div>
+      <svg class="p-mag" viewBox="0 0 54 54" aria-hidden="true"><circle cx="22" cy="22" r="14" fill="rgba(255,255,255,.35)" stroke="#55606e" stroke-width="4"/><path d="M33 33 L47 47" stroke="#55606e" stroke-width="6" stroke-linecap="round"/></svg>
+    </div>
+    <svg class="kap mood-puz" viewBox="0 0 220 190" aria-hidden="true">
+      <ellipse class="kap-foot" cx="76" cy="182" rx="16" ry="7"/><ellipse class="kap-foot" cx="144" cy="182" rx="16" ry="7"/>
+      <rect class="kap-ear" x="46" y="16" width="30" height="30" rx="12"/><rect class="kap-ear" x="144" y="16" width="30" height="30" rx="12"/>
+      <rect class="kap-earin" x="54" y="24" width="14" height="14" rx="6"/><rect class="kap-earin" x="152" y="24" width="14" height="14" rx="6"/>
+      <ellipse class="kap-body" cx="110" cy="106" rx="90" ry="74"/>
+      <ellipse class="kap-sweater" cx="23" cy="126" rx="12" ry="21"/><ellipse class="kap-sweater" cx="197" cy="126" rx="12" ry="21"/>
+      <path class="kap-sweater" d="M22 116 Q110 144 198 116 L192 158 Q110 182 28 158 Z"/>
+      <ellipse class="kap-muzzle" cx="110" cy="128" rx="44" ry="29"/>
+      <path class="kap-collar" d="M58 100 Q110 120 162 100"/>
+      <ellipse class="kap-nose" cx="110" cy="116" rx="13" ry="8"/>
+      <ellipse class="kap-cheek" cx="46" cy="110" rx="11" ry="7"/><ellipse class="kap-cheek" cx="174" cy="110" rx="11" ry="7"/>
+      <g class="ke ke-open"><circle cx="70" cy="86" r="8"/><circle cx="150" cy="86" r="8"/><circle class="khl" cx="73" cy="83" r="2.6"/><circle class="khl" cx="153" cy="83" r="2.6"/></g>
+      <g class="ke ke-tired"><path d="M60 88 Q70 94 80 88"/><path d="M140 88 Q150 94 160 88"/><path d="M60 79 h20"/><path d="M140 79 h20"/></g>
+      <g class="ke ke-happy"><path d="M60 90 Q70 78 80 90"/><path d="M140 90 Q150 78 160 90"/></g>
+      <g class="ke ke-puz"><circle cx="70" cy="86" r="8"/><circle class="khl" cx="73" cy="83" r="2.6"/><path d="M140 90 Q150 80 160 90"/><path d="M57 70 Q70 63 83 70"/></g>
+      <path class="km km-normal" d="M100 139 Q110 146 120 139"/>
+      <path class="km km-tired" d="M100 142 Q105 139 110 142 Q115 145 120 142"/>
+      <path class="km km-happy" d="M97 136 Q110 153 123 136 Q110 145 97 136 Z"/>
+      <circle class="km km-puz" cx="117" cy="141" r="4.5"/>
+      <path class="kap-sweat" d="M190 50 q9 13 9 19 a9 9 0 1 1 -18 0 q0 -6 9 -19"/>
+    </svg>
+  </div>
+</div></div></div>
+
+<!-- S7 (e): a gentle slope, not a cliff -->
+<div class="fs-scene p7"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
+  <svg class="p-slope" viewBox="0 0 400 230" style="width:100%;max-width:min(94%,560px);height:auto" aria-hidden="true">
+    <line x1="18" y1="14" x2="18" y2="200" stroke="#b9cdc0" stroke-width="3"/>
+    <line x1="18" y1="200" x2="392" y2="200" stroke="#b9cdc0" stroke-width="3"/>
+    <path class="cliff" d="M24 66 H120 V182" fill="none" stroke="#c3ccd4" stroke-width="5" stroke-dasharray="9 8" stroke-linecap="round"/>
+    <g class="xmark"><path d="M96 96 L144 144 M144 96 L96 144" stroke="#d05545" stroke-width="7" stroke-linecap="round"/></g>
+    <path class="sline" d="M22 66 C 150 88 262 148 388 188" fill="none" stroke="#d05545" stroke-width="6" stroke-linecap="round" pathLength="100" style="stroke-dasharray:100;stroke-dashoffset:100"/>
+    <svg class="kap mood-happy kapin" x="20" y="0" width="80" height="69" style="width:80px;height:69px" viewBox="0 0 220 190">
+      <ellipse class="kap-foot" cx="76" cy="182" rx="16" ry="7"/><ellipse class="kap-foot" cx="144" cy="182" rx="16" ry="7"/>
+      <rect class="kap-ear" x="46" y="16" width="30" height="30" rx="12"/><rect class="kap-ear" x="144" y="16" width="30" height="30" rx="12"/>
+      <rect class="kap-earin" x="54" y="24" width="14" height="14" rx="6"/><rect class="kap-earin" x="152" y="24" width="14" height="14" rx="6"/>
+      <ellipse class="kap-body" cx="110" cy="106" rx="90" ry="74"/>
+      <ellipse class="kap-sweater" cx="23" cy="126" rx="12" ry="21"/><ellipse class="kap-sweater" cx="197" cy="126" rx="12" ry="21"/>
+      <path class="kap-sweater" d="M22 116 Q110 144 198 116 L192 158 Q110 182 28 158 Z"/>
+      <ellipse class="kap-muzzle" cx="110" cy="128" rx="44" ry="29"/>
+      <path class="kap-collar" d="M58 100 Q110 120 162 100"/>
+      <ellipse class="kap-nose" cx="110" cy="116" rx="13" ry="8"/>
+      <ellipse class="kap-cheek" cx="46" cy="110" rx="11" ry="7"/><ellipse class="kap-cheek" cx="174" cy="110" rx="11" ry="7"/>
+      <g class="ke ke-open"><circle cx="70" cy="86" r="8"/><circle cx="150" cy="86" r="8"/><circle class="khl" cx="73" cy="83" r="2.6"/><circle class="khl" cx="153" cy="83" r="2.6"/></g>
+      <g class="ke ke-tired"><path d="M60 88 Q70 94 80 88"/><path d="M140 88 Q150 94 160 88"/><path d="M60 79 h20"/><path d="M140 79 h20"/></g>
+      <g class="ke ke-happy"><path d="M60 90 Q70 78 80 90"/><path d="M140 90 Q150 78 160 90"/></g>
+      <g class="ke ke-puz"><circle cx="70" cy="86" r="8"/><circle class="khl" cx="73" cy="83" r="2.6"/><path d="M140 90 Q150 80 160 90"/><path d="M57 70 Q70 63 83 70"/></g>
+      <path class="km km-normal" d="M100 139 Q110 146 120 139"/>
+      <path class="km km-tired" d="M100 142 Q105 139 110 142 Q115 145 120 142"/>
+      <path class="km km-happy" d="M97 136 Q110 153 123 136 Q110 145 97 136 Z"/>
+      <circle class="km km-puz" cx="117" cy="141" r="4.5"/>
+      <path class="kap-sweat" d="M190 50 q9 13 9 19 a9 9 0 1 1 -18 0 q0 -6 9 -19"/>
+    </svg>
+  </svg>
+</div></div></div>
+
+<!-- S8 (f+g): no benchmark (ruler/calendar "?"), then the three signs light up -->
+<div class="fs-scene p8"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
+  <div class="p-row p8top">
+    <div class="p-prop"><div class="p-ruler"></div><span class="p-q">?</span></div>
+    <div class="p-prop"><div class="p-cal"></div><span class="p-q">?</span></div>
+    <svg class="kap mood-puz tilt" style="width:96px" viewBox="0 0 220 190" aria-hidden="true">
+      <ellipse class="kap-foot" cx="76" cy="182" rx="16" ry="7"/><ellipse class="kap-foot" cx="144" cy="182" rx="16" ry="7"/>
+      <rect class="kap-ear" x="46" y="16" width="30" height="30" rx="12"/><rect class="kap-ear" x="144" y="16" width="30" height="30" rx="12"/>
+      <rect class="kap-earin" x="54" y="24" width="14" height="14" rx="6"/><rect class="kap-earin" x="152" y="24" width="14" height="14" rx="6"/>
+      <ellipse class="kap-body" cx="110" cy="106" rx="90" ry="74"/>
+      <ellipse class="kap-sweater" cx="23" cy="126" rx="12" ry="21"/><ellipse class="kap-sweater" cx="197" cy="126" rx="12" ry="21"/>
+      <path class="kap-sweater" d="M22 116 Q110 144 198 116 L192 158 Q110 182 28 158 Z"/>
+      <ellipse class="kap-muzzle" cx="110" cy="128" rx="44" ry="29"/>
+      <path class="kap-collar" d="M58 100 Q110 120 162 100"/>
+      <ellipse class="kap-nose" cx="110" cy="116" rx="13" ry="8"/>
+      <ellipse class="kap-cheek" cx="46" cy="110" rx="11" ry="7"/><ellipse class="kap-cheek" cx="174" cy="110" rx="11" ry="7"/>
+      <g class="ke ke-open"><circle cx="70" cy="86" r="8"/><circle cx="150" cy="86" r="8"/><circle class="khl" cx="73" cy="83" r="2.6"/><circle class="khl" cx="153" cy="83" r="2.6"/></g>
+      <g class="ke ke-tired"><path d="M60 88 Q70 94 80 88"/><path d="M140 88 Q150 94 160 88"/><path d="M60 79 h20"/><path d="M140 79 h20"/></g>
+      <g class="ke ke-happy"><path d="M60 90 Q70 78 80 90"/><path d="M140 90 Q150 78 160 90"/></g>
+      <g class="ke ke-puz"><circle cx="70" cy="86" r="8"/><circle class="khl" cx="73" cy="83" r="2.6"/><path d="M140 90 Q150 80 160 90"/><path d="M57 70 Q70 63 83 70"/></g>
+      <path class="km km-normal" d="M100 139 Q110 146 120 139"/>
+      <path class="km km-tired" d="M100 142 Q105 139 110 142 Q115 145 120 142"/>
+      <path class="km km-happy" d="M97 136 Q110 153 123 136 Q110 145 97 136 Z"/>
+      <circle class="km km-puz" cx="117" cy="141" r="4.5"/>
+      <path class="kap-sweat" d="M190 50 q9 13 9 19 a9 9 0 1 1 -18 0 q0 -6 9 -19"/>
+    </svg>
+  </div>
+  <div class="p-signs">
+    <div class="p-sign s1"><span style="display:flex"><span class="bub2"></span><span class="bub2"></span></span></div>
+    <div class="p-sign s2"><div class="doc"><span class="x">✗</span></div></div>
+    <div class="p-sign s3"><div class="stardoc"><b>★</b><svg class="no" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="11" fill="none" stroke="#d05545" stroke-width="4"/><path d="M6 22 L22 6" stroke="#d05545" stroke-width="4"/></svg></div></div>
+  </div>
+</div></div></div>
+
+<!-- S9 (h-1): move to a fresh chat and recover -->
+<div class="fs-scene p9"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
+  <div class="p-row">
+    <div class="p-stackmini">
+      <div class="p-sheet" style="bottom:0"></div>
+      <div class="p-sheet" style="bottom:29px;left:5px"></div>
+      <div class="p-sheet" style="bottom:58px;left:-4px"></div>
+      <div class="p-sheet" style="bottom:87px;left:6px"></div>
+    </div>
+    <span class="p-arrow">→</span>
+    <div class="p-win"><div class="obub"></div></div>
+  </div>
+  <div class="p-row p9kap">
+    <span class="p-spark sp1">✦</span>
+    <svg class="kap mood-happy" viewBox="0 0 220 190" aria-hidden="true">
+      <ellipse class="kap-foot" cx="76" cy="182" rx="16" ry="7"/><ellipse class="kap-foot" cx="144" cy="182" rx="16" ry="7"/>
+      <rect class="kap-ear" x="46" y="16" width="30" height="30" rx="12"/><rect class="kap-ear" x="144" y="16" width="30" height="30" rx="12"/>
+      <rect class="kap-earin" x="54" y="24" width="14" height="14" rx="6"/><rect class="kap-earin" x="152" y="24" width="14" height="14" rx="6"/>
+      <ellipse class="kap-body" cx="110" cy="106" rx="90" ry="74"/>
+      <ellipse class="kap-sweater" cx="23" cy="126" rx="12" ry="21"/><ellipse class="kap-sweater" cx="197" cy="126" rx="12" ry="21"/>
+      <path class="kap-sweater" d="M22 116 Q110 144 198 116 L192 158 Q110 182 28 158 Z"/>
+      <ellipse class="kap-muzzle" cx="110" cy="128" rx="44" ry="29"/>
+      <path class="kap-collar" d="M58 100 Q110 120 162 100"/>
+      <ellipse class="kap-nose" cx="110" cy="116" rx="13" ry="8"/>
+      <ellipse class="kap-cheek" cx="46" cy="110" rx="11" ry="7"/><ellipse class="kap-cheek" cx="174" cy="110" rx="11" ry="7"/>
+      <g class="ke ke-open"><circle cx="70" cy="86" r="8"/><circle cx="150" cy="86" r="8"/><circle class="khl" cx="73" cy="83" r="2.6"/><circle class="khl" cx="153" cy="83" r="2.6"/></g>
+      <g class="ke ke-tired"><path d="M60 88 Q70 94 80 88"/><path d="M140 88 Q150 94 160 88"/><path d="M60 79 h20"/><path d="M140 79 h20"/></g>
+      <g class="ke ke-happy"><path d="M60 90 Q70 78 80 90"/><path d="M140 90 Q150 78 160 90"/></g>
+      <g class="ke ke-puz"><circle cx="70" cy="86" r="8"/><circle class="khl" cx="73" cy="83" r="2.6"/><path d="M140 90 Q150 80 160 90"/><path d="M57 70 Q70 63 83 70"/></g>
+      <path class="km km-normal" d="M100 139 Q110 146 120 139"/>
+      <path class="km km-tired" d="M100 142 Q105 139 110 142 Q115 145 120 142"/>
+      <path class="km km-happy" d="M97 136 Q110 153 123 136 Q110 145 97 136 Z"/>
+      <circle class="km km-puz" cx="117" cy="141" r="4.5"/>
+      <path class="kap-sweat" d="M190 50 q9 13 9 19 a9 9 0 1 1 -18 0 q0 -6 9 -19"/>
+    </svg>
+    <span class="p-spark sp2">✦</span>
+  </div>
+  <div class="p-meter m9"><i style="width:88%"></i></div>
+</div></div></div>
+
+<!-- S10 (h-2, final): if it still happens, the memory file may be the cause -->
+<div class="fs-scene p10 fs-final"><div class="fs-pillrow"><span class="fs-tag">5.1</span></div><div class="fs-center"><div class="fs-fit">
+  <div class="p-row">
+    <div class="p-win"><div class="obub"></div></div>
+    <svg class="kap mood-puz" viewBox="0 0 220 190" aria-hidden="true">
+      <ellipse class="kap-foot" cx="76" cy="182" rx="16" ry="7"/><ellipse class="kap-foot" cx="144" cy="182" rx="16" ry="7"/>
+      <rect class="kap-ear" x="46" y="16" width="30" height="30" rx="12"/><rect class="kap-ear" x="144" y="16" width="30" height="30" rx="12"/>
+      <rect class="kap-earin" x="54" y="24" width="14" height="14" rx="6"/><rect class="kap-earin" x="152" y="24" width="14" height="14" rx="6"/>
+      <ellipse class="kap-body" cx="110" cy="106" rx="90" ry="74"/>
+      <ellipse class="kap-sweater" cx="23" cy="126" rx="12" ry="21"/><ellipse class="kap-sweater" cx="197" cy="126" rx="12" ry="21"/>
+      <path class="kap-sweater" d="M22 116 Q110 144 198 116 L192 158 Q110 182 28 158 Z"/>
+      <ellipse class="kap-muzzle" cx="110" cy="128" rx="44" ry="29"/>
+      <path class="kap-collar" d="M58 100 Q110 120 162 100"/>
+      <ellipse class="kap-nose" cx="110" cy="116" rx="13" ry="8"/>
+      <ellipse class="kap-cheek" cx="46" cy="110" rx="11" ry="7"/><ellipse class="kap-cheek" cx="174" cy="110" rx="11" ry="7"/>
+      <g class="ke ke-open"><circle cx="70" cy="86" r="8"/><circle cx="150" cy="86" r="8"/><circle class="khl" cx="73" cy="83" r="2.6"/><circle class="khl" cx="153" cy="83" r="2.6"/></g>
+      <g class="ke ke-tired"><path d="M60 88 Q70 94 80 88"/><path d="M140 88 Q150 94 160 88"/><path d="M60 79 h20"/><path d="M140 79 h20"/></g>
+      <g class="ke ke-happy"><path d="M60 90 Q70 78 80 90"/><path d="M140 90 Q150 78 160 90"/></g>
+      <g class="ke ke-puz"><circle cx="70" cy="86" r="8"/><circle class="khl" cx="73" cy="83" r="2.6"/><path d="M140 90 Q150 80 160 90"/><path d="M57 70 Q70 63 83 70"/></g>
+      <path class="km km-normal" d="M100 139 Q110 146 120 139"/>
+      <path class="km km-tired" d="M100 142 Q105 139 110 142 Q115 145 120 142"/>
+      <path class="km km-happy" d="M97 136 Q110 153 123 136 Q110 145 97 136 Z"/>
+      <circle class="km km-puz" cx="117" cy="141" r="4.5"/>
+      <path class="kap-sweat" d="M190 50 q9 13 9 19 a9 9 0 1 1 -18 0 q0 -6 9 -19"/>
+    </svg>
+    <span class="p-file p-pulse"><span class="tab"></span>MEMORY.md</span>
+  </div>
+  <svg class="p-curve" width="210" height="44" viewBox="0 0 210 44" aria-hidden="true"><path d="M178 4 C 140 38, 66 38, 32 12" fill="none" stroke="#c8a24a" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 10"/><path d="M24 5 l11 11 3 -14 z" fill="#c8a24a"/></svg>
+</div></div></div>
+
+</div>
+<div class="fs-telop">1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます。理由は、返信を作る仕組みにあります</div>
+</div></div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+/* ===== fullscreen explainer engine (same as v13 manual-motion):
+   one unit = .fsstage; scenes switched discretely; telop pinned to its
+   tallest text; ONE unified scale per unit from every scene's final-state
+   size (cap 1.3; telop never scaled); plays only while on screen;
+   FS_DURATION_SCALE = 2 (all durations 2x). Reduced motion: final scene
+   shown statically. ===== */
+(function(){
+  if(!window.gsap) return;
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var SCALE_MAX = 1.3;
+  var FS_DURATION_SCALE = 2.0;
+  function createUnit(st, cfg){
+    st.classList.add("fs-live");
+    function Q(s){ return st.querySelector(s); }
+    function QA(s){ return Array.prototype.slice.call(st.querySelectorAll(s)); }
+    var tel = Q(".fs-telop");
+    function setTel(t){ tel.textContent = t; scheduleFit(); }
+    function pinTelopHeight(){
+      var cur = tel.textContent, max = 0, i, h;
+      tel.style.minHeight = "";
+      for(i = 0; i < cfg.telopTexts.length; i++){
+        tel.textContent = cfg.telopTexts[i];
+        h = tel.offsetHeight; if(h > max) max = h;
+      }
+      tel.textContent = cur;
+      if(max) tel.style.minHeight = max + "px";
+    }
+    function fitAll(){
+      pinTelopHeight();
+      st.classList.add("fs-measuring");
+      void st.offsetHeight;
+      var s = SCALE_MAX;
+      QA(".fs-scene").forEach(function(sc){
+        var fit = sc.querySelector(".fs-fit"); if(!fit) return;
+        var ctr = sc.querySelector(".fs-center");
+        var aw = ctr ? ctr.clientWidth : sc.clientWidth, ah = ctr ? ctr.clientHeight : sc.clientHeight;
+        var ch = fit.offsetHeight, cw = 0, i, kid;
+        for(i = 0; i < fit.children.length; i++){
+          kid = fit.children[i].offsetWidth; if(kid > cw) cw = kid;
+        }
+        if(aw && ah && cw && ch) s = Math.min(s, ah / ch, aw / cw);
+      });
+      st.classList.remove("fs-measuring");
+      QA(".fs-fit").forEach(function(f){
+        f.style.transform = s !== 1 ? "scale(" + s.toFixed(4) + ")" : "";
+      });
+      st.setAttribute("data-fsscale", s.toFixed(3));
+      return s;
+    }
+    var fitQueued = false;
+    function scheduleFit(){
+      if(fitQueued) return; fitQueued = true;
+      requestAnimationFrame(function(){ fitQueued = false; fitAll(); });
+    }
+    window.addEventListener("resize", scheduleFit);
+    window.addEventListener("orientationchange", scheduleFit);
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleFit);
+    function show(id){
+      QA(".fs-scene").forEach(function(sc){ sc.classList.toggle("on", sc.classList.contains(id)); });
+      scheduleFit();
+    }
+    var tl = gsap.timeline({repeat: reduced ? 0 : -1, repeatDelay: 3});
+    tl.timeScale(1 / FS_DURATION_SCALE);
+    cfg.build(tl, {Q:Q, QA:QA, show:show, setTel:setTel});
+    tl.pause(0); st._tl = tl;
+    fitAll();
+    if(reduced){
+      tl.progress(1); show(cfg.finalScene);
+      gsap.set(QA("." + cfg.finalScene + " *"), {opacity:1});
+      setTel(cfg.finalTelop); fitAll(); return;
+    }
+    if("IntersectionObserver" in window){
+      new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) tl.play(); else tl.pause(); }); }, {threshold:.25}).observe(st);
+    } else tl.play();
+  }
+
+  /* ================= 5.1 prototype: picture-only stage, telop is the only text ================= */
+  var T = [
+    "1つのチャットが長くなると、応答の質が下がり、トークンの消費も増えます。理由は、返信を作る仕組みにあります",
+    "コンテキスト＝返信で参照する情報全体。このチャットの記録とメモリーファイルが含まれ、返信のたびに最初から読み直します",
+    "トークンとは、AIが文章を処理する最小単位。利用量はトークン数で数え、1回の返信ではコンテキスト全体と返信の両方が数えられます",
+    "パソコン版では返信の下に使用量が出ます。inは読み込んだ量、outは返信の長さ。例は約22万を読み込み、765の返信です",
+    "コンテキストが長いほど、1回の返信ごとのトークン消費が増えます。長い資料を渡す・返信が長くなる場合も増えます",
+    "大事な指示がコンテキストの中で埋もれて、応答の精度が少しずつ落ちていきます",
+    "質の下がり方は、崖ではなく緩やかな坂です",
+    "何回のやりとりで下がるという目安はありません。こんなサインが見えたら、移りどきです",
+    "故障ではなく仕組みどおりの動きです。新しいチャットに移れば元に戻ります",
+    "新しいチャットでも同じことが起きるときは、メモリーが原因かもしれません（6.3）"
+  ];
+  var stP = document.querySelector('[data-fs="proto51"]');
+  if(stP) createUnit(stP, {
+    telopTexts: T,
+    finalScene: "p10",
+    finalTelop: T[9],
+    build: function(tl, api){
+      var Q = api.Q, QA = api.QA, show = api.show, setTel = api.setTel;
+      function mood(sel, m){
+        var el = Q(sel); if(!el) return;
+        el.classList.remove("mood-normal","mood-tired","mood-happy","mood-puz");
+        el.classList.add(m);
+      }
+      function lit(sel){ var el = Q(sel); if(el) el.classList.add("lit"); }
+      function unlit(){ QA(".p8 .p-sign").forEach(function(s){ s.classList.remove("lit"); }); }
+      var bubs = QA(".p1 .p-bub");
+      function resetBubs(){ bubs.forEach(function(b){ b.classList.remove("shown"); }); }
+      function showBub(i){ if(bubs[i]) bubs[i].classList.add("shown"); }
+
+      /* S1 (a) 0-11 */
+      tl.call(show,["p1"],0)
+        .call(setTel,[T[0]],0)
+        .call(resetBubs,null,0)
+        .fromTo(Q(".p1 .kap"),{opacity:0,x:24},{opacity:1,x:0,duration:.6},0.4)
+        .call(showBub,[0],0.7).call(showBub,[1],1.4).call(showBub,[2],2.1).call(showBub,[3],2.8)
+        .call(showBub,[4],3.5).call(showBub,[5],4.2).call(showBub,[6],4.9).call(showBub,[7],5.6)
+        .fromTo(Q(".p1 .p-meter i"),{width:"88%"},{width:"30%",duration:5,ease:"power1.inOut"},1.2)
+        .call(mood,[".p1 .kap","mood-tired"],6.4)
+      /* S2 (b) 11-22 */
+        .call(show,["p2"],11)
+        .call(setTel,[T[1]],11)
+        .fromTo(Q(".p2 .p-shelf"),{opacity:0,scale:.97},{opacity:1,scale:1,duration:.6},11.3)
+        .fromTo(QA(".p2 .p-shelf-items > *"),{opacity:0,y:16},{opacity:1,y:0,duration:.5,stagger:.5},11.9)
+        .to(Q(".p2 .p-shelf-items"),{y:-7,duration:.35,yoyo:true,repeat:3,ease:"sine.inOut"},13.6)
+        .to(Q(".p2 .p-shelf-items"),{y:-7,duration:.35,yoyo:true,repeat:1,ease:"sine.inOut"},16.2)
+      /* S3 (c-1) 22-33 */
+        .call(show,["p3"],22)
+        .call(setTel,[T[2]],22)
+        .fromTo(QA(".p3 .p-tok"),{opacity:0,scale:.5},{opacity:1,scale:1,duration:.45,stagger:.18,ease:"back.out(2)"},22.6)
+        .to(QA(".p3 .p-tok"),{y:-12,duration:.28,yoyo:true,repeat:1,stagger:.16,ease:"sine.inOut"},25.4)
+        .fromTo(Q(".p3 .p3b"),{opacity:0,y:16},{opacity:1,y:0,duration:.55},26.8)
+      /* S4 (c-2) 33-44 */
+        .call(show,["p4"],33)
+        .call(setTel,[T[3]],33)
+        .fromTo(Q(".p4 .p-pc"),{opacity:0,y:24},{opacity:1,y:0,duration:.6},33.4)
+        .fromTo(QA(".p4 .in-grp .p-mini"),{opacity:0,y:-16},{opacity:1,y:0,duration:.45,stagger:.25,ease:"back.out(1.8)"},34.6)
+        .fromTo(Q(".p4 .out-grp .p-mini"),{opacity:0,scale:.6},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},36.2)
+        .fromTo(Q(".p4 .p-usage"),{opacity:0,scale:.85},{opacity:1,scale:1,duration:.5,ease:"back.out(1.8)"},36.9)
+      /* S5 (d) 44-58 */
+        .call(show,["p5"],44)
+        .call(setTel,[T[4]],44)
+        .fromTo(Q(".p5 .p-scrollwrap"),{opacity:0},{opacity:1,duration:.5},44.4)
+        .fromTo(Q(".p5 .p-scroll"),{width:"16%"},{width:"44%",duration:1.2,ease:"power1.inOut"},45.2)
+        .fromTo(QA(".p5 .p-coin.g1"),{opacity:0,y:-26},{opacity:1,y:0,duration:.4,stagger:.15},46.6)
+        .to(Q(".p5 .p-jar .fill"),{height:"30%",duration:.5},46.6)
+        .to(Q(".p5 .p-scroll"),{width:"68%",duration:1.2,ease:"power1.inOut"},47.8)
+        .fromTo(QA(".p5 .p-coin.g2"),{opacity:0,y:-26},{opacity:1,y:0,duration:.4,stagger:.15},49.2)
+        .to(Q(".p5 .p-jar .fill"),{height:"52%",duration:.5},49.2)
+        .to(Q(".p5 .p-scroll"),{width:"88%",duration:1.2,ease:"power1.inOut"},50.6)
+        .fromTo(QA(".p5 .p-coin.g3"),{opacity:0,y:-26},{opacity:1,y:0,duration:.4,stagger:.13},52)
+        .to(Q(".p5 .p-jar .fill"),{height:"74%",duration:.5},52)
+        .fromTo(Q(".p5 .p-docbig"),{opacity:0,y:-30},{opacity:1,y:0,duration:.5,ease:"back.out(1.6)"},53)
+        .fromTo(QA(".p5 .p-coin.g4"),{opacity:0,y:-26},{opacity:1,y:0,duration:.4,stagger:.15},53.6)
+        .to(Q(".p5 .p-jar .fill"),{height:"86%",duration:.5},53.6)
+        .fromTo(Q(".p5 .p-sheetlong"),{width:0},{width:150,duration:.8,ease:"power1.inOut"},54.4)
+        .fromTo(QA(".p5 .p-coin.g5"),{opacity:0,y:-26},{opacity:1,y:0,duration:.4,stagger:.15},55.2)
+        .to(Q(".p5 .p-jar .fill"),{height:"94%",duration:.5},55.2)
+      /* S6 (f) 60-71 */
+        .call(show,["p6"],60)
+        .call(setTel,[T[5]],60)
+        .fromTo(Q(".p6 .kap"),{opacity:0,x:24},{opacity:1,x:0,duration:.5},60.3)
+        .fromTo(Q(".p6 .p-sheet.star"),{opacity:0,scale:.8},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},60.8)
+        .fromTo(QA(".p6 .p-sheet.sh"),{opacity:0,y:-26},{opacity:1,y:0,duration:.45,stagger:.8,ease:"back.out(1.5)"},61.6)
+        .fromTo(Q(".p6 .p-mag"),{opacity:0},{opacity:1,duration:.4},65.2)
+        .to(Q(".p6 .p-mag"),{x:-34,y:64,duration:.8,yoyo:true,repeat:1,ease:"sine.inOut"},65.6)
+      /* S7 (e) 71-82 */
+        .call(show,["p7"],71)
+        .call(setTel,[T[6]],71)
+        .fromTo(Q(".p7 .p-slope"),{opacity:0},{opacity:1,duration:.5},71.3)
+        .fromTo(Q(".p7 .xmark"),{opacity:0,scale:.5,transformOrigin:"120px 120px"},{opacity:1,scale:1,duration:.5,ease:"back.out(2)"},71.9)
+        .fromTo(Q(".p7 .sline"),{strokeDashoffset:100},{strokeDashoffset:0,duration:2.6,ease:"power1.inOut"},72.3)
+        .to(Q(".p7 .kapin"),{attr:{x:155,y:51},duration:2,ease:"power1.inOut"},73)
+        .to(Q(".p7 .kapin"),{attr:{x:290,y:100},duration:2,ease:"power1.inOut"},75)
+      /* S8 (f+g) 82-93 */
+        .call(show,["p8"],82)
+        .call(setTel,[T[7]],82)
+        .call(unlit,null,82)
+        .set(QA(".p8 .p-sign"),{opacity:.3},82)
+        .fromTo(QA(".p8 .p8top > *"),{opacity:0,y:14},{opacity:1,y:0,duration:.5,stagger:.35},82.4)
+        .to(Q(".p8 .s1"),{opacity:1,duration:.4},85).call(lit,[".p8 .s1"],85)
+        .to(Q(".p8 .s2"),{opacity:1,duration:.4},86.4).call(lit,[".p8 .s2"],86.4)
+        .to(Q(".p8 .s3"),{opacity:1,duration:.4},87.8).call(lit,[".p8 .s3"],87.8)
+      /* S9 (h-1) 93-104 */
+        .call(show,["p9"],93)
+        .call(setTel,[T[8]],93)
+        .fromTo(Q(".p9 .p-stackmini"),{opacity:0},{opacity:1,duration:.5},93.4)
+        .fromTo(Q(".p9 .p-win"),{opacity:0,scale:.9},{opacity:1,scale:1,duration:.55,ease:"back.out(1.8)"},93.9)
+        .fromTo(Q(".p9 .p-arrow"),{opacity:0,x:-12},{opacity:1,x:0,duration:.45},94.2)
+        .fromTo(Q(".p9 .kap"),{opacity:0,x:-44},{opacity:1,x:0,duration:1.6,ease:"power1.inOut"},94.4)
+        .to(Q(".p9 .m9 i"),{width:"14%",duration:1.2,ease:"power2.out"},95)
+        .fromTo(QA(".p9 .p-spark"),{scale:0,opacity:0},{scale:1,opacity:1,duration:.45,stagger:.3,ease:"back.out(2.4)"},96.4)
+      /* S10 (h-2) 104-111, final */
+        .call(show,["p10"],104)
+        .call(setTel,[T[9]],104)
+        .fromTo(QA(".p10 .p-row > *"),{opacity:0,y:14},{opacity:1,y:0,duration:.5,stagger:.3},104.4)
+        .fromTo(Q(".p10 .p-curve"),{opacity:0},{opacity:1,duration:.6},105.6)
+        .to({},{duration:7},104);
+    }
+  });
+})();
+</script>
+</body>
+</html>
